@@ -1,0 +1,19 @@
+{
+  "name": "@nemo/voice-call",
+  "version": "2026.2.10",
+  "description": "NEMO voice-call plugin",
+  "type": "module",
+  "dependencies": {
+    "@sinclair/typebox": "0.34.48",
+    "ws": "^8.19.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "nemo": "workspace:*"
+  },
+  "nemo": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

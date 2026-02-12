@@ -1,0 +1,15 @@
+{
+  "name": "@nemo/llm-task",
+  "version": "2026.2.10",
+  "private": true,
+  "description": "NEMO JSON-only LLM task plugin",
+  "type": "module",
+  "devDependencies": {
+    "nemo": "workspace:*"
+  },
+  "nemo": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
