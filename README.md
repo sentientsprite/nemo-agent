@@ -1,2 +1,3 @@
 # nemo-agent
-new build 1.0
+
+NEMO: Navigator of Eternal Markets and Opportunities - Autonomous trading agent with self-improvement capabilities
