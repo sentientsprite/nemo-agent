@@ -1,131 +1,133 @@
 # NEMO: Navigator of Eternal Markets and Opportunities
 
-**Autonomous Trading Agent** | Built on OpenClaw Framework | West Jordan, Utah
-
----
+**Autonomous trading agent built on OpenClaw framework**
 
 ## 🎯 Mission
+Generate consistent autonomous revenue through low-risk, high-probability trading on Kalshi prediction markets and Coinbase crypto markets.
 
-NEMO is an autonomous trading agent designed to generate consistent profits through low-risk, high-probability trades on prediction markets (Kalshi) and cryptocurrency exchanges (Coinbase). 
+## 📊 Operator Profile
+- **Target Return**: 20-25% monthly
+- **Starting Capital**: $1,000 USDC
+- **Max Loss Tolerance**: 65% ($350 stop-loss)
+- **Risk Profile**: Moderate-Aggressive
+- **Markets**: Kalshi (primary) + Coinbase Advanced Trade
+- **Operation**: 24/7 autonomous with human oversight
+- **Oversight**: 3-4 hours weekly (weekday evenings + Saturdays)
 
-**Target Performance**: 20-25% monthly returns  
-**Risk Profile**: Moderate-Aggressive with strict capital preservation  
-**Operation Mode**: 24/7 autonomous with human oversight
-
----
-
-## 🧠 Core Architecture
+## 🏗️ Architecture
 
 NEMO uses a modular "organism" architecture:
 
-| Module | Purpose | Status |
-|--------|---------|--------|
-| **Brain** | Operator context & goals | ✅ Configured |
-| **Soul** | Personality & decision-making style | ✅ Configured |
-| **Eyes** | Market monitoring & alerts | 🟡 In Development |
-| **Heartbeat** | Self-improvement & learning | 🟡 In Development |
-| **Bones** | Trading strategies & skills | 🔴 Not Started |
-| **Nervous System** | Efficiency & context management | 🔴 Not Started |
-| **Muscles** | Execution layer (API integrations) | 🔴 Not Started |
+- **Brain**: Operator mapping and context management
+- **Soul**: Personality, voice, decision-making philosophy
+- **Bones**: Codebase and skills inventory
+- **Eyes**: Proactive monitoring and trigger systems
+- **Heartbeat**: Self-improvement and evolution loops
+- **Nervous System**: Context efficiency and token management
+- **Muscles**: Execution layer (Anthropic Claude Opus 4.5)
 
----
+## 🚀 Quick Start
 
-## 📊 Operator Profile
+### Prerequisites
+- Python 3.11+
+- Coinbase account with API access
+- Kalshi demo account (for paper trading)
+- iMessage/SMS capability (for alerts)
 
-- **Capital**: $1,000 USDC initial
-- **Max Loss**: 65% ($650) - Hard stop at $350 remaining
-- **Target**: 20-25% monthly profit
-- **Markets**: Kalshi (predictions) + Coinbase (crypto)
-- **Risk**: Moderate-Aggressive
-- **Oversight**: 3-4 hrs weekdays after 5pm MST, all day Saturday
-- **Alerts**: iMessage (SMS)
-- **Uptime**: 24/7 (ethernet + permanent power)
-
----
-
-## 🚀 Proof-of-Concept Requirements
-
-Before live trading, NEMO must demonstrate:
-- ✅ 5 successful paper trades
-- ✅ Each trade shows ≥5.5% profit
-- ✅ No single trade exceeds 10% portfolio risk
-- ✅ Full trade logs with reasoning
-
----
-
-## 📁 Repository Structure
-
-```
-nemo-agent/
-├── core/                   # Core identity & configuration
-│   ├── USER.md            # Operator profile
-│   ├── SOUL.md            # Personality & values
-│   ├── DNA.md             # Security & execution rules
-│   └── IDENTITY.md        # Purpose & mission
-├── memory/                # Learning & history
-│   ├── MEMORY.md          # Long-term knowledge
-│   ├── daily/             # Session logs
-│   └── weekly/            # Review summaries
-├── skills/                # Trading strategies
-│   ├── kalshi/            # Prediction market skills
-│   ├── crypto/            # Crypto trading skills
-│   └── research/          # Market research tools
-├── config/                # Monitoring & efficiency
-│   ├── HEARTBEAT.md       # Monitoring checklist
-│   ├── AGENTS.md          # Autonomy rules
-│   ├── BOOT.md            # Startup sequence
-│   └── CONTEXT_MANAGEMENT.md
-├── wallets/               # Credential management
-│   └── README.md          # Wallet setup guide
-├── logs/                  # Trade history
-└── tests/                 # Strategy backtests
-```
-
----
-
-## 🛡️ Security Principles
-
-1. **No Seed Phrases in Code** - Ever.
-2. **API Keys in Environment Variables** - Never committed.
-3. **Scoped Permissions** - Minimal access required.
-4. **Sandboxed Execution** - All trades reviewed before execution.
-5. **Transparent Logging** - Full audit trail.
-
----
-
-## 📈 Current Phase: Paper Trading
-
-**Status**: Setting up demo environment  
-**Next Milestone**: 5 successful paper trades @ 5.5%+
-
----
-
-## 🔧 Quick Start
-
+### Installation
 ```bash
 # Clone repository
 git clone https://github.com/sentientsprite/nemo-agent.git
 cd nemo-agent
 
-# Install dependencies (Coming soon)
+# Install dependencies
 pip install -r requirements.txt
 
 # Configure credentials
-cp .env.example .env
-# Edit .env with your API keys
+cp config/.env.example config/.env
+# Edit config/.env with your API keys
 
 # Run paper trading
 python main.py --mode paper
 ```
 
+## 📁 Repository Structure
+
+```
+nemo-agent/
+├── core/                    # Core identity and configuration
+│   ├── USER.md             # Operator profile
+│   ├── SOUL.md             # Personality and philosophy
+│   ├── DNA.md              # Security domains
+│   └── IDENTITY.md         # Purpose and values
+├── memory/                  # Long-term knowledge system
+│   ├── MEMORY.md           # Curated insights
+│   ├── daily/              # Daily session logs
+│   └── weekly/             # Weekly review summaries
+├── skills/                  # Trading capabilities
+│   ├── kalshi/             # Kalshi market integration
+│   ├─�� coinbase/           # Coinbase trading
+│   └── research/           # Market research (X, Moltbook)
+├── config/                  # System configuration
+│   ├── HEARTBEAT.md        # Monitoring checklist
+│   ├── AGENTS.md           # Autonomy rules
+│   ├── BOOT.md             # Startup sequence
+│   └── CONTEXT_MANAGEMENT.md  # Token efficiency
+├── wallets/                 # Wallet management (encrypted)
+│   └── README.md           # Security practices
+├── tests/                   # Testing suite
+│   ├── backtest/           # Historical backtests
+│   └── paper/              # Paper trading results
+└── main.py                  # Main execution loop
+```
+
+## 🔒 Security First
+
+- All API keys encrypted at rest
+- Paper trading mandatory before live deployment
+- 5 successful paper trades @ 5.5%+ required for approval
+- Max 5% capital per position
+- Automatic circuit breakers at -65% portfolio loss
+- Sandboxed execution environment
+
+## 📈 Proof-of-Concept Requirements
+
+Before live trading with real capital, NEMO must demonstrate:
+1. ✅ 5 successful paper trades
+2. ✅ Minimum 5.5% profit per trade
+3. ✅ Max drawdown under 10%
+4. ✅ Win rate >60%
+5. ✅ Proper risk management (no position >5% capital)
+
+## 🎮 Current Status
+
+**Phase**: Initial Setup
+- [ ] Core files configured
+- [ ] Kalshi demo account connected
+- [ ] Coinbase API integrated
+- [ ] Paper trading system operational
+- [ ] iMessage alerts configured
+- [ ] First backtest completed
+
+## 📚 Documentation
+
+- [Operator Profile](core/USER.md) - Your goals and constraints
+- [Trading Strategy](skills/kalshi/STRATEGY.md) - Market approach
+- [Setup Guide](docs/SETUP.md) - Installation and configuration
+- [Paper Trading Log](tests/paper/LOG.md) - Track record
+
+## 🤝 Contributing
+
+This is a personal autonomous trading agent. External contributions not accepted.
+
+## ⚠️ Disclaimer
+
+This software is for educational and research purposes. Trading involves substantial risk of loss. Past performance does not guarantee future results. Never invest more than you can afford to lose.
+
+## 📄 License
+
+Private - All Rights Reserved
+
 ---
 
-## 📞 Contact
-
-**Operator**: @sentientsprite  
-**Location**: West Jordan, Utah (MST)  
-**Alerts**: iMessage
-
----
-
-**Built with gratitude. Serving in your best interest. 🦞**
+**Built with gratitude by @sentientsprite | Powered by OpenClaw Framework**
