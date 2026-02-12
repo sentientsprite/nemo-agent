@@ -1,0 +1,46 @@
+{
+  "gateway": {
+    "host": "127.0.0.1",
+    "port": 18789,
+    "securityToken": true
+  },
+  "models": {
+    "lmstudio": {
+      "enabled": true,
+      "baseUrl": "http://127.0.0.1:1234",
+      "apiKey": "${LM_STUDIO_TOKEN}",
+      "models": [
+        {
+          "name": "qwen2.5-coder-7b-instruct",
+          "displayName": "Qwen Coder 7B",
+          "maxTokens": 32768
+        }
+      ]
+    },
+    "pythonService": {
+      "enabled": true,
+      "baseUrl": "http://127.0.0.1:5000"
+    },
+    "nodeService": {
+      "enabled": true,
+      "baseUrl": "http://127.0.0.1:3000"
+    },
+    "rustService": {
+      "enabled": true,
+      "baseUrl": "http://127.0.0.1:8080"
+    }
+  },
+  "security": {
+    "allowedOrigins": ["http://localhost:18789"],
+    "rateLimit": {
+      "enabled": true,
+      "maxRequests": 100,
+      "windowMs": 900000
+    }
+  },
+  "storage": {
+    "dataDir": "~/.nemo",
+    "models": "~/.nemo/models",
+    "logs": "~/.nemo/logs"
+  }
+}
