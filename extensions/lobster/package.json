@@ -1,0 +1,14 @@
+{
+  "name": "@nemo/lobster",
+  "version": "2026.2.10",
+  "description": "Lobster workflow tool plugin (typed pipelines + resumable approvals)",
+  "type": "module",
+  "devDependencies": {
+    "nemo": "workspace:*"
+  },
+  "nemo": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

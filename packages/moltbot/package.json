@@ -1,0 +1,16 @@
+{
+  "name": "nemo-agent",
+  "version": "2026.2.10",
+  "description": "Compatibility shim that forwards to nemo",
+  "bin": {
+    "nemo-agent": "./bin/nemo-agent.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./cli-entry": "./bin/nemo-agent.js"
+  },
+  "dependencies": {
+    "nemo": "workspace:*"
+  }
+}

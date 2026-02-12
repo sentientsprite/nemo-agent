@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: nemo
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: SETUP_PASSWORD
+        sync: false
+      - key: NEMO_STATE_DIR
+        value: /data/.nemo
+      - key: NEMO_WORKSPACE_DIR
+        value: /data/workspace
+      - key: NEMO_GATEWAY_TOKEN
+        generateValue: true
+    disk:
+      name: nemo-data
+      mountPath: /data
+      sizeGB: 1

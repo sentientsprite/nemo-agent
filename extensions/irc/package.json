@@ -1,0 +1,14 @@
+{
+  "name": "@nemo/irc",
+  "version": "2026.2.10",
+  "description": "NEMO IRC channel plugin",
+  "type": "module",
+  "devDependencies": {
+    "nemo": "workspace:*"
+  },
+  "nemo": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

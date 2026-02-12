@@ -1,0 +1,21 @@
+{
+  "name": "@nemo/twitch",
+  "version": "2026.2.10",
+  "private": true,
+  "description": "NEMO Twitch channel plugin",
+  "type": "module",
+  "dependencies": {
+    "@twurple/api": "^8.0.3",
+    "@twurple/auth": "^8.0.3",
+    "@twurple/chat": "^8.0.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "nemo": "workspace:*"
+  },
+  "nemo": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
