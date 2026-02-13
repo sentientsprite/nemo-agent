@@ -77,7 +77,7 @@ export { registerPluginHttpRoute } from "../plugins/http-registry.js";
 export { emptyPluginConfigSchema } from "../plugins/config-schema.js";
 export type { NEMOConfig } from "../config/config.js";
 /** @deprecated Use NEMOConfig instead */
-export type { NEMOConfig as NEMO-AgentConfig } from "../config/config.js";
+export type { NEMOConfig as "NEMO-AgentConfig" } from "../config/config.js";
 export type { ChannelDock } from "../channels/dock.js";
 export { getChatChannelMeta } from "../channels/registry.js";
 export type {
