@@ -52,10 +52,7 @@ export function resolveDefaultSlackAccountId(cfg: NEMOConfig): string {
   return ids[0] ?? DEFAULT_ACCOUNT_ID;
 }
 
-function resolveAccountConfig(
-  cfg: NEMOConfig,
-  accountId: string,
-): SlackAccountConfig | undefined {
+function resolveAccountConfig(cfg: NEMOConfig, accountId: string): SlackAccountConfig | undefined {
   const accounts = cfg.channels?.slack?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return undefined;

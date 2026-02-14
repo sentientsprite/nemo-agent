@@ -160,8 +160,7 @@ const DEFAULT_NODE_PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sb
 const BROWSER_PROXY_MAX_FILE_BYTES = 10 * 1024 * 1024;
 
 const execHostEnforced = process.env.NEMO_NODE_EXEC_HOST?.trim().toLowerCase() === "app";
-const execHostFallbackAllowed =
-  process.env.NEMO_NODE_EXEC_FALLBACK?.trim().toLowerCase() !== "0";
+const execHostFallbackAllowed = process.env.NEMO_NODE_EXEC_FALLBACK?.trim().toLowerCase() !== "0";
 
 const blockedEnvKeys = new Set([
   "NODE_OPTIONS",

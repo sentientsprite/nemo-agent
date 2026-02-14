@@ -87,7 +87,7 @@ nemodock-approve <request-id>
 | Command                   | Description                                    |
 | ------------------------- | ---------------------------------------------- |
 | `nemodock-shell`          | Interactive shell inside the gateway container |
-| `nemodock-cli <command>`  | Run NEMO CLI commands                      |
+| `nemodock-cli <command>`  | Run NEMO CLI commands                          |
 | `nemodock-exec <command>` | Execute arbitrary commands in the container    |
 
 ### Web UI & Devices
@@ -117,8 +117,8 @@ nemodock-approve <request-id>
 | -------------------- | ----------------------------------------- |
 | `nemodock-health`    | Run gateway health check                  |
 | `nemodock-token`     | Display the gateway authentication token  |
-| `nemodock-cd`        | Jump to the NEMO project directory    |
-| `nemodock-config`    | Open the NEMO config directory        |
+| `nemodock-cd`        | Jump to the NEMO project directory        |
+| `nemodock-config`    | Open the NEMO config directory            |
 | `nemodock-workspace` | Open the workspace directory              |
 | `nemodock-help`      | Show all available commands with examples |
 

@@ -33,10 +33,7 @@ export function resolveDefaultZaloAccountId(cfg: NEMOConfig): string {
   return ids[0] ?? DEFAULT_ACCOUNT_ID;
 }
 
-function resolveAccountConfig(
-  cfg: NEMOConfig,
-  accountId: string,
-): ZaloAccountConfig | undefined {
+function resolveAccountConfig(cfg: NEMOConfig, accountId: string): ZaloAccountConfig | undefined {
   const accounts = (cfg.channels?.zalo as ZaloConfig | undefined)?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return undefined;

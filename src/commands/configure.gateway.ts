@@ -144,9 +144,7 @@ export async function promptGatewayConfig(
   let tailscaleResetOnExit = false;
   if (tailscaleMode !== "off") {
     note(
-      ["Docs:", "https://docs.nemo.ai/gateway/tailscale", "https://docs.nemo.ai/web"].join(
-        "\n",
-      ),
+      ["Docs:", "https://docs.nemo.ai/gateway/tailscale", "https://docs.nemo.ai/web"].join("\n"),
       "Tailscale",
     );
     tailscaleResetOnExit = Boolean(

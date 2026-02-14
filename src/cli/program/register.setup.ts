@@ -13,8 +13,7 @@ export function registerSetupCommand(program: Command) {
     .description("Initialize ~/.nemo/nemo.json and the agent workspace")
     .addHelpText(
       "after",
-      () =>
-        `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/setup", "docs.nemo.ai/cli/setup")}\n`,
+      () => `\n${theme.muted("Docs:")} ${formatDocsLink("/cli/setup", "docs.nemo.ai/cli/setup")}\n`,
     )
     .option(
       "--workspace <dir>",

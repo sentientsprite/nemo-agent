@@ -1,7 +1,7 @@
 import type {
   ChannelOnboardingAdapter,
   ChannelOnboardingDmPolicy,
-  NEMO-AgentConfig,
+  NEMOAgentConfig,
   DmPolicy,
   WizardPrompter,
 } from "nemo/plugin-sdk";
@@ -12,7 +12,7 @@ import { probeFeishu } from "./probe.js";
 
 const channel = "feishu" as const;
 
-function setFeishuDmPolicy(cfg: NEMO-AgentConfig, dmPolicy: DmPolicy): NEMO-AgentConfig {
+function setFeishuDmPolicy(cfg: NEMOAgentConfig, dmPolicy: DmPolicy): NEMOAgentConfig {
   const allowFrom =
     dmPolicy === "open"
       ? addWildcardAllowFrom(cfg.channels?.feishu?.allowFrom)?.map((entry) => String(entry))
@@ -30,7 +30,7 @@ function setFeishuDmPolicy(cfg: NEMO-AgentConfig, dmPolicy: DmPolicy): NEMO-Agen
   };
 }
 
-function setFeishuAllowFrom(cfg: NEMO-AgentConfig, allowFrom: string[]): NEMO-AgentConfig {
+function setFeishuAllowFrom(cfg: NEMOAgentConfig, allowFrom: string[]): NEMOAgentConfig {
   return {
     ...cfg,
     channels: {
@@ -51,9 +51,9 @@ function parseAllowFromInput(raw: string): string[] {
 }
 
 async function promptFeishuAllowFrom(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   prompter: WizardPrompter;
-}): Promise<NEMO-AgentConfig> {
+}): Promise<NEMOAgentConfig> {
   const existing = params.cfg.channels?.feishu?.allowFrom ?? [];
   await params.prompter.note(
     [
@@ -105,9 +105,9 @@ async function noteFeishuCredentialHelp(prompter: WizardPrompter): Promise<void>
 }
 
 function setFeishuGroupPolicy(
-  cfg: NEMO-AgentConfig,
+  cfg: NEMOAgentConfig,
   groupPolicy: "open" | "allowlist" | "disabled",
-): NEMO-AgentConfig {
+): NEMOAgentConfig {
   return {
     ...cfg,
     channels: {
@@ -121,7 +121,7 @@ function setFeishuGroupPolicy(
   };
 }
 
-function setFeishuGroupAllowFrom(cfg: NEMO-AgentConfig, groupAllowFrom: string[]): NEMO-AgentConfig {
+function setFeishuGroupAllowFrom(cfg: NEMOAgentConfig, groupAllowFrom: string[]): NEMOAgentConfig {
   return {
     ...cfg,
     channels: {

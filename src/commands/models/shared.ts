@@ -7,11 +7,7 @@ import {
   resolveModelRefFromString,
 } from "../../agents/model-selection.js";
 import { formatCliCommand } from "../../cli/command-format.js";
-import {
-  type NEMOConfig,
-  readConfigFileSnapshot,
-  writeConfigFile,
-} from "../../config/config.js";
+import { type NEMOConfig, readConfigFileSnapshot, writeConfigFile } from "../../config/config.js";
 import { normalizeAgentId } from "../../routing/session-key.js";
 
 export const ensureFlagCompatibility = (opts: { json?: boolean; plain?: boolean }) => {
@@ -43,9 +39,7 @@ export const formatMs = (value?: number | null) => {
   return `${Math.round(value / 100) / 10}s`;
 };
 
-export async function updateConfig(
-  mutator: (cfg: NEMOConfig) => NEMOConfig,
-): Promise<NEMOConfig> {
+export async function updateConfig(mutator: (cfg: NEMOConfig) => NEMOConfig): Promise<NEMOConfig> {
   const snapshot = await readConfigFileSnapshot();
   if (!snapshot.valid) {
     const issues = snapshot.issues.map((issue) => `- ${issue.path}: ${issue.message}`).join("\n");

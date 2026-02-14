@@ -196,9 +196,7 @@ function formatElevatedUnavailableMessage(params: {
   lines.push("- agents.list[].tools.elevated.enabled");
   lines.push("- agents.list[].tools.elevated.allowFrom.<provider>");
   if (params.sessionKey) {
-    lines.push(
-      `See: ${formatCliCommand(`nemo sandbox explain --session ${params.sessionKey}`)}`,
-    );
+    lines.push(`See: ${formatCliCommand(`nemo sandbox explain --session ${params.sessionKey}`)}`);
   }
   return lines.join("\n");
 }

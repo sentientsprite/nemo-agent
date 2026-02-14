@@ -346,10 +346,7 @@ function resolveDefaultStoreAgentId(cfg: NEMOConfig): string {
   return normalizeAgentId(resolveDefaultAgentId(cfg));
 }
 
-export function resolveSessionStoreKey(params: {
-  cfg: NEMOConfig;
-  sessionKey: string;
-}): string {
+export function resolveSessionStoreKey(params: { cfg: NEMOConfig; sessionKey: string }): string {
   const raw = params.sessionKey.trim();
   if (!raw) {
     return raw;

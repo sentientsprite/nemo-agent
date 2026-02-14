@@ -1,4 +1,4 @@
-import type { NEMO-AgentConfig, RuntimeEnv } from "nemo/plugin-sdk";
+import type { NEMOAgentConfig, RuntimeEnv } from "nemo/plugin-sdk";
 import {
   buildPendingHistoryContextFromMap,
   recordPendingHistoryEntryIfEnabled,
@@ -335,7 +335,7 @@ function inferPlaceholder(messageType: string): string {
  * Similar to Discord's resolveMediaList().
  */
 async function resolveFeishuMediaList(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   messageId: string;
   messageType: string;
   content: string;
@@ -520,7 +520,7 @@ export function parseFeishuMessageEvent(
 }
 
 export async function handleFeishuMessage(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   event: FeishuMessageEvent;
   botOpenId?: string;
   runtime?: RuntimeEnv;

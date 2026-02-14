@@ -352,14 +352,7 @@ describe("buildStatusMessage", () => {
         const { buildStatusMessage: buildStatusMessageDynamic } = await import("./status.js");
 
         const sessionId = "sess-1";
-        const logPath = path.join(
-          dir,
-          ".nemo",
-          "agents",
-          "main",
-          "sessions",
-          `${sessionId}.jsonl`,
-        );
+        const logPath = path.join(dir, ".nemo", "agents", "main", "sessions", `${sessionId}.jsonl`);
         fs.mkdirSync(path.dirname(logPath), { recursive: true });
 
         fs.writeFileSync(

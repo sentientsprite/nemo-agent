@@ -2,8 +2,7 @@ import process from "node:process";
 import type { TelegramNetworkConfig } from "../config/types.telegram.js";
 import { isTruthyEnvValue } from "../infra/env.js";
 
-export const TELEGRAM_DISABLE_AUTO_SELECT_FAMILY_ENV =
-  "NEMO_TELEGRAM_DISABLE_AUTO_SELECT_FAMILY";
+export const TELEGRAM_DISABLE_AUTO_SELECT_FAMILY_ENV = "NEMO_TELEGRAM_DISABLE_AUTO_SELECT_FAMILY";
 export const TELEGRAM_ENABLE_AUTO_SELECT_FAMILY_ENV = "NEMO_TELEGRAM_ENABLE_AUTO_SELECT_FAMILY";
 
 export type TelegramAutoSelectFamilyDecision = {

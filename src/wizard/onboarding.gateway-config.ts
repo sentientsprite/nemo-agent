@@ -161,9 +161,7 @@ export async function configureGatewayForOnboarding(
   let tailscaleResetOnExit = flow === "quickstart" ? quickstartGateway.tailscaleResetOnExit : false;
   if (tailscaleMode !== "off" && flow !== "quickstart") {
     await prompter.note(
-      ["Docs:", "https://docs.nemo.ai/gateway/tailscale", "https://docs.nemo.ai/web"].join(
-        "\n",
-      ),
+      ["Docs:", "https://docs.nemo.ai/gateway/tailscale", "https://docs.nemo.ai/web"].join("\n"),
       "Tailscale",
     );
     tailscaleResetOnExit = Boolean(

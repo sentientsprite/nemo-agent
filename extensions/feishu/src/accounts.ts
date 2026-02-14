@@ -1,4 +1,4 @@
-import type { NEMO-AgentConfig } from "nemo/plugin-sdk";
+import type { NEMOAgentConfig } from "nemo/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "nemo/plugin-sdk";
 import type {
   FeishuConfig,
@@ -10,7 +10,7 @@ import type {
 /**
  * List all configured account IDs from the accounts field.
  */
-function listConfiguredAccountIds(cfg: NEMO-AgentConfig): string[] {
+function listConfiguredAccountIds(cfg: NEMOAgentConfig): string[] {
   const accounts = (cfg.channels?.feishu as FeishuConfig)?.accounts;
   if (!accounts || typeof accounts !== "object") {
     return [];
@@ -22,7 +22,7 @@ function listConfiguredAccountIds(cfg: NEMO-AgentConfig): string[] {
  * List all Feishu account IDs.
  * If no accounts are configured, returns [DEFAULT_ACCOUNT_ID] for backward compatibility.
  */
-export function listFeishuAccountIds(cfg: NEMO-AgentConfig): string[] {
+export function listFeishuAccountIds(cfg: NEMOAgentConfig): string[] {
   const ids = listConfiguredAccountIds(cfg);
   if (ids.length === 0) {
     // Backward compatibility: no accounts configured, use default
@@ -34,7 +34,7 @@ export function listFeishuAccountIds(cfg: NEMO-AgentConfig): string[] {
 /**
  * Resolve the default account ID.
  */
-export function resolveDefaultFeishuAccountId(cfg: NEMO-AgentConfig): string {
+export function resolveDefaultFeishuAccountId(cfg: NEMOAgentConfig): string {
   const ids = listFeishuAccountIds(cfg);
   if (ids.includes(DEFAULT_ACCOUNT_ID)) {
     return DEFAULT_ACCOUNT_ID;
@@ -46,7 +46,7 @@ export function resolveDefaultFeishuAccountId(cfg: NEMO-AgentConfig): string {
  * Get the raw account-specific config.
  */
 function resolveAccountConfig(
-  cfg: NEMO-AgentConfig,
+  cfg: NEMOAgentConfig,
   accountId: string,
 ): FeishuAccountConfig | undefined {
   const accounts = (cfg.channels?.feishu as FeishuConfig)?.accounts;
@@ -60,7 +60,7 @@ function resolveAccountConfig(
  * Merge top-level config with account-specific config.
  * Account-specific fields override top-level fields.
  */
-function mergeFeishuAccountConfig(cfg: NEMO-AgentConfig, accountId: string): FeishuConfig {
+function mergeFeishuAccountConfig(cfg: NEMOAgentConfig, accountId: string): FeishuConfig {
   const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
 
   // Extract base config (exclude accounts field to avoid recursion)
@@ -101,7 +101,7 @@ export function resolveFeishuCredentials(cfg?: FeishuConfig): {
  * Resolve a complete Feishu account with merged config.
  */
 export function resolveFeishuAccount(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   accountId?: string | null;
 }): ResolvedFeishuAccount {
   const accountId = normalizeAccountId(params.accountId);
@@ -137,7 +137,7 @@ export function resolveFeishuAccount(params: {
 /**
  * List all enabled and configured accounts.
  */
-export function listEnabledFeishuAccounts(cfg: NEMO-AgentConfig): ResolvedFeishuAccount[] {
+export function listEnabledFeishuAccounts(cfg: NEMOAgentConfig): ResolvedFeishuAccount[] {
   return listFeishuAccountIds(cfg)
     .map((accountId) => resolveFeishuAccount({ cfg, accountId }))
     .filter((account) => account.enabled && account.configured);

@@ -43,10 +43,7 @@ export function registerStatusHealthSessionsCommands(program: Command) {
           ["nemo status --all", "Full diagnosis (read-only)."],
           ["nemo status --json", "Machine-readable output."],
           ["nemo status --usage", "Show model provider usage/quota snapshots."],
-          [
-            "nemo status --deep",
-            "Run channel probes (WA + Telegram + Discord + Slack + Signal).",
-          ],
+          ["nemo status --deep", "Run channel probes (WA + Telegram + Discord + Slack + Signal)."],
           ["nemo status --deep --timeout 5000", "Tighten probe timeout."],
         ])}`,
     )

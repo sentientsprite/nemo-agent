@@ -69,8 +69,7 @@ const _makeOpenAiConfig = (modelIds: string[]) =>
     },
   }) satisfies NEMOConfig;
 
-const _ensureModels = (cfg: NEMOConfig, agentDir: string) =>
-  ensureNEMOModelsJson(cfg, agentDir);
+const _ensureModels = (cfg: NEMOConfig, agentDir: string) => ensureNEMOModelsJson(cfg, agentDir);
 
 const _textFromContent = (content: unknown) => {
   if (typeof content === "string") {

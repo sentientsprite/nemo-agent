@@ -110,10 +110,7 @@ export function triggerNEMORestart(): RestartAttempt {
   const tried: string[] = [];
   if (process.platform !== "darwin") {
     if (process.platform === "linux") {
-      const unit = normalizeSystemdUnit(
-        process.env.NEMO_SYSTEMD_UNIT,
-        process.env.NEMO_PROFILE,
-      );
+      const unit = normalizeSystemdUnit(process.env.NEMO_SYSTEMD_UNIT, process.env.NEMO_PROFILE);
       const userArgs = ["--user", "restart", unit];
       tried.push(`systemctl ${userArgs.join(" ")}`);
       const userRestart = spawnSync("systemctl", userArgs, {
@@ -146,8 +143,7 @@ export function triggerNEMORestart(): RestartAttempt {
   }
 
   const label =
-    process.env.NEMO_LAUNCHD_LABEL ||
-    resolveGatewayLaunchAgentLabel(process.env.NEMO_PROFILE);
+    process.env.NEMO_LAUNCHD_LABEL || resolveGatewayLaunchAgentLabel(process.env.NEMO_PROFILE);
   const uid = typeof process.getuid === "function" ? process.getuid() : undefined;
   const target = uid !== undefined ? `gui/${uid}/${label}` : label;
   const args = ["kickstart", "-k", target];

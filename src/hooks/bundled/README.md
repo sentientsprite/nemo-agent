@@ -83,8 +83,7 @@ session-memory/
 name: my-hook
 description: "Short description"
 homepage: https://docs.nemo.ai/hooks#my-hook
-metadata:
-  { "nemo": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
+metadata: { "nemo": { "emoji": "🔗", "events": ["command:new"], "requires": { "bins": ["node"] } } }
 ---
 # Hook Title
 

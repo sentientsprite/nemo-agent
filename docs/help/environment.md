@@ -76,10 +76,10 @@ See [Configuration: Env var substitution](/gateway/configuration#env-var-substit
 
 ## Path-related env vars
 
-| Variable               | Purpose                                                                                                                                                                          |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Variable           | Purpose                                                                                                                                                                  |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `NEMO_HOME`        | Override the home directory used for all internal path resolution (`~/.nemo/`, agent dirs, sessions, credentials). Useful when running NEMO as a dedicated service user. |
-| `NEMO_STATE_DIR`   | Override the state directory (default `~/.nemo`).                                                                                                                            |
+| `NEMO_STATE_DIR`   | Override the state directory (default `~/.nemo`).                                                                                                                        |
 | `NEMO_CONFIG_PATH` | Override the config file path (default `~/.nemo/nemo.json`).                                                                                                             |
 
 ### `NEMO_HOME`

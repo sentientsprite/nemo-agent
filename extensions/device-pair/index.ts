@@ -60,8 +60,7 @@ function normalizeUrl(raw: string, schemeFallback: "ws" | "wss"): string | null 
 }
 
 function resolveGatewayPort(cfg: NEMOPluginApi["config"]): number {
-  const envRaw =
-    process.env.NEMO_GATEWAY_PORT?.trim() || process.env.NEMO_GATEWAY_PORT?.trim();
+  const envRaw = process.env.NEMO_GATEWAY_PORT?.trim() || process.env.NEMO_GATEWAY_PORT?.trim();
   if (envRaw) {
     const parsed = Number.parseInt(envRaw, 10);
     if (Number.isFinite(parsed) && parsed > 0) {

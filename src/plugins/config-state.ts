@@ -62,9 +62,7 @@ const normalizePluginEntries = (entries: unknown): NormalizedPluginsConfig["entr
   return normalized;
 };
 
-export const normalizePluginsConfig = (
-  config?: NEMOConfig["plugins"],
-): NormalizedPluginsConfig => {
+export const normalizePluginsConfig = (config?: NEMOConfig["plugins"]): NormalizedPluginsConfig => {
   const memorySlot = normalizeSlotValue(config?.slots?.memory);
   return {
     enabled: config?.enabled !== false,

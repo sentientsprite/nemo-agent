@@ -37,16 +37,12 @@ describe("schtasks runtime parsing", () => {
 describe("resolveTaskScriptPath", () => {
   it("uses default path when NEMO_PROFILE is default", () => {
     const env = { USERPROFILE: "C:\\Users\\test", NEMO_PROFILE: "default" };
-    expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".nemo", "gateway.cmd"),
-    );
+    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\Users\\test", ".nemo", "gateway.cmd"));
   });
 
   it("uses default path when NEMO_PROFILE is unset", () => {
     const env = { USERPROFILE: "C:\\Users\\test" };
-    expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".nemo", "gateway.cmd"),
-    );
+    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\Users\\test", ".nemo", "gateway.cmd"));
   });
 
   it("uses profile-specific path when NEMO_PROFILE is set to a custom value", () => {
@@ -67,16 +63,12 @@ describe("resolveTaskScriptPath", () => {
 
   it("handles case-insensitive 'Default' profile", () => {
     const env = { USERPROFILE: "C:\\Users\\test", NEMO_PROFILE: "Default" };
-    expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".nemo", "gateway.cmd"),
-    );
+    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\Users\\test", ".nemo", "gateway.cmd"));
   });
 
   it("handles case-insensitive 'DEFAULT' profile", () => {
     const env = { USERPROFILE: "C:\\Users\\test", NEMO_PROFILE: "DEFAULT" };
-    expect(resolveTaskScriptPath(env)).toBe(
-      path.join("C:\\Users\\test", ".nemo", "gateway.cmd"),
-    );
+    expect(resolveTaskScriptPath(env)).toBe(path.join("C:\\Users\\test", ".nemo", "gateway.cmd"));
   });
 
   it("trims whitespace from NEMO_PROFILE", () => {

@@ -1256,9 +1256,9 @@ Related: [Agent workspace](/concepts/agent-workspace), [Memory](/concepts/memory
 
 Everything lives under `$NEMO_STATE_DIR` (default: `~/.nemo`):
 
-| Path                                                            | Purpose                                                      |
-| --------------------------------------------------------------- | ------------------------------------------------------------ |
-| `$NEMO_STATE_DIR/nemo.json`                             | Main config (JSON5)                                          |
+| Path                                                        | Purpose                                                      |
+| ----------------------------------------------------------- | ------------------------------------------------------------ |
+| `$NEMO_STATE_DIR/nemo.json`                                 | Main config (JSON5)                                          |
 | `$NEMO_STATE_DIR/credentials/oauth.json`                    | Legacy OAuth import (copied into auth profiles on first use) |
 | `$NEMO_STATE_DIR/agents/<agentId>/agent/auth-profiles.json` | Auth profiles (OAuth + API keys)                             |
 | `$NEMO_STATE_DIR/agents/<agentId>/agent/auth.json`          | Runtime auth cache (managed automatically)                   |

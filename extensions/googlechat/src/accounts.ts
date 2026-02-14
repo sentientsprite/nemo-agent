@@ -56,10 +56,7 @@ function resolveAccountConfig(
   return accounts[accountId];
 }
 
-function mergeGoogleChatAccountConfig(
-  cfg: NEMOConfig,
-  accountId: string,
-): GoogleChatAccountConfig {
+function mergeGoogleChatAccountConfig(cfg: NEMOConfig, accountId: string): GoogleChatAccountConfig {
   const raw = cfg.channels?.["googlechat"] ?? {};
   const { accounts: _ignored, defaultAccount: _ignored2, ...base } = raw;
   const account = resolveAccountConfig(cfg, accountId) ?? {};

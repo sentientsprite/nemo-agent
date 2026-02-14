@@ -166,9 +166,9 @@ describe("shortenHomeInString", () => {
     vi.stubEnv("NEMO_HOME", "/srv/nemo-home");
     vi.stubEnv("HOME", "/home/other");
 
-    expect(
-      shortenHomeInString(`config: ${path.resolve("/srv/nemo-home")}/.nemo/nemo.json`),
-    ).toBe("config: $NEMO_HOME/.nemo/nemo.json");
+    expect(shortenHomeInString(`config: ${path.resolve("/srv/nemo-home")}/.nemo/nemo.json`)).toBe(
+      "config: $NEMO_HOME/.nemo/nemo.json",
+    );
 
     vi.unstubAllEnvs();
   });

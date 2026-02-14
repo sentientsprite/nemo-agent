@@ -84,11 +84,7 @@ export class QmdMemoryManager implements MemorySearchManager {
   private lastUpdateAt: number | null = null;
   private lastEmbedAt: number | null = null;
 
-  private constructor(params: {
-    cfg: NEMOConfig;
-    agentId: string;
-    resolved: ResolvedQmdConfig;
-  }) {
+  private constructor(params: { cfg: NEMOConfig; agentId: string; resolved: ResolvedQmdConfig }) {
     this.cfg = params.cfg;
     this.agentId = params.agentId;
     this.qmd = params.resolved;

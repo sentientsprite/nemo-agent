@@ -251,10 +251,7 @@ export type NEMOPluginApi = {
   pluginConfig?: Record<string, unknown>;
   runtime: PluginRuntime;
   logger: PluginLogger;
-  registerTool: (
-    tool: AnyAgentTool | NEMOPluginToolFactory,
-    opts?: NEMOPluginToolOptions,
-  ) => void;
+  registerTool: (tool: AnyAgentTool | NEMOPluginToolFactory, opts?: NEMOPluginToolOptions) => void;
   registerHook: (
     events: string | string[],
     handler: InternalHookHandler,

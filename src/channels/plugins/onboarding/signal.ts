@@ -33,11 +33,7 @@ function setSignalDmPolicy(cfg: NEMOConfig, dmPolicy: DmPolicy) {
   };
 }
 
-function setSignalAllowFrom(
-  cfg: NEMOConfig,
-  accountId: string,
-  allowFrom: string[],
-): NEMOConfig {
+function setSignalAllowFrom(cfg: NEMOConfig, accountId: string, allowFrom: string[]): NEMOConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,
