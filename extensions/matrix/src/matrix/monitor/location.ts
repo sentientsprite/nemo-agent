@@ -1,9 +1,5 @@
 import type { LocationMessageEventContent } from "@vector-im/matrix-bot-sdk";
-import {
-  formatLocationText,
-  toLocationContext,
-  type NormalizedLocation,
-} from "nemo/plugin-sdk";
+import { formatLocationText, toLocationContext, type NormalizedLocation } from "nemo/plugin-sdk";
 import { EventType } from "./types.js";
 
 export type MatrixLocationPayload = {

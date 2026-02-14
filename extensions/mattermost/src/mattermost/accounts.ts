@@ -58,10 +58,7 @@ function resolveAccountConfig(
   return accounts[accountId] as MattermostAccountConfig | undefined;
 }
 
-function mergeMattermostAccountConfig(
-  cfg: NEMOConfig,
-  accountId: string,
-): MattermostAccountConfig {
+function mergeMattermostAccountConfig(cfg: NEMOConfig, accountId: string): MattermostAccountConfig {
   const { accounts: _ignored, ...base } = (cfg.channels?.mattermost ??
     {}) as MattermostAccountConfig & { accounts?: unknown };
   const account = resolveAccountConfig(cfg, accountId) ?? {};

@@ -1,4 +1,4 @@
-import type { ChannelMeta, ChannelPlugin, NEMO-AgentConfig } from "nemo/plugin-sdk";
+import type { ChannelMeta, ChannelPlugin, NEMOAgentConfig } from "nemo/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, PAIRING_APPROVED_MESSAGE } from "nemo/plugin-sdk";
 import type { ResolvedFeishuAccount, FeishuConfig } from "./types.js";
 import {
@@ -165,7 +165,7 @@ export const feishuPlugin: ChannelPlugin<ResolvedFeishuAccount> = {
 
       if (isDefault) {
         // Delete entire feishu config
-        const next = { ...cfg } as NEMO-AgentConfig;
+        const next = { ...cfg } as NEMOAgentConfig;
         const nextChannels = { ...cfg.channels };
         delete (nextChannels as Record<string, unknown>).feishu;
         if (Object.keys(nextChannels).length > 0) {

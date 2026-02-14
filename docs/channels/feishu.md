@@ -374,8 +374,8 @@ nemo pairing list feishu
 
 ## Gateway management commands
 
-| Command                    | Description                   |
-| -------------------------- | ----------------------------- |
+| Command                | Description                   |
+| ---------------------- | ----------------------------- |
 | `nemo gateway status`  | Show gateway status           |
 | `nemo gateway install` | Install/start gateway service |
 | `nemo gateway stop`    | Stop gateway service          |

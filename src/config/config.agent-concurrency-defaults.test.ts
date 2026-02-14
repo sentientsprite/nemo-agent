@@ -45,11 +45,7 @@ describe("agent concurrency defaults", () => {
     await withTempHome(async (home) => {
       const configDir = path.join(home, ".nemo");
       await fs.mkdir(configDir, { recursive: true });
-      await fs.writeFile(
-        path.join(configDir, "nemo.json"),
-        JSON.stringify({}, null, 2),
-        "utf-8",
-      );
+      await fs.writeFile(path.join(configDir, "nemo.json"), JSON.stringify({}, null, 2), "utf-8");
 
       vi.resetModules();
       const { loadConfig } = await import("./config.js");

@@ -1,8 +1,4 @@
-import {
-  resolveChannelMediaMaxBytes,
-  type NEMOConfig,
-  type PluginRuntime,
-} from "nemo/plugin-sdk";
+import { resolveChannelMediaMaxBytes, type NEMOConfig, type PluginRuntime } from "nemo/plugin-sdk";
 import type { MSTeamsAccessTokenProvider } from "./attachments/types.js";
 import type {
   MSTeamsConversationStore,

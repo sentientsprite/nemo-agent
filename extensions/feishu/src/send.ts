@@ -1,4 +1,4 @@
-import type { NEMO-AgentConfig } from "nemo/plugin-sdk";
+import type { NEMOAgentConfig } from "nemo/plugin-sdk";
 import type { MentionTarget } from "./mention.js";
 import type { FeishuSendResult, ResolvedFeishuAccount } from "./types.js";
 import { resolveFeishuAccount } from "./accounts.js";
@@ -22,7 +22,7 @@ export type FeishuMessageInfo = {
  * Useful for fetching quoted/replied message content.
  */
 export async function getMessageFeishu(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   messageId: string;
   accountId?: string;
 }): Promise<FeishuMessageInfo | null> {
@@ -91,7 +91,7 @@ export async function getMessageFeishu(params: {
 }
 
 export type SendFeishuMessageParams = {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   to: string;
   text: string;
   replyToMessageId?: string;
@@ -192,7 +192,7 @@ export async function sendMessageFeishu(
 }
 
 export type SendFeishuCardParams = {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   to: string;
   card: Record<string, unknown>;
   replyToMessageId?: string;
@@ -254,7 +254,7 @@ export async function sendCardFeishu(params: SendFeishuCardParams): Promise<Feis
 }
 
 export async function updateCardFeishu(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   messageId: string;
   card: Record<string, unknown>;
   accountId?: string;
@@ -305,7 +305,7 @@ export function buildMarkdownCard(text: string): Record<string, unknown> {
  * This renders markdown properly in Feishu (code blocks, tables, bold/italic, etc.)
  */
 export async function sendMarkdownCardFeishu(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   to: string;
   text: string;
   replyToMessageId?: string;
@@ -328,7 +328,7 @@ export async function sendMarkdownCardFeishu(params: {
  * Note: Feishu only allows editing messages within 24 hours.
  */
 export async function editMessageFeishu(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   messageId: string;
   text: string;
   accountId?: string;

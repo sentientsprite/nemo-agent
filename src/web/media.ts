@@ -32,11 +32,7 @@ type WebMediaOptions = {
 
 function getDefaultLocalRoots(): string[] {
   const home = os.homedir();
-  return [
-    os.tmpdir(),
-    path.join(home, ".nemo", "media"),
-    path.join(home, ".nemo", "agents"),
-  ];
+  return [os.tmpdir(), path.join(home, ".nemo", "media"), path.join(home, ".nemo", "agents")];
 }
 
 async function assertLocalMediaAllowed(

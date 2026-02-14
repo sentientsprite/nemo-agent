@@ -99,9 +99,7 @@ export function extractHookToken(req: IncomingMessage): string | undefined {
     }
   }
   const headerToken =
-    typeof req.headers["x-nemo-token"] === "string"
-      ? req.headers["x-nemo-token"].trim()
-      : "";
+    typeof req.headers["x-nemo-token"] === "string" ? req.headers["x-nemo-token"].trim() : "";
   if (headerToken) {
     return headerToken;
   }

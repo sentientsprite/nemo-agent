@@ -8,10 +8,7 @@ import type { ExecApprovalsResolved } from "../infra/exec-approvals.js";
 const previousBundledPluginsDir = process.env.NEMO_BUNDLED_PLUGINS_DIR;
 
 beforeAll(() => {
-  process.env.NEMO_BUNDLED_PLUGINS_DIR = path.join(
-    os.tmpdir(),
-    "nemo-test-no-bundled-extensions",
-  );
+  process.env.NEMO_BUNDLED_PLUGINS_DIR = path.join(os.tmpdir(), "nemo-test-no-bundled-extensions");
 });
 
 afterAll(() => {

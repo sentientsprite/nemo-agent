@@ -21,11 +21,7 @@ import type {
 
 export type ChannelSetupAdapter = {
   resolveAccountId?: (params: { cfg: NEMOConfig; accountId?: string }) => string;
-  applyAccountName?: (params: {
-    cfg: NEMOConfig;
-    accountId: string;
-    name?: string;
-  }) => NEMOConfig;
+  applyAccountName?: (params: { cfg: NEMOConfig; accountId: string; name?: string }) => NEMOConfig;
   applyAccountConfig: (params: {
     cfg: NEMOConfig;
     accountId: string;
@@ -184,11 +180,7 @@ export type ChannelLogoutContext<ResolvedAccount = unknown> = {
 export type ChannelPairingAdapter = {
   idLabel: string;
   normalizeAllowEntry?: (entry: string) => string;
-  notifyApproval?: (params: {
-    cfg: NEMOConfig;
-    id: string;
-    runtime?: RuntimeEnv;
-  }) => Promise<void>;
+  notifyApproval?: (params: { cfg: NEMOConfig; id: string; runtime?: RuntimeEnv }) => Promise<void>;
 };
 
 export type ChannelGatewayAdapter<ResolvedAccount = unknown> = {

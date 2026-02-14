@@ -189,13 +189,9 @@ export function resolveGatewayAuth(params: {
 }): ResolvedGatewayAuth {
   const authConfig = params.authConfig ?? {};
   const env = params.env ?? process.env;
-  const token =
-    authConfig.token ?? env.NEMO_GATEWAY_TOKEN ?? env.NEMO_GATEWAY_TOKEN ?? undefined;
+  const token = authConfig.token ?? env.NEMO_GATEWAY_TOKEN ?? env.NEMO_GATEWAY_TOKEN ?? undefined;
   const password =
-    authConfig.password ??
-    env.NEMO_GATEWAY_PASSWORD ??
-    env.NEMO_GATEWAY_PASSWORD ??
-    undefined;
+    authConfig.password ?? env.NEMO_GATEWAY_PASSWORD ?? env.NEMO_GATEWAY_PASSWORD ?? undefined;
   const mode: ResolvedGatewayAuth["mode"] = authConfig.mode ?? (password ? "password" : "token");
   const allowTailscale =
     authConfig.allowTailscale ?? (params.tailscaleMode === "serve" && mode !== "password");

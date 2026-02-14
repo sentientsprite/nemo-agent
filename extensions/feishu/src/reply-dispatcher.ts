@@ -2,7 +2,7 @@ import {
   createReplyPrefixContext,
   createTypingCallbacks,
   logTypingFailure,
-  type NEMO-AgentConfig,
+  type NEMOAgentConfig,
   type RuntimeEnv,
   type ReplyPayload,
 } from "nemo/plugin-sdk";
@@ -29,7 +29,7 @@ function shouldUseCard(text: string): boolean {
 }
 
 export type CreateFeishuReplyDispatcherParams = {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   agentId: string;
   runtime: RuntimeEnv;
   chatId: string;

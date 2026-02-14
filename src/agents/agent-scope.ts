@@ -124,10 +124,7 @@ export function resolveAgentConfig(
   };
 }
 
-export function resolveAgentSkillsFilter(
-  cfg: NEMOConfig,
-  agentId: string,
-): string[] | undefined {
+export function resolveAgentSkillsFilter(cfg: NEMOConfig, agentId: string): string[] | undefined {
   const raw = resolveAgentConfig(cfg, agentId)?.skills;
   if (!raw) {
     return undefined;

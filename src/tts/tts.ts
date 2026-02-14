@@ -880,10 +880,7 @@ type SummaryModelSelection = {
   source: "summaryModel" | "default";
 };
 
-function resolveSummaryModelRef(
-  cfg: NEMOConfig,
-  config: ResolvedTtsConfig,
-): SummaryModelSelection {
+function resolveSummaryModelRef(cfg: NEMOConfig, config: ResolvedTtsConfig): SummaryModelSelection {
   const defaultRef = resolveDefaultModelForAgent({ cfg });
   const override = config.summaryModel?.trim();
   if (!override) {

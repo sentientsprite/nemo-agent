@@ -3,10 +3,7 @@ import { resolveAgentConfig } from "./agent-scope.js";
 
 const DEFAULT_ACK_REACTION = "👀";
 
-export function resolveAgentIdentity(
-  cfg: NEMOConfig,
-  agentId: string,
-): IdentityConfig | undefined {
+export function resolveAgentIdentity(cfg: NEMOConfig, agentId: string): IdentityConfig | undefined {
   return resolveAgentConfig(cfg, agentId)?.identity;
 }
 
@@ -19,10 +16,7 @@ export function resolveAckReaction(cfg: NEMOConfig, agentId: string): string {
   return emoji || DEFAULT_ACK_REACTION;
 }
 
-export function resolveIdentityNamePrefix(
-  cfg: NEMOConfig,
-  agentId: string,
-): string | undefined {
+export function resolveIdentityNamePrefix(cfg: NEMOConfig, agentId: string): string | undefined {
   const name = resolveAgentIdentity(cfg, agentId)?.name?.trim();
   if (!name) {
     return undefined;
@@ -54,10 +48,7 @@ export function resolveMessagePrefix(
 }
 
 /** Helper to extract a channel config value by dynamic key. */
-function getChannelConfig(
-  cfg: NEMOConfig,
-  channel: string,
-): Record<string, unknown> | undefined {
+function getChannelConfig(cfg: NEMOConfig, channel: string): Record<string, unknown> | undefined {
   const channels = cfg.channels as Record<string, unknown> | undefined;
   const value = channels?.[channel];
   return typeof value === "object" && value !== null

@@ -18,10 +18,7 @@ import {
   ensureProfileCleanExit,
   isProfileDecorated,
 } from "./chrome.profile-decoration.js";
-import {
-  DEFAULT_NEMO_BROWSER_COLOR,
-  DEFAULT_NEMO_BROWSER_PROFILE_NAME,
-} from "./constants.js";
+import { DEFAULT_NEMO_BROWSER_COLOR, DEFAULT_NEMO_BROWSER_PROFILE_NAME } from "./constants.js";
 
 const log = createSubsystemLogger("browser").child("chrome");
 

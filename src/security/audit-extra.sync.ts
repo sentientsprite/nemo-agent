@@ -344,8 +344,7 @@ export function collectSecretsInConfigFindings(cfg: NEMOConfig): SecurityAuditFi
       title: "Gateway password is stored in config",
       detail:
         "gateway.auth.password is set in the config file; prefer environment variables for secrets when possible.",
-      remediation:
-        "Prefer NEMO_GATEWAY_PASSWORD (env) and remove gateway.auth.password from disk.",
+      remediation: "Prefer NEMO_GATEWAY_PASSWORD (env) and remove gateway.auth.password from disk.",
     });
   }
 

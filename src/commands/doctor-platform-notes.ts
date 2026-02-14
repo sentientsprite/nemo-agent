@@ -82,16 +82,13 @@ export async function noteMacLaunchctlGatewayEnvOverrides(
     const lines = [
       "- Deprecated launchctl environment variables detected (ignored).",
       ...deprecatedLaunchctlEntries.map(
-        ([key]) =>
-          `- \`${key}\` is set; use \`NEMO_${key.slice(key.indexOf("_") + 1)}\` instead.`,
+        ([key]) => `- \`${key}\` is set; use \`NEMO_${key.slice(key.indexOf("_") + 1)}\` instead.`,
       ),
     ];
     (deps?.noteFn ?? note)(lines.join("\n"), "Gateway (macOS)");
   }
 
-  const tokenEntries = [
-    ["NEMO_GATEWAY_TOKEN", await getenv("NEMO_GATEWAY_TOKEN")],
-  ] as const;
+  const tokenEntries = [["NEMO_GATEWAY_TOKEN", await getenv("NEMO_GATEWAY_TOKEN")]] as const;
   const passwordEntries = [
     ["NEMO_GATEWAY_PASSWORD", await getenv("NEMO_GATEWAY_PASSWORD")],
   ] as const;
@@ -126,10 +123,7 @@ export function noteDeprecatedLegacyEnvVars(
   deps?: { noteFn?: typeof note },
 ) {
   const entries = Object.entries(env)
-    .filter(
-      ([key, value]) =>
-        (key.startsWith("NEMO_") || key.startsWith("NEMO_")) && value?.trim(),
-    )
+    .filter(([key, value]) => (key.startsWith("NEMO_") || key.startsWith("NEMO_")) && value?.trim())
     .map(([key]) => key);
   if (entries.length === 0) {
     return;

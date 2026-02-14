@@ -177,5 +177,4 @@
 - Publish: `npm publish --access public --otp="<otp>"` (run from the package dir).
 - Verify without local npmrc side effects: `npm view <pkg> version --userconfig "$(mktemp)"`.
 - Kill the tmux session after publish.
-[AGENTS.md](https://github.com/user-attachments/files/25277449/AGENTS.md)
-
+  [AGENTS.md](https://github.com/user-attachments/files/25277449/AGENTS.md)

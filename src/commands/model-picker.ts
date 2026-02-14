@@ -512,10 +512,7 @@ export function applyModelAllowlist(cfg: NEMOConfig, models: string[]): NEMOConf
   };
 }
 
-export function applyModelFallbacksFromSelection(
-  cfg: NEMOConfig,
-  selection: string[],
-): NEMOConfig {
+export function applyModelFallbacksFromSelection(cfg: NEMOConfig, selection: string[]): NEMOConfig {
   const normalized = normalizeModelKeys(selection);
   if (normalized.length <= 1) {
     return cfg;

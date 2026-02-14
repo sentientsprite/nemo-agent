@@ -224,9 +224,7 @@ export async function gatherDaemonStatus(
     ? await probeGatewayStatus({
         url: probeUrl,
         token:
-          opts.rpc.token ||
-          mergedDaemonEnv.NEMO_GATEWAY_TOKEN ||
-          daemonCfg.gateway?.auth?.token,
+          opts.rpc.token || mergedDaemonEnv.NEMO_GATEWAY_TOKEN || daemonCfg.gateway?.auth?.token,
         password:
           opts.rpc.password ||
           mergedDaemonEnv.NEMO_GATEWAY_PASSWORD ||

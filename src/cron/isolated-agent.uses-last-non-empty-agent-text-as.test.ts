@@ -52,11 +52,7 @@ async function readSessionEntry(storePath: string, key: string) {
   return store[key];
 }
 
-function makeCfg(
-  home: string,
-  storePath: string,
-  overrides: Partial<NEMOConfig> = {},
-): NEMOConfig {
+function makeCfg(home: string, storePath: string, overrides: Partial<NEMOConfig> = {}): NEMOConfig {
   const base: NEMOConfig = {
     agents: {
       defaults: {

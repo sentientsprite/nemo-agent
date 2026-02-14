@@ -1,9 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import {
-  DEFAULT_NEMO_BROWSER_COLOR,
-  DEFAULT_NEMO_BROWSER_PROFILE_NAME,
-} from "./constants.js";
+import { DEFAULT_NEMO_BROWSER_COLOR, DEFAULT_NEMO_BROWSER_PROFILE_NAME } from "./constants.js";
 
 function decoratedMarkerPath(userDataDir: string) {
   return path.join(userDataDir, ".nemo-profile-decorated");
@@ -126,10 +123,7 @@ export function isProfileDecorated(
  * Best-effort profile decoration (name + lobster-orange). Chrome preference keys
  * vary by version; we keep this conservative and idempotent.
  */
-export function decorateNEMOProfile(
-  userDataDir: string,
-  opts?: { name?: string; color?: string },
-) {
+export function decorateNEMOProfile(userDataDir: string, opts?: { name?: string; color?: string }) {
   const desiredName = opts?.name ?? DEFAULT_NEMO_BROWSER_PROFILE_NAME;
   const desiredColor = (opts?.color ?? DEFAULT_NEMO_BROWSER_COLOR).toUpperCase();
   const desiredColorInt = parseHexRgbToSignedArgbInt(desiredColor);

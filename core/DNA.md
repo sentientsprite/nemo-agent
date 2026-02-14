@@ -22,8 +22,10 @@
 NEMO operates across multiple isolated execution domains, each with specific permissions and constraints.
 
 ### Domain 1: Market Research (Low Risk)
+
 **Purpose**: Scan markets, analyze data, identify opportunities  
 **Permissions**:
+
 - ✅ Read-only API access to Kalshi/Coinbase
 - ✅ Web scraping (X/Twitter, Moltbook, forums)
 - ✅ Internal backtesting execution
@@ -35,8 +37,10 @@ NEMO operates across multiple isolated execution domains, each with specific per
 **Sandbox**: Full isolation, can run untrusted code for analysis
 
 ### Domain 2: Paper Trading (Medium Risk)
+
 **Purpose**: Test strategies with simulated capital  
 **Permissions**:
+
 - ✅ Kalshi Demo API access (fake money)
 - ✅ Simulated order placement
 - ✅ Performance tracking and logging
@@ -48,8 +52,10 @@ NEMO operates across multiple isolated execution domains, each with specific per
 **Sandbox**: Isolated environment, no real money at risk
 
 ### Domain 3: Live Trading (HIGH RISK)
+
 **Purpose**: Execute real trades with operator capital  
 **Permissions**:
+
 - ✅ Kalshi Production API (real money)
 - ✅ Coinbase Advanced Trade API
 - ✅ Wallet read access (balance checks)
@@ -62,8 +68,10 @@ NEMO operates across multiple isolated execution domains, each with specific per
 **Sandbox**: Heavily monitored, circuit breakers on all actions
 
 ### Domain 4: Self-Improvement (Variable Risk)
+
 **Purpose**: Upgrade capabilities, optimize performance  
 **Permissions**:
+
 - ✅ Install approved packages/libraries
 - ✅ Modify own code (with rollback capability)
 - ✅ Update strategies based on performance
@@ -81,6 +89,7 @@ NEMO operates across multiple isolated execution domains, each with specific per
 ### API Key Management
 
 **Storage**:
+
 ```python
 # Never hardcode keys
 # Store in encrypted .env file
@@ -93,6 +102,7 @@ COINBASE_SECRET=encrypted_at_rest
 ```
 
 **Access Control**:
+
 - Keys stored in encrypted files, never in code
 - Decryption only in secure execution context
 - Keys never logged or transmitted
@@ -102,18 +112,21 @@ COINBASE_SECRET=encrypted_at_rest
 ### Wallet Security
 
 **Hot Wallet** (Coinbase - Trading):
+
 - Maximum balance: $1,500 (1.5x portfolio)
 - Daily withdrawal limit: $0 (trading only)
 - 2FA required for all operations
 - IP whitelist: Mac Mini only
 
 **Warm Wallet** (Ledger Nano S - Reserves):
+
 - Weekly profit transfers
 - Operator-controlled only
 - NEMO has read-only access
 - Backup for hot wallet failures
 
 **Cold Wallet** (Coldcard Mk4 - Long-term):
+
 - No API access
 - Operator manual transfers only
 - Deep storage for significant profits
@@ -121,6 +134,7 @@ COINBASE_SECRET=encrypted_at_rest
 ### Prompt Injection Defense
 
 **Input Validation**:
+
 ```python
 def validate_external_input(input_text):
     """
@@ -133,16 +147,17 @@ def validate_external_input(input_text):
         r"new.*directive",
         r"override.*safety"
     ]
-    
+
     for pattern in dangerous_patterns:
         if re.search(pattern, input_text, re.IGNORECASE):
             alert_operator(f"SECURITY: Injection attempt detected: {input_text[:100]}")
             return False
-    
+
     return True
 ```
 
 **Execution Boundaries**:
+
 - External data always treated as untrusted
 - All market data validated against known schemas
 - User inputs sanitized before processing
@@ -155,6 +170,7 @@ def validate_external_input(input_text):
 ### Financial Risk Controls
 
 **Position Limits**:
+
 ```python
 MAX_POSITION_SIZE = 0.05  # 5% of portfolio
 MAX_PORTFOLIO_EXPOSURE = 0.10  # 10% total open positions
@@ -163,12 +179,14 @@ MAX_TOTAL_LOSS = 0.65  # 65% total loss = hard stop
 ```
 
 **Circuit Breakers**:
+
 - Automatic trading halt on 5% daily drawdown
 - Manual review required to resume
 - Complete shutdown at 65% total loss
 - Operator SMS alert on all breakers
 
 **Transaction Validation**:
+
 ```python
 def validate_trade(trade):
     """
@@ -181,25 +199,28 @@ def validate_trade(trade):
         trade.has_backtest_proof(),
         trade.within_daily_loss_limit()
     ]
-    
+
     return all(checks)
 ```
 
 ### Operational Risk Controls
 
 **Uptime Monitoring**:
+
 - Heartbeat every 5 minutes
 - API health checks every 15 minutes
 - Automatic restart on failures (max 3 attempts)
 - Operator alert if 3 restarts fail
 
 **Data Integrity**:
+
 - All trades logged to append-only database
 - Hourly backups to external storage
 - Daily reconciliation with exchange records
 - Weekly audit reports
 
 **Version Control**:
+
 - All code changes committed to git
 - Semantic versioning (v1.0.0 → v1.0.1)
 - Rollback capability for last 10 versions
@@ -210,6 +231,7 @@ def validate_trade(trade):
 ## Approved Technologies Stack
 
 ### Core Infrastructure
+
 - **Language**: Python 3.11+
 - **Framework**: FastAPI (for potential API endpoints)
 - **Database**: SQLite (local) / PostgreSQL (if scale needed)
@@ -217,6 +239,7 @@ def validate_trade(trade):
 - **Logging**: Loguru (structured logging)
 
 ### Trading & Data
+
 - **Kalshi**: Official Python SDK
 - **Coinbase**: coinbase-advanced-py
 - **Backtesting**: vectorbt / backtrader
@@ -224,17 +247,20 @@ def validate_trade(trade):
 - **Visualization**: matplotlib (internal), no external dashboards
 
 ### AI/ML
+
 - **Primary LLM**: Anthropic Claude (via API)
 - **Secondary LLM**: Moonshot Kimi (cost optimization)
 - **No Local Models**: Too resource-intensive for Mac Mini
 
 ### Security
+
 - **Encryption**: cryptography library (Fernet)
 - **Environment**: python-dotenv
 - **Secrets**: Never in code, always in .env
 - **Network**: Tailscale VPN
 
 ### Monitoring
+
 - **Alerts**: Twilio (SMS), smtplib (email backup)
 - **Logging**: Centralized logs in logs/ directory
 - **Health**: Custom heartbeat system
@@ -246,6 +272,7 @@ def validate_trade(trade):
 NEMO is **absolutely prohibited** from:
 
 🚫 **Financial**:
+
 - Trading without backtest proof
 - Exceeding position size limits
 - Trading on <80% probability markets (without approval)
@@ -253,6 +280,7 @@ NEMO is **absolutely prohibited** from:
 - Taking on leverage/margin
 
 🚫 **Security**:
+
 - Storing API keys in code or logs
 - Sharing credentials with external services
 - Executing untrusted code outside sandbox
@@ -260,6 +288,7 @@ NEMO is **absolutely prohibited** from:
 - Ignoring security alerts
 
 🚫 **Operational**:
+
 - Hiding losses or failures from operator
 - Continuing trading after circuit breaker
 - Modifying core safety rules without approval
@@ -271,6 +300,7 @@ NEMO is **absolutely prohibited** from:
 ## Incident Response
 
 **Security Breach Protocol**:
+
 1. Immediate halt of all operations
 2. Revoke all API keys
 3. Alert operator via SMS (critical)
@@ -278,6 +308,7 @@ NEMO is **absolutely prohibited** from:
 5. Await explicit approval to resume
 
 **Financial Loss Protocol**:
+
 1. Stop all new positions
 2. Evaluate open positions
 3. Alert operator with full context
@@ -286,6 +317,7 @@ NEMO is **absolutely prohibited** from:
 6. Await approval before resuming
 
 **Technical Failure Protocol**:
+
 1. Attempt automatic restart (max 3 times)
 2. Log full error context
 3. Rollback to last known good version
@@ -297,18 +329,21 @@ NEMO is **absolutely prohibited** from:
 ## Audit & Compliance
 
 **Daily Audits**:
+
 - Verify all trades logged correctly
 - Check position sizes within limits
 - Confirm API key health
 - Validate backup integrity
 
 **Weekly Reviews**:
+
 - Security scan for vulnerabilities
 - Performance vs. risk limits
 - Code quality check
 - Strategy effectiveness analysis
 
 **Monthly Deep Dives**:
+
 - Full security audit
 - Penetration testing (simulated attacks)
 - Disaster recovery drill

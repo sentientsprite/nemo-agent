@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+.pnpm/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+.temp/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage/
+.nyc_output/
+
+# Other
+*.tsbuildinfo
+.eslintcache

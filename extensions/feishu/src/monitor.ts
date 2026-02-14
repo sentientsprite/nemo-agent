@@ -1,4 +1,4 @@
-import type { NEMO-AgentConfig, RuntimeEnv, HistoryEntry } from "nemo/plugin-sdk";
+import type { NEMOAgentConfig, RuntimeEnv, HistoryEntry } from "nemo/plugin-sdk";
 import * as Lark from "@larksuiteoapi/node-sdk";
 import * as http from "http";
 import type { ResolvedFeishuAccount } from "./types.js";
@@ -8,7 +8,7 @@ import { createFeishuWSClient, createEventDispatcher } from "./client.js";
 import { probeFeishu } from "./probe.js";
 
 export type MonitorFeishuOpts = {
-  config?: NEMO-AgentConfig;
+  config?: NEMOAgentConfig;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;
   accountId?: string;
@@ -36,7 +36,7 @@ async function fetchBotOpenId(account: ResolvedFeishuAccount): Promise<string | 
 function registerEventHandlers(
   eventDispatcher: Lark.EventDispatcher,
   context: {
-    cfg: NEMO-AgentConfig;
+    cfg: NEMOAgentConfig;
     accountId: string;
     runtime?: RuntimeEnv;
     chatHistories: Map<string, HistoryEntry[]>;
@@ -93,7 +93,7 @@ function registerEventHandlers(
 }
 
 type MonitorAccountParams = {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   account: ResolvedFeishuAccount;
   runtime?: RuntimeEnv;
   abortSignal?: AbortSignal;

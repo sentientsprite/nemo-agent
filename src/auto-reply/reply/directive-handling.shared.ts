@@ -58,9 +58,7 @@ export function formatElevatedUnavailableText(params: {
     );
   }
   if (params.sessionKey) {
-    lines.push(
-      `See: ${formatCliCommand(`nemo sandbox explain --session ${params.sessionKey}`)}`,
-    );
+    lines.push(`See: ${formatCliCommand(`nemo sandbox explain --session ${params.sessionKey}`)}`);
   }
   return lines.join("\n");
 }

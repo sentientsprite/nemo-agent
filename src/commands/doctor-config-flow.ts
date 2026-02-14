@@ -242,9 +242,7 @@ export async function loadAndMaybeMigrateDoctorConfig(params: {
         cfg = migrated;
       }
     } else {
-      fixHints.push(
-        `Run "${formatCliCommand("nemo doctor --fix")}" to apply legacy migrations.`,
-      );
+      fixHints.push(`Run "${formatCliCommand("nemo doctor --fix")}" to apply legacy migrations.`);
     }
   }
 

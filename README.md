@@ -3,9 +3,11 @@
 **Autonomous trading agent built on OpenClaw framework**
 
 ## 🎯 Mission
+
 Generate consistent autonomous revenue through low-risk, high-probability trading on Kalshi prediction markets and Coinbase crypto markets.
 
 ## 📊 Operator Profile
+
 - **Target Return**: 20-25% monthly
 - **Starting Capital**: $1,000 USDC
 - **Max Loss Tolerance**: 65% ($350 stop-loss)
@@ -29,12 +31,14 @@ NEMO uses a modular "organism" architecture:
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Python 3.11+
 - Coinbase account with API access
 - Kalshi demo account (for paper trading)
 - iMessage/SMS capability (for alerts)
 
 ### Installation
+
 ```bash
 # Clone repository
 git clone https://github.com/sentientsprite/nemo-agent.git
@@ -93,6 +97,7 @@ nemo-agent/
 ## 📈 Proof-of-Concept Requirements
 
 Before live trading with real capital, NEMO must demonstrate:
+
 1. ✅ 5 successful paper trades
 2. ✅ Minimum 5.5% profit per trade
 3. ✅ Max drawdown under 10%
@@ -102,6 +107,7 @@ Before live trading with real capital, NEMO must demonstrate:
 ## 🎮 Current Status
 
 **Phase**: Initial Setup
+
 - [ ] Core files configured
 - [ ] Kalshi demo account connected
 - [ ] Coinbase API integrated

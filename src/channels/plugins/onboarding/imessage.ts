@@ -31,11 +31,7 @@ function setIMessageDmPolicy(cfg: NEMOConfig, dmPolicy: DmPolicy) {
   };
 }
 
-function setIMessageAllowFrom(
-  cfg: NEMOConfig,
-  accountId: string,
-  allowFrom: string[],
-): NEMOConfig {
+function setIMessageAllowFrom(cfg: NEMOConfig, accountId: string, allowFrom: string[]): NEMOConfig {
   if (accountId === DEFAULT_ACCOUNT_ID) {
     return {
       ...cfg,

@@ -1,4 +1,4 @@
-import type { NEMO-AgentConfig } from "nemo/plugin-sdk";
+import type { NEMOAgentConfig } from "nemo/plugin-sdk";
 import { resolveFeishuAccount } from "./accounts.js";
 import { createFeishuClient } from "./client.js";
 
@@ -16,7 +16,7 @@ export type TypingIndicatorState = {
  * Add a typing indicator (reaction) to a message
  */
 export async function addTypingIndicator(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   messageId: string;
   accountId?: string;
 }): Promise<TypingIndicatorState> {
@@ -50,7 +50,7 @@ export async function addTypingIndicator(params: {
  * Remove a typing indicator (reaction) from a message
  */
 export async function removeTypingIndicator(params: {
-  cfg: NEMO-AgentConfig;
+  cfg: NEMOAgentConfig;
   state: TypingIndicatorState;
   accountId?: string;
 }): Promise<void> {

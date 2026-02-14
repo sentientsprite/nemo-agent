@@ -193,19 +193,13 @@ describe("diagnostics-otel service", () => {
     });
 
     expect(telemetryState.counters.get("nemo.webhook.received")?.add).toHaveBeenCalled();
-    expect(
-      telemetryState.histograms.get("nemo.webhook.duration_ms")?.record,
-    ).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("nemo.webhook.duration_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.counters.get("nemo.message.queued")?.add).toHaveBeenCalled();
     expect(telemetryState.counters.get("nemo.message.processed")?.add).toHaveBeenCalled();
-    expect(
-      telemetryState.histograms.get("nemo.message.duration_ms")?.record,
-    ).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("nemo.message.duration_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.histograms.get("nemo.queue.wait_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.counters.get("nemo.session.stuck")?.add).toHaveBeenCalled();
-    expect(
-      telemetryState.histograms.get("nemo.session.stuck_age_ms")?.record,
-    ).toHaveBeenCalled();
+    expect(telemetryState.histograms.get("nemo.session.stuck_age_ms")?.record).toHaveBeenCalled();
     expect(telemetryState.counters.get("nemo.run.attempt")?.add).toHaveBeenCalled();
 
     const spanNames = telemetryState.tracer.startSpan.mock.calls.map((call) => call[0]);
