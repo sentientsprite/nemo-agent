@@ -422,8 +422,17 @@ const DOCKS: Record<ChatChannelId, ChannelDock> = {
         (resolveIMessageAccount({ cfg, accountId }).config.allowFrom ?? []).map((entry) =>
           String(entry),
         ),
-      formatAllowFrom: ({ allowFrom }) =>
-        allowFrom.map((entry) => String(entry).trim()).filter(Boolean),
+      formatAllowFrom: ({ allowFrom }) => {
+        // Single-pass optimization
+        const result: string[] = [];
+        for (const entry of allowFrom) {
+          const trimmed = String(entry).trim();
+          if (trimmed) {
+            result.push(trimmed);
+          }
+        }
+        return result;
+      },
     },
     groups: {
       resolveRequireMention: resolveIMessageGroupRequireMention,

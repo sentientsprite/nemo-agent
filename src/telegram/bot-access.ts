@@ -10,7 +10,15 @@ export type NormalizedAllowFrom = {
 export type AllowFromMatch = AllowlistMatch<"wildcard" | "id" | "username">;
 
 export const normalizeAllowFrom = (list?: Array<string | number>): NormalizedAllowFrom => {
-  const entries = (list ?? []).map((value) => String(value).trim()).filter(Boolean);
+  // Single-pass optimization: combine map and filter operations
+  const entries: string[] = [];
+  for (const value of list ?? []) {
+    const trimmed = String(value).trim();
+    if (trimmed) {
+      entries.push(trimmed);
+    }
+  }
+
   const hasWildcard = entries.includes("*");
   const normalized = entries
     .filter((value) => value !== "*")
@@ -28,9 +36,14 @@ export const normalizeAllowFromWithStore = (params: {
   allowFrom?: Array<string | number>;
   storeAllowFrom?: string[];
 }): NormalizedAllowFrom => {
-  const combined = [...(params.allowFrom ?? []), ...(params.storeAllowFrom ?? [])]
-    .map((value) => String(value).trim())
-    .filter(Boolean);
+  // Single-pass optimization: combine operations
+  const combined: string[] = [];
+  for (const value of [...(params.allowFrom ?? []), ...(params.storeAllowFrom ?? [])]) {
+    const trimmed = String(value).trim();
+    if (trimmed) {
+      combined.push(trimmed);
+    }
+  }
   return normalizeAllowFrom(combined);
 };
 

@@ -61,17 +61,17 @@ export function appendHistoryEntry<T extends HistoryEntry>(params: {
   }
   const history = historyMap.get(historyKey) ?? [];
   history.push(entry);
-  while (history.length > params.limit) {
-    history.shift();
-  }
+  // Use slice instead of repeated shift() to avoid O(n²) complexity
+  const trimmedHistory =
+    history.length > params.limit ? history.slice(history.length - params.limit) : history;
   if (historyMap.has(historyKey)) {
     // Refresh insertion order so eviction keeps recently used histories.
     historyMap.delete(historyKey);
   }
-  historyMap.set(historyKey, history);
+  historyMap.set(historyKey, trimmedHistory);
   // Evict oldest keys if map exceeds max size to prevent unbounded memory growth
   evictOldHistoryKeys(historyMap);
-  return history;
+  return trimmedHistory;
 }
 
 export function recordPendingHistoryEntry<T extends HistoryEntry>(params: {
