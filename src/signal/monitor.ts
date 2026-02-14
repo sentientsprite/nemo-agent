@@ -69,7 +69,15 @@ function resolveRuntime(opts: MonitorSignalOpts): RuntimeEnv {
 }
 
 function normalizeAllowList(raw?: Array<string | number>): string[] {
-  return (raw ?? []).map((entry) => String(entry).trim()).filter(Boolean);
+  // Single-pass optimization
+  const result: string[] = [];
+  for (const entry of raw ?? []) {
+    const trimmed = String(entry).trim();
+    if (trimmed) {
+      result.push(trimmed);
+    }
+  }
+  return result;
 }
 
 type SignalReactionTarget = {
