@@ -1,4 +1,5 @@
 import type { AllowlistMatch } from "../channels/allowlist-match.js";
+import { normalizeStringArray } from "../utils.js";
 
 export type NormalizedAllowFrom = {
   entries: string[];
@@ -10,14 +11,8 @@ export type NormalizedAllowFrom = {
 export type AllowFromMatch = AllowlistMatch<"wildcard" | "id" | "username">;
 
 export const normalizeAllowFrom = (list?: Array<string | number>): NormalizedAllowFrom => {
-  // Single-pass optimization: combine map and filter operations
-  const entries: string[] = [];
-  for (const value of list ?? []) {
-    const trimmed = String(value).trim();
-    if (trimmed) {
-      entries.push(trimmed);
-    }
-  }
+  // Use efficient single-pass utility
+  const entries = normalizeStringArray(list ?? []);
 
   const hasWildcard = entries.includes("*");
   const normalized = entries
@@ -36,14 +31,11 @@ export const normalizeAllowFromWithStore = (params: {
   allowFrom?: Array<string | number>;
   storeAllowFrom?: string[];
 }): NormalizedAllowFrom => {
-  // Single-pass optimization: combine operations
-  const combined: string[] = [];
-  for (const value of [...(params.allowFrom ?? []), ...(params.storeAllowFrom ?? [])]) {
-    const trimmed = String(value).trim();
-    if (trimmed) {
-      combined.push(trimmed);
-    }
-  }
+  // Use efficient utility for combined normalization
+  const combined = normalizeStringArray([
+    ...(params.allowFrom ?? []),
+    ...(params.storeAllowFrom ?? []),
+  ]);
   return normalizeAllowFrom(combined);
 };
 

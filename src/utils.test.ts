@@ -6,9 +6,11 @@ import {
   assertWebChannel,
   CONFIG_DIR,
   ensureDir,
+  filterMap,
   jidToE164,
   normalizeE164,
   normalizePath,
+  normalizeStringArray,
   resolveConfigDir,
   resolveHomeDir,
   resolveJidToE164,
@@ -217,5 +219,39 @@ describe("resolveUserPath", () => {
   it("keeps blank paths blank", () => {
     expect(resolveUserPath("")).toBe("");
     expect(resolveUserPath("   ")).toBe("");
+  });
+});
+
+describe("filterMap", () => {
+  it("filters and maps in single pass", () => {
+    const input = [1, 2, null, 3, 4, null, 5];
+    const result = filterMap(input, (x) => (x ? x * 2 : null));
+    expect(result).toEqual([2, 4, 6, 8, 10]);
+  });
+
+  it("passes index to mapper function", () => {
+    const input = ["a", "b", "c"];
+    const result = filterMap(input, (x, i) => (i > 0 ? `${x}${i}` : null));
+    expect(result).toEqual(["b1", "c2"]);
+  });
+
+  it("handles empty arrays", () => {
+    expect(filterMap([], (x) => x)).toEqual([]);
+  });
+});
+
+describe("normalizeStringArray", () => {
+  it("trims and filters strings in single pass", () => {
+    const input = ["  hello  ", "world", "", "  ", null, undefined, 123];
+    const result = normalizeStringArray(input);
+    expect(result).toEqual(["hello", "world", "123"]);
+  });
+
+  it("handles empty arrays", () => {
+    expect(normalizeStringArray([])).toEqual([]);
+  });
+
+  it("handles all null/undefined/empty", () => {
+    expect(normalizeStringArray([null, undefined, "", "  "])).toEqual([]);
   });
 });

@@ -398,4 +398,47 @@ export function formatTerminalLink(
 }
 
 // Configuration root; can be overridden via NEMO_STATE_DIR.
+
+/**
+ * Efficiently filter and map an array in a single pass.
+ * More efficient than chaining .filter().map() or .map().filter().
+ *
+ * @example
+ * // Instead of: items.filter(x => x).map(x => x.toUpperCase())
+ * filterMap(items, x => x ? x.toUpperCase() : null)
+ */
+export function filterMap<T, U>(
+  array: T[],
+  fn: (item: T, index: number) => U | null | undefined,
+): U[] {
+  const result: U[] = [];
+  for (let i = 0; i < array.length; i++) {
+    const mapped = fn(array[i], i);
+    if (mapped != null) {
+      result.push(mapped);
+    }
+  }
+  return result;
+}
+
+/**
+ * Efficiently normalize and filter string arrays in a single pass.
+ * Common pattern: convert to strings, trim, and remove empty values.
+ *
+ * @example
+ * // Instead of: items.map(x => String(x).trim()).filter(Boolean)
+ * normalizeStringArray(items)
+ */
+export function normalizeStringArray(array: Array<string | number | null | undefined>): string[] {
+  const result: string[] = [];
+  for (const item of array) {
+    if (item != null) {
+      const trimmed = String(item).trim();
+      if (trimmed) {
+        result.push(trimmed);
+      }
+    }
+  }
+  return result;
+}
 export const CONFIG_DIR = resolveConfigDir();
