@@ -101,6 +101,8 @@
     "tui": "node scripts/run-node.mjs tui",
     "tui:dev": "NEMO_PROFILE=dev NEMO_PROFILE=dev node scripts/run-node.mjs --dev tui",
     "ui:build": "node scripts/ui.js build",
+    "ui:dashboard:build": "pnpm --dir dashboard install && pnpm --dir dashboard build",
+    "ui:dashboard:dev": "pnpm --dir dashboard install && pnpm --dir dashboard dev",
     "ui:dev": "node scripts/ui.js dev",
     "ui:install": "node scripts/ui.js install"
   },
