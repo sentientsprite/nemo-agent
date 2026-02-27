@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-02-26T22:35:00-07:00",
+  "lastUpdated": "2026-02-26T22:45:00-07:00",
   "jobs": [
     {"name": "Daily Security Audit", "status": "running", "schedule": "00:00 MST", "lastRun": "2026-02-26T09:01:00Z"},
     {"name": "Session Compaction Monitor", "status": "running", "schedule": "Automatic", "lastRun": "2026-02-26T22:00:00Z"},
     {"name": "API Credit Check", "status": "pending", "schedule": "Sunday 00:00 MST", "lastRun": "Pending setup"},
     {"name": "GitHub Sync", "status": "running", "schedule": "Every 6 hours", "lastRun": "2026-02-26T22:05:00Z", "note": "Config fix + docs pushed"},
-    {"name": "Snipe + Maker 24hr Test", "status": "running", "schedule": "Continuous", "started": "2026-02-26T22:00:00Z", "ends": "2026-02-27T22:00:00Z", "pid": 46793, "note": "Restarted with config fix"},
+    {"name": "Snipe + Maker 24hr Test", "status": "running", "schedule": "Continuous", "started": "2026-02-26T22:45:00Z", "ends": "2026-02-27T22:45:00Z", "pid": 58828, "note": "Restarted with config fix"},
     {"name": "Night Shift Status Check", "status": "running", "schedule": "Hourly", "started": "2026-02-26T22:00:00Z"}
   ],
   "summary": {
@@ -101,56 +101,14 @@
       "name": "VS Code + Google Colab GPU",
       "status": "todo",
       "tasks": [
-        {"name": "Set up VS Code Colab extension", "status": "todo"},
-        {"name": "Configure free T4 GPU access", "status": "todo"},
-        {"name": "Test larger model inference", "status": "todo"},
-        {"name": "Document workflow", "status": "todo"}
-      ],
-      "note": "URL #29 — free GPU for training/inference"
+        {"name": "VS Code remote setup", "status": "todo"},
+        {"name": "Google Colab notebook", "status": "todo"},
+        {"name": "GPU-based training pipeline", "status": "todo"}
+      ]
     },
     {
-      "name": "Multi-Agent Mission Control",
-      "status": "inProgress",
-      "tasks": [
-        {"name": "Study 10-agent pattern guide (3.8M views)", "status": "done", "note": "pbteja1998 SiteGPT architecture"},
-        {"name": "Design sub-agent team structure", "status": "done", "note": "9 agents defined"},
-        {"name": "Create agent registry", "status": "done", "note": "config/agents.json"},
-        {"name": "Build Commander module", "status": "done", "note": "core/commander.py"},
-        {"name": "Define agent skills", "status": "done", "note": "Researcher, Coder, Trader"},
-        {"name": "Create specialized agents", "status": "todo", "note": "Spawn actual sub-agents"},
-        {"name": "Implement agent delegation protocol", "status": "todo", "note": "sessions_spawn integration"}
-      ],
-      "note": "Phase 1 complete: Design + Commander. Phase 2: Live agents."
-    },
-    {
-      "name": "Trading Bots",
-      "status": "inProgress",
-      "tasks": [
-        {"name": "Unified NEMO Trading plugin", "status": "done", "note": "5 strategies, GitHub committed"},
-        {"name": "Coinbase 8hr dry-run test", "status": "done", "note": "-6.31%, momentum failed in chop"},
-        {"name": "Polymarket bot enhanced", "status": "done", "note": "Snipe + Maker, Crowd Fade"},
-        {"name": "Risk management systems", "status": "done"},
-        {"name": "Strategy research complete", "status": "done", "note": "5 research reports written"},
-        {"name": "24hr Snipe + Maker test", "status": "running", "note": "Started 19:41 MST, ends tomorrow"}
-      ],
-      "note": "24-hour test in progress. Results tomorrow 19:41 MST."
-    },
-    {
-      "name": "Agent Body Framework",
+      "name": "Moltbook Ecosystem",
       "status": "done",
-      "tasks": [
-        {"name": "Define voice and personality", "status": "done", "note": "🐟 fish emoji, 'Captain' casual"},
-        {"name": "Autonomy boundaries", "status": "done", "note": "$10 trade max, escalate debates"},
-        {"name": "Memory protocols", "status": "done"},
-        {"name": "LAST_WILL.md", "status": "done"},
-        {"name": "DREAM_LOG.md", "status": "done"},
-        {"name": "Profit sharing structure", "status": "done"}
-      ],
-      "note": "Complete — NEMO is born"
-    },
-    {
-      "name": "Community & Platforms",
-      "status": "blocked",
       "tasks": [
         {"name": "Moltbook registered", "status": "done"},
         {"name": "Moltbook claim", "status": "blocked", "note": "X OAuth broken, code: current-7DMC"},
@@ -171,42 +129,24 @@
         {"name": "VPN deployment ready", "status": "done"}
       ],
       "note": "Snipe strategy: 70-80% expected win rate"
-    }
-  ],
-  "trading": {
-    "status": "testing",
-    "activeTest": {
-      "name": "Snipe + Maker 24hr",
-      "started": "2026-02-26T19:41:00-07:00",
-      "ends": "2026-02-27T19:41:00-07:00",
-      "pid": 14486,
-      "logFile": "/tmp/nemo-trading.log",
-      "mode": "dry-run",
-      "expectedWinRate": "70-80%"
     },
-    "lastTest": {
-      "name": "Coinbase Momentum 8hr",
-      "date": "2026-02-26",
-      "duration": "8 hours",
-      "result": "-6.31%",
-      "winRate": "33.7%",
-      "note": "Failed in chop, infrastructure sound"
+    {
+      "name": "Trading Bot Development",
+      "status": "inProgress",
+      "tasks": [
+        {"name": "Unified NEMO Trading plugin", "status": "done"},
+        {"name": "Polymarket integration", "status": "done"},
+        {"name": "Coinbase integration", "status": "done"},
+        {"name": "Momentum strategy", "status": "done"},
+        {"name": "Mean Reversion strategy", "status": "done"},
+        {"name": "Snipe + Maker strategy", "status": "testing"},
+        {"name": "Crowd Fade strategy", "status": "done"},
+        {"name": "Copy Trading strategy", "status": "done"},
+        {"name": "Risk management", "status": "done"},
+        {"name": "Paper trading tests", "status": "inProgress", "note": "24hr test running"}
+      ]
     },
-    "strategies": [
-      {"name": "Momentum", "status": "failed", "winRate": "33.7%", "pnl": "-6.31%", "note": "Failed in chop, needs ADX filter"},
-      {"name": "Mean Reversion", "status": "ready", "winRate": "TBD", "pnl": "TBD"},
-      {"name": "Snipe + Maker", "status": "testing", "winRate": "TBD", "pnl": "TBD", "note": "24hr test running"},
-      {"name": "Crowd Fade", "status": "ready", "winRate": "65% expected", "pnl": "TBD"},
-      {"name": "Copy Trading", "status": "ready", "winRate": "TBD", "pnl": "TBD"}
-    ],
-    "riskLimits": {
-      "maxPosition": "$10 (live) / $50 (dry-run)",
-      "dailyLossLimit": "$50",
-      "maxDrawdown": "10%",
-      "consecutiveLossCooldown": "3 losses"
-    }
-  },
-  {
+    {
       "name": "Night Shift Operations",
       "status": "completed",
       "tasks": [
@@ -244,12 +184,45 @@
       "note": "Skills ready. Choose API key or gateway authentication."
     }
   ],
+  "trading": {
+    "status": "testing",
+    "activeTest": {
+      "name": "Snipe + Maker 24hr",
+      "started": "2026-02-26T22:45:00Z",
+      "ends": "2026-02-27T22:45:00Z",
+      "pid": 58828,
+      "logFile": "/tmp/nemo-trading-fresh.log",
+      "mode": "dry-run",
+      "expectedWinRate": "70-80%"
+    },
+    "lastTest": {
+      "name": "Coinbase Momentum 8hr",
+      "date": "2026-02-26",
+      "duration": "8 hours",
+      "result": "-6.31%",
+      "winRate": "33.7%",
+      "note": "Failed in chop, infrastructure sound"
+    },
+    "strategies": [
+      {"name": "Momentum", "status": "failed", "winRate": "33.7%", "pnl": "-6.31%", "note": "Failed in chop, needs ADX filter"},
+      {"name": "Mean Reversion", "status": "ready", "winRate": "TBD", "pnl": "TBD"},
+      {"name": "Snipe + Maker", "status": "testing", "winRate": "TBD", "pnl": "TBD", "note": "24hr test running"},
+      {"name": "Crowd Fade", "status": "ready", "winRate": "65% expected", "pnl": "TBD"},
+      {"name": "Copy Trading", "status": "ready", "winRate": "TBD", "pnl": "TBD"}
+    ],
+    "riskLimits": {
+      "maxPosition": "$10 (live) / $50 (dry-run)",
+      "dailyLossLimit": "$50",
+      "maxDrawdown": "10%",
+      "consecutiveLossCooldown": "3 losses"
+    }
+  },
   "keyMetrics": {
     "apiCreditsUsed": "~$50 (Feb)",
     "apiBudgetRemaining": "$150",
-    "githubCommits": "5f70308",
-    "lastBackup": "2026-02-26T22:25:00Z",
-    "tradingBotPid": 46793,
+    "githubCommits": "5b9d9c5",
+    "lastBackup": "2026-02-26T22:45:00Z",
+    "tradingBotPid": 58828,
     "24hrTestStatus": "Running (restarted with fix)",
     "skillsInstalled": 3,
     "skillsInstallScript": "scripts/install-skills.sh"
