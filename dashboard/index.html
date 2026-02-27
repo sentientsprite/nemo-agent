@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐠 Nemo Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0e17; color: #e0e0e0; padding: 20px; }
+  h1 { color: #00d4ff; margin-bottom: 20px; font-size: 1.8em; }
+  .summary { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+  .stat { background: #141b2d; border-radius: 12px; padding: 16px 24px; min-width: 120px; text-align: center; border: 1px solid #1e2a42; }
+  .stat .number { font-size: 2em; font-weight: 700; }
+  .stat .label { font-size: 0.85em; color: #8892a4; margin-top: 4px; }
+  .stat.done .number { color: #00e676; }
+  .stat.todo .number { color: #ffd740; }
+  .stat.blocked .number { color: #ff5252; }
+  .stat.progress .number { color: #448aff; }
+  .project { background: #141b2d; border-radius: 12px; padding: 16px; margin-bottom: 12px; border: 1px solid #1e2a42; }
+  .project-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .project-name { font-size: 1.1em; font-weight: 600; }
+  .badge { padding: 3px 10px; border-radius: 20px; font-size: 0.75em; font-weight: 600; text-transform: uppercase; }
+  .badge.done { background: #00e67622; color: #00e676; }
+  .badge.todo { background: #ffd74022; color: #ffd740; }
+  .badge.blocked { background: #ff525222; color: #ff5252; }
+  .badge.inProgress { background: #448aff22; color: #448aff; }
+  .tasks { list-style: none; }
+  .tasks li { padding: 4px 0; font-size: 0.9em; color: #b0b8c8; }
+  .tasks li::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; }
+  .tasks li.done::before { background: #00e676; }
+  .tasks li.todo::before { background: #ffd740; }
+  .tasks li.blocked::before { background: #ff5252; }
+  .tasks li.inProgress::before { background: #448aff; }
+  .note { color: #ff8a80; font-size: 0.8em; margin-left: 4px; }
+  .updated { color: #555; font-size: 0.8em; margin-top: 20px; text-align: center; }
+  .progress-bar { height: 6px; background: #1e2a42; border-radius: 3px; margin-top: 8px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #00d4ff, #00e676); border-radius: 3px; }
+.filter-label { display: flex; align-items: center; gap: 8px; color: #8892a4; font-size: 0.9em; cursor: pointer; }
+.filter-label input { cursor: pointer; }
+.jobs-section { background: #141b2d; border-radius: 12px; padding: 16px; border: 1px solid #1e2a42; }
+.jobs-header { font-size: 1.1em; font-weight: 600; margin-bottom: 12px; color: #00d4ff; }
+.job-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #1e2a42; font-size: 0.9em; }
+.job-item:last-child { border-bottom: none; }
+.job-name { color: #b0b8c8; }
+.job-time { color: #555; font-size: 0.8em; }
+.job-status { padding: 2px 8px; border-radius: 12px; font-size: 0.75em; }
+.job-status.done { background: #00e67622; color: #00e676; }
+.job-status.running { background: #448aff22; color: #448aff; }
+.job-status.failed { background: #ff525222; color: #ff5252; }
+</style>
+</head>
+<body>
+<h1>🐠 Nemo Dashboard</h1>
+<div class="summary" id="summary"></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div style="margin: 16px 0;">
+  <label class="filter-label">
+    <input type="checkbox" id="hideDone" onchange="load()"> Hide completed projects
+  </label>
+</div>
+<div id="projects" style="margin-top: 20px;"></div>
+<div id="jobs" style="margin-top: 30px;"></div>
+<div class="updated" id="updated"></div>
+
+<script>
+async function load() {
+  const res = await fetch('data.json?' + Date.now());
+  const data = await res.json();
+  const s = data.summary;
+  const hideDone = document.getElementById('hideDone')?.checked;
+
+  document.getElementById('summary').innerHTML = `
+    <div class="stat"><div class="number">${s.total}</div><div class="label">Total</div></div>
+    <div class="stat done"><div class="number">${s.done}</div><div class="label">Done</div></div>
+    <div class="stat todo"><div class="number">${s.todo}</div><div class="label">Todo</div></div>
+    <div class="stat blocked"><div class="number">${s.blocked}</div><div class="label">Blocked</div></div>
+    <div class="stat progress"><div class="number">${s.inProgress}</div><div class="label">In Progress</div></div>
+  `;
+
+  const pct = s.total > 0 ? (s.done / s.total * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  const projects = hideDone ? data.projects.filter(p => p.status !== 'done') : data.projects;
+  document.getElementById('projects').innerHTML = projects.map(p => `
+    <div class="project">
+      <div class="project-header">
+        <span class="project-name">${p.name}</span>
+        <span class="badge ${p.status}">${p.status.replace('inProgress','in progress')}</span>
+      </div>
+      <ul class="tasks">
+        ${p.tasks.map(t => `<li class="${t.status}">${t.name}${t.note ? `<span class="note">(${t.note})</span>` : ''}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
+
+  // Render jobs section
+  if (data.jobs && data.jobs.length > 0) {
+    const sortedJobs = [...data.jobs].sort((a, b) => new Date(b.lastRun) - new Date(a.lastRun));
+    document.getElementById('jobs').innerHTML = `
+      <div class="jobs-section">
+        <div class="jobs-header">📋 Recent Jobs</div>
+        ${sortedJobs.map(j => `
+          <div class="job-item">
+            <span class="job-name">${j.name}</span>
+            <span>
+              <span class="job-status ${j.status}">${j.status}</span>
+              <span class="job-time">${new Date(j.lastRun).toLocaleString()}</span>
+            </span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  document.getElementById('updated').textContent = 'Last updated: ' + new Date(data.lastUpdated).toLocaleString();
+}
+load();
+setInterval(load, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0",
+  "agents": {
+    "researcher": {
+      "id": "researcher",
+      "name": "Research Agent",
+      "description": "Information gathering, web search, analysis",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 300,
+      "maxConcurrent": 3,
+      "skills": ["web_search", "web_fetch", "memory_search", "read"],
+      "dailyBudget": 5.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "high",
+      "enabled": true
+    },
+    "coder": {
+      "id": "coder",
+      "name": "Code Agent",
+      "description": "Code generation, debugging, refactoring",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 600,
+      "maxConcurrent": 2,
+      "skills": ["read", "write", "edit", "exec"],
+      "dailyBudget": 10.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "high",
+      "enabled": true
+    },
+    "trader": {
+      "id": "trader",
+      "name": "Trading Agent",
+      "description": "Market monitoring, trade execution, risk checks",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 60,
+      "maxConcurrent": 1,
+      "skills": ["exec", "cron", "read"],
+      "dailyBudget": 2.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "high",
+      "enabled": true
+    },
+    "analyst": {
+      "id": "analyst",
+      "name": "Analysis Agent",
+      "description": "Data analysis, backtesting, reporting",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 300,
+      "maxConcurrent": 2,
+      "skills": ["read", "write", "exec"],
+      "dailyBudget": 3.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "medium",
+      "enabled": true
+    },
+    "security": {
+      "id": "security",
+      "name": "Security Agent",
+      "description": "Security audits, threat detection, hardening",
+      "model": "claude-opus",
+      "timeoutSeconds": 300,
+      "maxConcurrent": 1,
+      "skills": ["read", "exec", "memory_search"],
+      "dailyBudget": 5.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "critical",
+      "enabled": true
+    },
+    "writer": {
+      "id": "writer",
+      "name": "Writer Agent",
+      "description": "Documentation, reports, content creation",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 300,
+      "maxConcurrent": 2,
+      "skills": ["read", "write"],
+      "dailyBudget": 2.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "low",
+      "enabled": true
+    },
+    "monitor": {
+      "id": "monitor",
+      "name": "Monitor Agent",
+      "description": "System health, alerts, status checks",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 120,
+      "maxConcurrent": 1,
+      "skills": ["exec", "read"],
+      "dailyBudget": 2.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "medium",
+      "enabled": true
+    },
+    "planner": {
+      "id": "planner",
+      "name": "Planner Agent",
+      "description": "Task breakdown, scheduling, resource allocation",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 180,
+      "maxConcurrent": 1,
+      "skills": ["read", "write", "memory_search"],
+      "dailyBudget": 2.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "medium",
+      "enabled": true
+    },
+    "learner": {
+      "id": "learner",
+      "name": "Learning Agent",
+      "description": "Pattern recognition, strategy improvement, knowledge extraction",
+      "model": "kimi-k2.5",
+      "timeoutSeconds": 600,
+      "maxConcurrent": 1,
+      "skills": ["read", "memory_search", "write"],
+      "dailyBudget": 2.0,
+      "dailyBudgetCurrency": "USD",
+      "priority": "low",
+      "enabled": false
+    }
+  },
+  "defaults": {
+    "defaultTimeout": 300,
+    "defaultModel": "kimi-k2.5",
+    "maxTotalAgents": 10,
+    "globalBudget": 200.0,
+    "globalBudgetCurrency": "USD"
+  },
+  "routing": {
+    "taskPatterns": [
+      {
+        "pattern": "research|search|find|analyze.*market|check.*X|check.*twitter",
+        "agent": "researcher"
+      },
+      {
+        "pattern": "code|write.*function|fix.*bug|implement|refactor|build",
+        "agent": "coder"
+      },
+      {
+        "pattern": "trade|buy|sell|position|PnL|market.*order|snipe",
+        "agent": "trader"
+      },
+      {
+        "pattern": "audit|security|vulnerability|harden|scan.*threat",
+        "agent": "security"
+      },
+      {
+        "pattern": "analyze.*data|backtest|calculate|statistics|report",
+        "agent": "analyst"
+      },
+      {
+        "pattern": "document|write.*report|summarize|create.*guide",
+        "agent": "writer"
+      },
+      {
+        "pattern": "check.*status|monitor|health|alert|is.*running",
+        "agent": "monitor"
+      },
+      {
+        "pattern": "plan|break.*down|schedule|roadmap|prioritize",
+        "agent": "planner"
+      }
+    ]
+  }
+}

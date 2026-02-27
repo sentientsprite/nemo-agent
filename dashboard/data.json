@@ -1,0 +1,214 @@
+{
+  "lastUpdated": "2026-02-26T20:05:00-07:00",
+  "jobs": [
+    {"name": "Daily Security Audit", "status": "running", "schedule": "00:00 MST", "lastRun": "2026-02-26T09:01:00Z"},
+    {"name": "Session Compaction Monitor", "status": "running", "schedule": "Automatic", "lastRun": "2026-02-26T19:00:00Z"},
+    {"name": "API Credit Check", "status": "pending", "schedule": "Sunday 00:00 MST", "lastRun": "Pending setup"},
+    {"name": "GitHub Sync", "status": "running", "schedule": "Every 6 hours", "lastRun": "2026-02-26T18:15:00Z", "note": "Trading plugin pushed"},
+    {"name": "Snipe + Maker 24hr Test", "status": "running", "schedule": "Continuous", "started": "2026-02-26T19:41:00Z", "ends": "2026-02-27T19:41:00Z", "pid": 14486}
+  ],
+  "summary": {
+    "total": 108,
+    "done": 79,
+    "todo": 14,
+    "blocked": 5,
+    "inProgress": 10
+  },
+  "projects": [
+    {
+      "name": "Core Setup",
+      "status": "done",
+      "tasks": [
+        {"name": "Identity (IDENTITY.md, USER.md)", "status": "done"},
+        {"name": "Discord connection", "status": "done"},
+        {"name": "Gateway as LaunchAgent", "status": "done"},
+        {"name": "Exec access enabled", "status": "done"},
+        {"name": "Web dashboard", "status": "done"}
+      ]
+    },
+    {
+      "name": "Security Hardening",
+      "status": "done",
+      "tasks": [
+        {"name": "Gateway loopback bind", "status": "done"},
+        {"name": "Dashboard localhost only", "status": "done"},
+        {"name": "Discord DM allowlist", "status": "done"},
+        {"name": ".gitignore secrets", "status": "done"},
+        {"name": "Prompt injection defenses", "status": "done"},
+        {"name": "Daily security audit cron", "status": "done"},
+        {"name": "Docker sandbox", "status": "done"},
+        {"name": "Tailscale installed", "status": "done"}
+      ]
+    },
+    {
+      "name": "X/Twitter Integration",
+      "status": "blocked",
+      "tasks": [
+        {"name": "Browser login", "status": "done"},
+        {"name": "API auth verified", "status": "done"},
+        {"name": "API posting", "status": "blocked", "note": "402 Payment Required"},
+        {"name": "Content strategy drafted", "status": "done"},
+        {"name": "Password change", "status": "todo"}
+      ]
+    },
+    {
+      "name": "Token Efficiency",
+      "status": "done",
+      "tasks": [
+        {"name": "LM Studio running", "status": "done"},
+        {"name": "Nomic Embed for memory", "status": "done"},
+        {"name": "Kimi K2.5 configured", "status": "done"},
+        {"name": "Sub-agent routing working", "status": "done"},
+        {"name": "TOKEN-EFFICIENCY.md", "status": "done"}
+      ]
+    },
+    {
+      "name": "URL Queue Processing",
+      "status": "done",
+      "tasks": [
+        {"name": "41/41 URLs processed", "status": "done"},
+        {"name": "Results documented", "status": "done"},
+        {"name": "4 new projects created from findings", "status": "done"}
+      ]
+    },
+    {
+      "name": "GitHub Sync",
+      "status": "done",
+      "tasks": [
+        {"name": "gh authenticated as sentientsprite", "status": "done"},
+        {"name": "Created separate nemo-workspace repo", "status": "done"},
+        {"name": "Workspace files pushed", "status": "done"},
+        {"name": "Unified trading plugin committed", "status": "done", "note": "Commit c25ed0c"}
+      ]
+    },
+    {
+      "name": "Spryte Engine Fork",
+      "status": "inProgress",
+      "tasks": [
+        {"name": "Rsync ~488MB to ~/spryte-engine/", "status": "done"},
+        {"name": "Git initialized", "status": "done"},
+        {"name": "Architecture docs written", "status": "done"},
+        {"name": "Codebase fully mapped", "status": "done"},
+        {"name": "Design pi-agent-core replacement", "status": "done"},
+        {"name": "Create @spryte/agent-core package", "status": "done", "note": "Agent, Loop, State, Types"},
+        {"name": "Create @spryte/ai package", "status": "done", "note": "Anthropic + OpenAI providers"},
+        {"name": "Integrate and test", "status": "todo", "note": "~70% complete"}
+      ],
+      "note": "Core packages built. Integration testing remaining."
+    },
+    {
+      "name": "VS Code + Google Colab GPU",
+      "status": "todo",
+      "tasks": [
+        {"name": "Set up VS Code Colab extension", "status": "todo"},
+        {"name": "Configure free T4 GPU access", "status": "todo"},
+        {"name": "Test larger model inference", "status": "todo"},
+        {"name": "Document workflow", "status": "todo"}
+      ],
+      "note": "URL #29 — free GPU for training/inference"
+    },
+    {
+      "name": "Multi-Agent Mission Control",
+      "status": "inProgress",
+      "tasks": [
+        {"name": "Study 10-agent pattern guide (3.8M views)", "status": "done", "note": "pbteja1998 SiteGPT architecture"},
+        {"name": "Design sub-agent team structure", "status": "done", "note": "9 agents defined"},
+        {"name": "Create agent registry", "status": "done", "note": "config/agents.json"},
+        {"name": "Build Commander module", "status": "done", "note": "core/commander.py"},
+        {"name": "Define agent skills", "status": "done", "note": "Researcher, Coder, Trader"},
+        {"name": "Create specialized agents", "status": "todo", "note": "Spawn actual sub-agents"},
+        {"name": "Implement agent delegation protocol", "status": "todo", "note": "sessions_spawn integration"}
+      ],
+      "note": "Phase 1 complete: Design + Commander. Phase 2: Live agents."
+    },
+    {
+      "name": "Trading Bots",
+      "status": "inProgress",
+      "tasks": [
+        {"name": "Unified NEMO Trading plugin", "status": "done", "note": "5 strategies, GitHub committed"},
+        {"name": "Coinbase 8hr dry-run test", "status": "done", "note": "-6.31%, momentum failed in chop"},
+        {"name": "Polymarket bot enhanced", "status": "done", "note": "Snipe + Maker, Crowd Fade"},
+        {"name": "Risk management systems", "status": "done"},
+        {"name": "Strategy research complete", "status": "done", "note": "5 research reports written"},
+        {"name": "24hr Snipe + Maker test", "status": "running", "note": "Started 19:41 MST, ends tomorrow"}
+      ],
+      "note": "24-hour test in progress. Results tomorrow 19:41 MST."
+    },
+    {
+      "name": "Agent Body Framework",
+      "status": "done",
+      "tasks": [
+        {"name": "Define voice and personality", "status": "done", "note": "🐟 fish emoji, 'Captain' casual"},
+        {"name": "Autonomy boundaries", "status": "done", "note": "$10 trade max, escalate debates"},
+        {"name": "Memory protocols", "status": "done"},
+        {"name": "LAST_WILL.md", "status": "done"},
+        {"name": "DREAM_LOG.md", "status": "done"},
+        {"name": "Profit sharing structure", "status": "done"}
+      ],
+      "note": "Complete — NEMO is born"
+    },
+    {
+      "name": "Community & Platforms",
+      "status": "blocked",
+      "tasks": [
+        {"name": "Moltbook registered", "status": "done"},
+        {"name": "Moltbook claim", "status": "blocked", "note": "X OAuth broken, code: current-7DMC"},
+        {"name": "Join Sentient Discord", "status": "done", "note": "discord.gg/sentient"},
+        {"name": "Explore Moltverr", "status": "done", "note": "Skip — 0 jobs, 0 agents"},
+        {"name": "Explore Crabwalk", "status": "done", "note": "Running on :3000"}
+      ]
+    },
+    {
+      "name": "Polymarket Intelligence",
+      "status": "done",
+      "tasks": [
+        {"name": "Clone poly-bot from friend's repo", "status": "done"},
+        {"name": "Deep-dive strategy analysis", "status": "done"},
+        {"name": "X research on fees/arbitrage", "status": "done", "note": "3.15% fees killed arbitrage"},
+        {"name": "Snipe + Maker implementation", "status": "done"},
+        {"name": "Crowd Fade implementation", "status": "done"},
+        {"name": "VPN deployment ready", "status": "done"}
+      ],
+      "note": "Snipe strategy: 70-80% expected win rate"
+    }
+  ],
+  "trading": {
+    "status": "testing",
+    "activeTest": {
+      "name": "Snipe + Maker 24hr",
+      "started": "2026-02-26T19:41:00-07:00",
+      "ends": "2026-02-27T19:41:00-07:00",
+      "pid": 14486,
+      "logFile": "/tmp/nemo-trading.log",
+      "mode": "dry-run",
+      "expectedWinRate": "70-80%"
+    },
+    "lastTest": {
+      "name": "Coinbase Momentum 8hr",
+      "date": "2026-02-26",
+      "duration": "8 hours",
+      "result": "-6.31%",
+      "winRate": "33.7%",
+      "note": "Failed in chop, infrastructure sound"
+    },
+    "strategies": [
+      {"name": "Momentum", "status": "failed", "winRate": "33.7%", "pnl": "-6.31%", "note": "Failed in chop, needs ADX filter"},
+      {"name": "Mean Reversion", "status": "ready", "winRate": "TBD", "pnl": "TBD"},
+      {"name": "Snipe + Maker", "status": "testing", "winRate": "TBD", "pnl": "TBD", "note": "24hr test running"},
+      {"name": "Crowd Fade", "status": "ready", "winRate": "65% expected", "pnl": "TBD"},
+      {"name": "Copy Trading", "status": "ready", "winRate": "TBD", "pnl": "TBD"}
+    ],
+    "riskLimits": {
+      "maxPosition": "$10 (live) / $50 (dry-run)",
+      "dailyLossLimit": "$50",
+      "maxDrawdown": "10%",
+      "consecutiveLossCooldown": "3 losses"
+    }
+  },
+  "keyMetrics": {
+    "apiCreditsUsed": "~$45 (Feb)",
+    "apiBudgetRemaining": "$155",
+    "githubCommits": "c25ed0c",
+    "lastBackup": "2026-02-26T19:41:00Z"
+  }
+}
