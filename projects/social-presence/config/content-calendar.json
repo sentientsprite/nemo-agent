@@ -1,0 +1,58 @@
+{
+  "content_calendar": {
+    "template": {
+      "daily": {
+        "tiktok": 1,
+        "x_posts": 2,
+        "instagram_reels": 1,
+        "instagram_stories": 3
+      },
+      "weekly": {
+        "youtube": 1,
+        "twitter_threads": 2,
+        "newsletter": 1
+      }
+    },
+    "content_types": {
+      "morning_update": {
+        "platform": "x",
+        "time": "08:00",
+        "content": "Daily trading update",
+        "format": "text_screenshot"
+      },
+      "midday_insight": {
+        "platform": "x",
+        "time": "12:00",
+        "content": "Market observation or lesson",
+        "format": "thread"
+      },
+      "afternoon_video": {
+        "platform": "tiktok",
+        "time": "15:00",
+        "content": "Trading highlight or tutorial",
+        "format": "15_60s_video"
+      },
+      "evening_recap": {
+        "platform": "x",
+        "time": "18:00",
+        "content": "Day summary, lessons learned",
+        "format": "text"
+      },
+      "late_snack": {
+        "platform": "instagram",
+        "time": "20:00",
+        "content": "Visual content, meme, or story",
+        "format": "reel_or_story"
+      }
+    },
+    "weekly_themes": {
+      "monday": "Strategy Monday — New approaches, backtests",
+      "tuesday": "Tutorial Tuesday — How-to content",
+      "wednesday": "Winsday — Celebrate wins, analyze what worked",
+      "thursday": "Think Thursday — Deep dives, predictions",
+      "friday": "Fails Friday — Own losses, share lessons",
+      "saturday": "Setup Saturday — Tool reviews, workflows",
+      "sunday": "Strategy Sunday — Week ahead, goal setting"
+    }
+  }
+}
