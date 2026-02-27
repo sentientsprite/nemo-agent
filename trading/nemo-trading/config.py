@@ -59,6 +59,7 @@ class SnipeConfig:
     min_delta: float = 5.0  # $5 BTC move (lowered for more signals in dry-run)
     max_zero_crosses: int = 3  # More tolerant
     entry_size: float = 50.0  # Aggressive for snipe quality
+    maker_exit_enabled: bool = True  # Enable maker exit to avoid second taker fee
     maker_exit_threshold: float = 0.55  # 55¢ position value (lowered)
     maker_exit_price: float = 0.90  # 90¢ limit sell
     max_trades_per_round: int = 2  # Allow 2 trades per round
