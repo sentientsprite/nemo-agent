@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-02-26T22:05:00-07:00",
+  "lastUpdated": "2026-02-26T22:25:00-07:00",
   "jobs": [
     {"name": "Daily Security Audit", "status": "running", "schedule": "00:00 MST", "lastRun": "2026-02-26T09:01:00Z"},
     {"name": "Session Compaction Monitor", "status": "running", "schedule": "Automatic", "lastRun": "2026-02-26T22:00:00Z"},
@@ -9,8 +9,8 @@
     {"name": "Night Shift Status Check", "status": "running", "schedule": "Hourly", "started": "2026-02-26T22:00:00Z"}
   ],
   "summary": {
-    "total": 115,
-    "done": 85,
+    "total": 117,
+    "done": 87,
     "todo": 14,
     "blocked": 5,
     "inProgress": 11
@@ -247,9 +247,11 @@
   "keyMetrics": {
     "apiCreditsUsed": "~$50 (Feb)",
     "apiBudgetRemaining": "$150",
-    "githubCommits": "bf4af55",
-    "lastBackup": "2026-02-26T22:05:00Z",
+    "githubCommits": "5f70308",
+    "lastBackup": "2026-02-26T22:25:00Z",
     "tradingBotPid": 46793,
-    "24hrTestStatus": "Running (restarted with fix)"
+    "24hrTestStatus": "Running (restarted with fix)",
+    "skillsInstalled": 3,
+    "skillsInstallScript": "scripts/install-skills.sh"
   }
 }
