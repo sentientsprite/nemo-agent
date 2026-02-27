@@ -97,6 +97,23 @@
 - Trading sub-agent: Live deployment pending Captain's approval
 - **Multi-Agent Mission Control:** Phase 1 complete, Phase 2 (live agents) pending
 
+## 🌙 Night Shift Operations (In Progress)
+**Deployed:** 2026-02-26 22:00 MST  
+**Captain's Request:** Implement 5 critical upgrades while sleeping
+
+### Deployed Sub-Agents
+1. **Dataset Hunter** — Find Jon Becker's 400M trade dataset
+2. **Oracle Integrator** — Chainlink BTC/USD price feed
+3. **Kelly Calculator** — 0.25x fractional Kelly sizing
+4. **Toxicity Detector** — VPIN flow toxicity detection
+5. **WebSocket Architect** — <100ms latency connections
+
+### Monitoring
+- **Hourly checks:** Cron job `a3272754-640d-4047-91e3-dc1bae8a9d1c`
+- **Morning report:** 06:00 MST `a509eb5c-a1c6-440e-a3ad-1825b9015cfa`
+- **Log:** `night-shift-operations.md`
+- **ETA:** Complete by morning (2026-02-27 06:00 MST)
+
 ## Multi-Agent Mission Control
 - **Status:** Phase 1 Complete (Design + Commander)
 - **Location:** `mission-control/`
