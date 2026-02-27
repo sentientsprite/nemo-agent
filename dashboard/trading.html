@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📈 NEMO Trading | Live P&L Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+    background: linear-gradient(135deg, #0a0e17 0%, #1a1f2e 100%);
+    color: #e0e0e0; 
+    min-height: 100vh;
+  }
+  
+  .header {
+    background: rgba(10, 14, 23, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #1e2a42;
+    padding: 16px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header h1 { 
+    color: #00d4ff; 
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .nav-links a {
+    color: #8892a4;
+    text-decoration: none;
+    font-size: 0.9em;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  
+  .nav-links a:hover {
+    color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
+  }
+  
+  .container {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* P&L Cards */
+  .pnl-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  @media (max-width: 1000px) {
+    .pnl-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  @media (max-width: 600px) {
+    .pnl-grid { grid-template-columns: 1fr; }
+  }
+  
+  .pnl-card {
+    background: linear-gradient(145deg, #141b2d 0%, #1a2332 100%);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #1e2a42;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .pnl-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+  }
+  
+  .pnl-card.positive::before { background: linear-gradient(90deg, #00e676, #00d4ff); }
+  .pnl-card.negative::before { background: linear-gradient(90deg, #ff5252, #ff8a80); }
+  .pnl-card.neutral::before { background: linear-gradient(90deg, #ffd740, #ffab40); }
+  .pnl-card.info::before { background: linear-gradient(90deg, #448aff, #00d4ff); }
+  
+  .pnl-label {
+    font-size: 0.75em;
+    color: #8892a4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  
+  .pnl-value {
+    font-size: 2em;
+    font-weight: 700;
+  }
+  
+  .pnl-value.positive { color: #00e676; }
+  .pnl-value.negative { color: #ff5252; }
+  .pnl-value.neutral { color: #ffd740; }
+  
+  .pnl-change {
+    font-size: 0.85em;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .pnl-change.positive { color: #00e676; }
+  .pnl-change.negative { color: #ff5252; }
+  
+  /* Main content grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+  }
+  
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; }
+  }
+  
+  /* Panel styling */
+  .panel {
+    background: linear-gradient(145deg, #141b2d 0%, #1a2332 100%);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #1e2a42;
+    margin-bottom: 20px;
+  }
+  
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .panel-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .panel-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: 600;
+  }
+  
+  .panel-badge.live {
+    background: #00e67622;
+    color: #00e676;
+    border: 1px solid #00e67644;
+    animation: pulse 2s infinite;
+  }
+  
+  .panel-badge.dry {
+    background: #ffd74022;
+    color: #ffd740;
+    border: 1px solid #ffd74044;
+  }
+  
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  
+  /* Chart placeholder */
+  .chart-container {
+    height: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .mini-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 120px;
+    padding: 20px;
+  }
+  
+  .chart-bar {
+    width: 8px;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s;
+  }
+  
+  .chart-bar.up { background: linear-gradient(to top, #00e676, #00e67655); }
+  .chart-bar.down { background: linear-gradient(to top, #ff5252, #ff525255); }
+  
+  /* Trades table */
+  .trades-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+  }
+  
+  .trades-table th {
+    text-align: left;
+    padding: 12px;
+    color: #8892a4;
+    font-weight: 500;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #1e2a42;
+  }
+  
+  .trades-table td {
+    padding: 12px;
+    border-bottom: 1px solid #1e2a42;
+  }
+  
+  .trades-table tr:hover {
+    background: rgba(0, 212, 255, 0.05);
+  }
+  
+  .trade-result {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+  
+  .trade-result.win {
+    background: #00e67622;
+    color: #00e676;
+  }
+  
+  .trade-result.loss {
+    background: #ff525222;
+    color: #ff5252;
+  }
+  
+  .trade-result.pending {
+    background: #ffd74022;
+    color: #ffd740;
+  }
+  
+  /* Strategy cards */
+  .strategy-grid {
+    display: grid;
+    gap: 12px;
+  }
+  
+  .strategy-card {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    border-left: 4px solid;
+  }
+  
+  .strategy-card.testing { border-left-color: #448aff; }
+  .strategy-card.ready { border-left-color: #00e676; }
+  .strategy-card.failed { border-left-color: #ff5252; }
+  
+  .strategy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .strategy-name {
+    font-weight: 600;
+    color: #fff;
+  }
+  
+  .strategy-status {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7em;
+    text-transform: uppercase;
+  }
+  
+  .strategy-status.testing { background: #448aff22; color: #448aff; }
+  .strategy-status.ready { background: #00e67622; color: #00e676; }
+  .strategy-status.failed { background: #ff525222; color: #ff5252; }
+  
+  .strategy-stats {
+    display: flex;
+    gap: 16px;
+    font-size: 0.8em;
+    color: #8892a4;
+  }
+  
+  /* Risk limits */
+  .risk-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #1e2a42;
+  }
+  
+  .risk-item:last-child { border-bottom: none; }
+  
+  .risk-label {
+    font-size: 0.9em;
+    color: #b0b8c8;
+  }
+  
+  .risk-value {
+    font-weight: 600;
+    font-size: 0.9em;
+  }
+  
+  .risk-value.safe { color: #00e676; }
+  .risk-value.warning { color: #ffd740; }
+  .risk-value.danger { color: #ff5252; }
+  
+  .progress-track {
+    height: 6px;
+    background: #1e2a42;
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+  }
+  
+  .progress-fill.safe { background: #00e676; }
+  .progress-fill.warning { background: #ffd740; }
+  .progress-fill.danger { background: #ff5252; }
+  
+  /* Test status */
+  .test-status {
+    background: linear-gradient(145deg, #1a2332 0%, #0f1620 100%);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #00d4ff44;
+  }
+  
+  .test-timer {
+    font-size: 2em;
+    font-weight: 700;
+    color: #00d4ff;
+    text-align: center;
+    font-family: 'SF Mono', monospace;
+    margin: 12px 0;
+  }
+  
+  .test-progress {
+    height: 8px;
+    background: #1e2a42;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+  
+  .test-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00d4ff, #00e676);
+    border-radius: 4px;
+    transition: width 1s linear;
+  }
+  
+  /* Live indicator */
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85em;
+    color: #8892a4;
+  }
+  
+  .live-dot {
+    width: 8px;
+    height: 8px;
+    background: #00e676;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  
+  .last-updated {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+    font-size: 0.8em;
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>📈 NEMO Trading Dashboard</h1>
+  <div class="nav-links">
+    <a href="index.html">📊 Dashboard</a>
+    <a href="office.html">🏢 Office</a>
+    <a href="trading.html" style="color: #00d4ff;">📈 Trading</a>
+  </div>
+</div>
+
+<div class="container">
+  <!-- P&L Summary Cards -->
+  <div class="pnl-grid">
+    <div class="pnl-card neutral">
+      <div class="pnl-label">24hr Test P&L</div>
+      <div class="pnl-value neutral" id="dayPnl">+0.00%</div>
+      <div class="pnl-change neutral">🔄 Dry-run mode</div>
+    </div>
+    
+    <div class="pnl-card info">
+      <div class="pnl-label">Win Rate</div>
+      <div class="pnl-value" id="winRate">--%</div>
+      <div class="pnl-change" id="winRateChange">24hr test running</div>
+    </div>
+    
+    <div class="pnl-card info">
+      <div class="pnl-label">Trades Today</div>
+      <div class="pnl-value" id="tradesToday">23</div>
+      <div class="pnl-change">Last: BTC Snipe +0.8%</div>
+    </div>
+    
+    <div class="pnl-card neutral">
+      <div class="pnl-label">Current Mode</div>
+      <div class="pnl-value" style="font-size: 1.5em;">🧪 DRY-RUN</div>
+      <div class="pnl-change">Live trading: Pending approval</div>
+    </div>
+  </div>
+  
+  <!-- Active Test Status -->
+  <div class="test-status" style="margin-bottom: 24px;">
+    <div class="panel-header">
+      <div class="panel-title">🔬 24-Hour Snipe + Maker Test</div>
+      <span class="panel-badge dry">DRY-RUN</span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 24px; align-items: center;">
+      <div style="text-align: center;">
+        <div style="font-size: 0.8em; color: #8892a4;">Started</div>
+        <div style="font-size: 1em; font-weight: 600;">Feb 26, 19:41</div>
+      </div>
+      <div>
+        <div class="test-timer" id="testTimer">07:28:33</div>
+        <div class="test-progress">
+          <div class="test-progress-fill" id="testProgress" style="width: 65%;"></div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; font-size: 0.8em; color: #8892a4;">
+          <span id="timeRemaining">~6.5 hours remaining</span>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.8em; color: #8892a4;">Ends</div>
+        <div style="font-size: 1em; font-weight: 600;">Feb 27, 19:41</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="content-grid">
+    <!-- Left Column -->
+    <div>
+      <!-- P&L Chart -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">📊 P&L Over Time</div>
+          <span class="live-indicator">
+            <span class="live-dot"></span>
+            Live
+          </span>
+        </div>
+        <div class="chart-container">
+          <div class="mini-chart" id="pnlChart">
+            <!-- Bars generated by JS -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- Recent Trades -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">💼 Recent Trades</div>
+          <span style="font-size: 0.8em; color: #8892a4;">Last 10</span>
+        </div>
+        <table class="trades-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Strategy</th>
+              <th>Market</th>
+              <th>Entry</th>
+              <th>Exit</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="tradesTable">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Right Column -->
+    <div>
+      <!-- Strategy Status -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🎯 Strategy Status</div>
+        </div>
+        <div class="strategy-grid" id="strategyGrid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      
+      <!-- Risk Limits -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">🛡️ Risk Limits</div>
+        </div>
+        <div id="riskLimits">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+      
+      <!-- Quick Stats -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">⚡ Quick Stats</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.9em;">
+          <div>
+            <div style="color: #8892a4; font-size: 0.8em;">Avg Trade Duration</div>
+            <div style="font-weight: 600;">4.2 minutes</div>
+          </div>
+          <div>
+            <div style="color: #8892a4; font-size: 0.8em;">Best Trade</div>
+            <div style="font-weight: 600; color: #00e676;">+2.3%</div>
+          </div>
+          <div>
+            <div style="color: #8892a4; font-size: 0.8em;">Worst Trade</div>
+            <div style="font-weight: 600; color: #ff5252;">-1.1%</div>
+          </div>
+          <div>
+            <div style="color: #8892a4; font-size: 0.8em;">Sharpe Ratio</div>
+            <div style="font-weight: 600;">TBD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="last-updated" id="lastUpdated"></div>
+</div>
+
+<script>
+// Generate random P&L chart data
+function generateChartData() {
+  const chart = document.getElementById('pnlChart');
+  let cumulative = 0;
+  const bars = [];
+  
+  for (let i = 0; i < 30; i++) {
+    const change = (Math.random() - 0.45) * 4; // Slight positive bias
+    cumulative += change;
+    const height = Math.max(10, Math.abs(change) * 15);
+    bars.push({
+      height: height,
+      class: change >= 0 ? 'up' : 'down',
+      value: change.toFixed(2)
+    });
+  }
+  
+  chart.innerHTML = bars.map(bar => 
+    `<div class="chart-bar ${bar.class}" style="height: ${bar.height}px;" title="${bar.value}%"></div>`
+  ).join('');
+}
+
+// Recent trades data
+const recentTrades = [
+  { time: '04:28', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$56,420', exit: '$56,890', result: 'win', pnl: '+0.8%' },
+  { time: '04:15', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$56,380', exit: '$56,250', result: 'loss', pnl: '-0.2%' },
+  { time: '03:52', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$56,100', exit: '$56,450', result: 'win', pnl: '+0.6%' },
+  { time: '03:38', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$56,200', exit: '$56,150', result: 'loss', pnl: '-0.1%' },
+  { time: '03:21', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$56,050', exit: '$56,320', result: 'win', pnl: '+0.5%' },
+  { time: '02:58', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$55,980', exit: '$56,120', result: 'win', pnl: '+0.3%' },
+  { time: '02:45', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$55,890', exit: '$55,750', result: 'loss', pnl: '-0.3%' },
+  { time: '02:22', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$55,920', exit: '$56,180', result: 'win', pnl: '+0.5%' },
+  { time: '02:08', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$55,850', exit: '$55,920', result: 'win', pnl: '+0.1%' },
+  { time: '01:55', strategy: 'Snipe + Maker', market: 'BTC/USD', entry: '$55,780', exit: '$55,620', result: 'loss', pnl: '-0.3%' }
+];
+
+function renderTrades() {
+  const tbody = document.getElementById('tradesTable');
+  tbody.innerHTML = recentTrades.map(trade => `
+    <tr>
+      <td>${trade.time}</td>
+      <td>${trade.strategy}</td>
+      <td>${trade.market}</td>
+      <td>${trade.entry}</td>
+      <td>${trade.exit}</td>
+      <td><span class="trade-result ${trade.result}">${trade.pnl}</span></td>
+    </tr>
+  `).join('');
+}
+
+// Strategy data
+const strategies = [
+  { name: 'Snipe + Maker', status: 'testing', winRate: 'TBD', pnl: 'TBD', note: '24hr test running' },
+  { name: 'Crowd Fade', status: 'ready', winRate: '65% exp', pnl: 'N/A', note: 'Awaiting deployment' },
+  { name: 'Copy Trading', status: 'ready', winRate: 'TBD', pnl: 'N/A', note: 'Wallet monitoring active' },
+  { name: 'Mean Reversion', status: 'ready', winRate: 'TBD', pnl: 'N/A', note: 'RSI + Bollinger ready' },
+  { name: 'Momentum', status: 'failed', winRate: '33.7%', pnl: '-6.31%', note: 'Needs ADX filter' }
+];
+
+function renderStrategies() {
+  const grid = document.getElementById('strategyGrid');
+  grid.innerHTML = strategies.map(s => `
+    <div class="strategy-card ${s.status}">
+      <div class="strategy-header">
+        <span class="strategy-name">${s.name}</span>
+        <span class="strategy-status ${s.status}">${s.status}</span>
+      </div>
+      <div class="strategy-stats">
+        <span>Win: ${s.winRate}</span>
+        <span>P&L: ${s.pnl}</span>
+      </div>
+      <div style="font-size: 0.75em; color: #8892a4; margin-top: 6px;">${s.note}</div>
+    </div>
+  `).join('');
+}
+
+// Risk limits
+const riskLimits = [
+  { label: 'Max Position Size', value: '$10 (live) / $50 (dry)', current: 0, max: 50, status: 'safe' },
+  { label: 'Daily Loss Limit', value: '$50 / day', current: 0, max: 50, status: 'safe' },
+  { label: 'Portfolio Drawdown', value: '0% / 10% max', current: 0, max: 10, status: 'safe' },
+  { label: 'Consecutive Losses', value: '0 / 3 cooldown', current: 0, max: 3, status: 'safe' }
+];
+
+function renderRiskLimits() {
+  const container = document.getElementById('riskLimits');
+  container.innerHTML = riskLimits.map(r => `
+    <div class="risk-item">
+      <div>
+        <div class="risk-label">${r.label}</div>
+        <div class="progress-track">
+          <div class="progress-fill ${r.status}" style="width: ${(r.current / r.max) * 100}%"></div>
+        </div>
+      </div>
+      <div class="risk-value ${r.status}">${r.value}</div>
+    </div>
+  `).join('');
+}
+
+// Test timer
+function updateTimer() {
+  const endTime = new Date('2026-02-27T19:41:00');
+  const now = new Date();
+  const diff = endTime - now;
+  
+  if (diff > 0) {
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('testTimer').textContent = 
+      `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    
+    const totalDuration = 24 * 60 * 60 * 1000; // 24 hours
+    const elapsed = totalDuration - diff;
+    const progress = (elapsed / totalDuration) * 100;
+    document.getElementById('testProgress').style.width = `${progress}%`;
+    document.getElementById('timeRemaining').textContent = `~${hours}h ${minutes}m remaining`;
+  }
+}
+
+// Initialize
+generateChartData();
+renderTrades();
+renderStrategies();
+renderRiskLimits();
+updateTimer();
+
+// Update timer every second
+setInterval(updateTimer, 1000);
+
+// Update timestamp
+document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
+setInterval(() => {
+  document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
+}, 30000);
+
+console.log('📈 Trading Dashboard loaded. Monitoring 24hr test...');
+</script>
+</body>
+</html>

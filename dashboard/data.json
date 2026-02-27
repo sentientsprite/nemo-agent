@@ -227,5 +227,56 @@
     "24hrTestStatus": "Running (restarted with fix)",
     "skillsInstalled": 3,
     "skillsInstallScript": "scripts/install-skills.sh"
+  },
+  "office": {
+    "agents": [
+      { "id": "commander", "name": "Commander", "role": "Orchestrator", "emoji": "🎯", "status": "active", "currentTask": "Coordinating multi-agent operations", "tasksCompleted": 47, "queue": 2 },
+      { "id": "researcher", "name": "Researcher", "role": "Intelligence Gatherer", "emoji": "🔬", "status": "active", "currentTask": "Monitoring X/Twitter for trading sentiment", "tasksCompleted": 12, "queue": 2 },
+      { "id": "coder", "name": "Coder", "role": "Implementation Engineer", "emoji": "💻", "status": "active", "currentTask": "Building Virtual Agent Office dashboard", "tasksCompleted": 5, "queue": 3 },
+      { "id": "trader", "name": "Trader", "role": "Execution Agent", "emoji": "📈", "status": "active", "currentTask": "Running 24hr Snipe + Maker dry-run test", "tasksCompleted": 23, "queue": 2 },
+      { "id": "analyst", "name": "Analyst", "role": "Data Scientist", "emoji": "📊", "status": "idle", "currentTask": "Awaiting 24hr test results for analysis", "tasksCompleted": 8, "queue": 2 },
+      { "id": "security", "name": "Security", "role": "Guardian", "emoji": "🛡️", "status": "active", "currentTask": "Running daily security audit", "tasksCompleted": 1, "queue": 2 },
+      { "id": "writer", "name": "Writer", "role": "Communications", "emoji": "✍️", "status": "idle", "currentTask": "Standing by for reports", "tasksCompleted": 3, "queue": 2 },
+      { "id": "monitor", "name": "Monitor", "role": "System Watcher", "emoji": "👁️", "status": "active", "currentTask": "Hourly health checks on trading bot", "tasksCompleted": 18, "queue": 2 },
+      { "id": "planner", "name": "Planner", "role": "Strategist", "emoji": "🗺️", "status": "idle", "currentTask": "Planning Phase 2 of Mission Control", "tasksCompleted": 2, "queue": 2 },
+      { "id": "learner", "name": "Learner", "role": "Self-Improver", "emoji": "🧠", "status": "idle", "currentTask": "Analyzing night shift operation results", "tasksCompleted": 5, "queue": 2 }
+    ],
+    "stats": {
+      "active": 5,
+      "idle": 4,
+      "offline": 0,
+      "totalTasksCompleted": 124
+    }
+  },
+  "tradingLive": {
+    "mode": "dry-run",
+    "activeTest": {
+      "name": "Snipe + Maker 24hr",
+      "started": "2026-02-26T19:41:00-07:00",
+      "ends": "2026-02-27T19:41:00-07:00",
+      "progressPercent": 65,
+      "timeRemaining": "~6.5 hours",
+      "pid": 58828,
+      "status": "running"
+    },
+    "pnl": {
+      "day": 0.0,
+      "week": 0.0,
+      "month": -6.31,
+      "total": -6.31
+    },
+    "winRate": {
+      "current": null,
+      "target": 75,
+      "lastTest": 33.7
+    },
+    "tradesToday": 23,
+    "positions": [],
+    "riskStatus": {
+      "positionSize": { "current": 0, "limit": 50, "status": "safe" },
+      "dailyLoss": { "current": 0, "limit": 50, "status": "safe" },
+      "drawdown": { "current": 0, "limit": 10, "status": "safe" },
+      "consecutiveLosses": { "current": 0, "limit": 3, "status": "safe" }
+    }
   }
 }
