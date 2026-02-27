@@ -27,6 +27,15 @@
 
 ---
 
+## Active Trading Triggers
+
+### 4. Trading Bot Health Check (Hourly)
+**Condition**: Every hour during 24hr tests  
+**Action**: Run trading-monitor skill to check bot status  
+**Command**: `~/.nemo/workspace/skills/trading-monitor/trading-monitor.sh`  
+**Escalation**: Alert if bot stopped or errors >5 in last hour  
+**Current Status**: 🟢 Active (24hr test running)
+
 ## Future Trading Triggers (When Live)
 
 ### Market Opportunity Scan
@@ -113,8 +122,9 @@
 **Current Status**: Partially Active
 - ✅ Security audit (daily cron)
 - ✅ Session compaction (automatic)
+- ✅ Trading bot health check (hourly, via skill)
 - ⏳ API credit check (pending setup)
-- ⏳ Trading triggers (pending live trading)
+- ⏳ Live trading triggers (pending authorization)
 - ⏳ Research triggers (pending operator priority)
 
 **Next Activation**: As scheduled above
