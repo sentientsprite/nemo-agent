@@ -1,0 +1,17 @@
+# Secrets
+*.secret
+*.key
+credentials.json
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+.npm/
+
+# NEMO internal
+sessions/
+*.jsonl
