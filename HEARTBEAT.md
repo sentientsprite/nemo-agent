@@ -36,6 +36,11 @@
 **Escalation**: Alert if bot stopped or errors >5 in last hour  
 **Current Status**: 🟢 Active (24hr test running)
 
+### 5. Night Shift Agent Check (DISABLED)
+**Condition**: Every hour  
+**Action**: Check status of sub-agents  
+**Current Status**: ⏸️ **DISABLED** — All agents completed 02:00 MST
+
 ## Future Trading Triggers (When Live)
 
 ### Market Opportunity Scan
