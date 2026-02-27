@@ -129,6 +129,9 @@ class Config:
     # Polling
     poll_interval: float = 15.0  # seconds
     
+    # NEW: WebSocket support (2026-02-26)
+    use_websocket: bool = False  # Use WebSocket for <100ms latency
+    
     def validate(self) -> bool:
         """Validate configuration based on selected exchange and strategy."""
         if self.exchange == "coinbase":
