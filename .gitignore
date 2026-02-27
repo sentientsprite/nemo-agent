@@ -15,3 +15,41 @@ node_modules/
 # NEMO internal
 sessions/
 *.jsonl
+
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+**/venv/
+**/env/
+**/.env/
+**/.venv/
+pip-log.txt
+*.egg-info/
+dist/
+build/
+
+# Trading bots
+**/.env.local
+**/config.local.json
+*.log
+*.csv
+trades/
+backups/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# macOS
+*.dmg
