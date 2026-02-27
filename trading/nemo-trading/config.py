@@ -101,6 +101,14 @@ class Config:
     sandbox: bool = True
     dry_run: bool = True
     
+    # Live trading toggle (SAFETY: requires explicit enable + safety key)
+    live_trading_enabled: bool = False
+    live_trading_safety_key: str = field(default_factory=lambda: os.getenv("LIVE_TRADING_SAFETY_KEY", ""))
+    
+    # Daily loss limit for live trading (hard stop)
+    daily_loss_limit: float = 50.0  # $50 max daily loss
+    max_drawdown_pct: float = 0.10  # 10% max drawdown from peak
+    
     # Exchange configs
     coinbase: CoinbaseConfig = field(default_factory=CoinbaseConfig)
     polymarket: PolymarketConfig = field(default_factory=PolymarketConfig)
@@ -148,7 +156,54 @@ class Config:
         if self.strategy not in valid_strategies:
             raise ValueError(f"Unknown strategy: {self.strategy}. Valid: {valid_strategies}")
         
+        # Validate live trading safety
+        if self.live_trading_enabled:
+            if not self.live_trading_safety_key:
+                raise ValueError("LIVE_TRADING_SAFETY_KEY required for live trading")
+            if self.dry_run:
+                raise ValueError("Cannot enable live trading while dry_run=True")
+        
         return True
+    
+    def enable_live_trading(self, safety_key: str) -> None:
+        """Safely enable live trading with confirmation.
+        
+        Args:
+            safety_key: Must match LIVE_TRADING_SAFETY_KEY env var
+            
+        Raises:
+            ValueError: If safety key doesn't match or config invalid
+        """
+        if safety_key != self.live_trading_safety_key:
+            raise ValueError("Invalid safety key. Live trading NOT enabled.")
+        
+        if self.dry_run:
+            self.dry_run = False
+            
+        self.live_trading_enabled = True
+        
+        # Log critical warning
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.critical("🔴 LIVE TRADING ENABLED 🔴")
+        logger.critical(f"Exchange: {self.exchange}")
+        logger.critical(f"Strategy: {self.strategy}")
+        logger.critical(f"Daily loss limit: ${self.daily_loss_limit}")
+        logger.critical("This is NOT a drill. Real money at risk.")
+    
+    def disable_live_trading(self) -> None:
+        """Immediately disable live trading and switch to dry-run."""
+        self.live_trading_enabled = False
+        self.dry_run = True
+        
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.critical("🟡 LIVE TRADING DISABLED — Switched to dry-run")
+    
+    @property
+    def is_live(self) -> bool:
+        """Check if currently trading with real money."""
+        return self.live_trading_enabled and not self.dry_run
 
 # Default configs for quick start
 DEFAULT_CONFIGS = {
