@@ -1,18 +1,19 @@
 {
-  "lastUpdated": "2026-02-26T20:05:00-07:00",
+  "lastUpdated": "2026-02-26T22:05:00-07:00",
   "jobs": [
     {"name": "Daily Security Audit", "status": "running", "schedule": "00:00 MST", "lastRun": "2026-02-26T09:01:00Z"},
-    {"name": "Session Compaction Monitor", "status": "running", "schedule": "Automatic", "lastRun": "2026-02-26T19:00:00Z"},
+    {"name": "Session Compaction Monitor", "status": "running", "schedule": "Automatic", "lastRun": "2026-02-26T22:00:00Z"},
     {"name": "API Credit Check", "status": "pending", "schedule": "Sunday 00:00 MST", "lastRun": "Pending setup"},
-    {"name": "GitHub Sync", "status": "running", "schedule": "Every 6 hours", "lastRun": "2026-02-26T18:15:00Z", "note": "Trading plugin pushed"},
-    {"name": "Snipe + Maker 24hr Test", "status": "running", "schedule": "Continuous", "started": "2026-02-26T19:41:00Z", "ends": "2026-02-27T19:41:00Z", "pid": 14486}
+    {"name": "GitHub Sync", "status": "running", "schedule": "Every 6 hours", "lastRun": "2026-02-26T22:05:00Z", "note": "Config fix + docs pushed"},
+    {"name": "Snipe + Maker 24hr Test", "status": "running", "schedule": "Continuous", "started": "2026-02-26T22:00:00Z", "ends": "2026-02-27T22:00:00Z", "pid": 46793, "note": "Restarted with config fix"},
+    {"name": "Night Shift Status Check", "status": "running", "schedule": "Hourly", "started": "2026-02-26T22:00:00Z"}
   ],
   "summary": {
-    "total": 108,
-    "done": 79,
+    "total": 115,
+    "done": 85,
     "todo": 14,
     "blocked": 5,
-    "inProgress": 10
+    "inProgress": 11
   },
   "projects": [
     {
@@ -205,10 +206,50 @@
       "consecutiveLossCooldown": "3 losses"
     }
   },
+  {
+      "name": "Night Shift Operations",
+      "status": "completed",
+      "tasks": [
+        {"name": "Chainlink Oracle Integration", "status": "done", "file": "exchanges/chainlink.py"},
+        {"name": "Kelly Position Sizing", "status": "done", "file": "utils/kelly.py"},
+        {"name": "VPIN Toxicity Detection", "status": "done", "file": "utils/vpin.py"},
+        {"name": "WebSocket Architecture", "status": "done", "file": "exchanges/websocket_client.py"},
+        {"name": "Jon Becker Dataset", "status": "pending", "note": "Search continues"}
+      ],
+      "note": "4/5 tasks completed. Sub-agents failed due to API credits."
+    },
+    {
+      "name": "Social Media Presence",
+      "status": "inProgress",
+      "tasks": [
+        {"name": "Project structure created", "status": "done"},
+        {"name": "Brand guidelines drafted", "status": "done"},
+        {"name": "Content calendar template", "status": "done"},
+        {"name": "Larrybrain skill installed", "status": "done"},
+        {"name": "Account creation", "status": "todo", "note": "Awaiting Captain approval"},
+        {"name": "Growth strategy", "status": "todo", "note": "Awaiting Captain input"}
+      ],
+      "note": "Project Spryte_Social initialized. Ready for launch."
+    },
+    {
+      "name": "Alchemy Integration",
+      "status": "ready",
+      "tasks": [
+        {"name": "Install alchemy-api skill", "status": "done"},
+        {"name": "Install agentic-gateway skill", "status": "done"},
+        {"name": "Documentation created", "status": "done"},
+        {"name": "API key setup", "status": "todo", "note": "Optional - can use gateway"},
+        {"name": "Integration with trading bot", "status": "todo"}
+      ],
+      "note": "Skills ready. Choose API key or gateway authentication."
+    }
+  ],
   "keyMetrics": {
-    "apiCreditsUsed": "~$45 (Feb)",
-    "apiBudgetRemaining": "$155",
-    "githubCommits": "c25ed0c",
-    "lastBackup": "2026-02-26T19:41:00Z"
+    "apiCreditsUsed": "~$50 (Feb)",
+    "apiBudgetRemaining": "$150",
+    "githubCommits": "bf4af55",
+    "lastBackup": "2026-02-26T22:05:00Z",
+    "tradingBotPid": 46793,
+    "24hrTestStatus": "Running (restarted with fix)"
   }
 }
