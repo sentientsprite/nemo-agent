@@ -34,12 +34,12 @@
 **Action**: Run trading-monitor skill to check bot status  
 **Command**: `~/.nemo/workspace/skills/trading-monitor/trading-monitor.sh`  
 **Escalation**: Alert if bot stopped or errors >5 in last hour  
-**Current Status**: 🟢 Active (24hr test running)
+**Current Status**: ⏸️ **DISABLED** — 24hr test stopped, cron removed
 
 ### 5. Night Shift Agent Check (DISABLED)
 **Condition**: Every hour  
 **Action**: Check status of sub-agents  
-**Current Status**: ⏸️ **DISABLED** — All agents completed 02:00 MST
+**Current Status**: ⏸️ **DISABLED** — All agents completed 02:00 MST, cron removed
 
 ## Future Trading Triggers (When Live)
 
