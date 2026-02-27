@@ -13,7 +13,7 @@ import logging
 import sys
 import time
 import asyncio
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
 
@@ -34,7 +34,7 @@ from strategies.copy_trading import CopyTradingStrategy
 
 # NEW: Night Shift modules (2026-02-26)
 from utils.kelly import KellyPositionSizer
-from utils.vpin import VPINCalculator
+from utils.vpin import VPINToxicityDetector as VPINCalculator
 from exchanges.chainlink import ChainlinkOracle
 
 # WebSocket support (optional - falls back to REST if not available)
@@ -182,31 +182,31 @@ class TradingBot:
         
         return strategy_class(strategy_config, self.exchange, self.risk)
     
-    def calculate_position_size(self, signal_confidence: float, 
+    def calculate_position_size(self, signal_confidence: float,
                                 market_implied_prob: float = 0.5,
-                                avg_win: float = 10.0,
-                                avg_loss: float = 5.0) -> float:
+                                market_price: float = 0.5,
+                                vpin_toxicity: float = 0.0) -> float:
         """Calculate position size using Kelly Criterion.
-        
+
         NEW (2026-02-26): Replaces fixed position sizing with Kelly-based sizing.
-        
+
         Args:
             signal_confidence: Model's estimated probability of winning (0-1)
             market_implied_prob: Market's implied probability (0-1)
-            avg_win: Average win amount ($)
-            avg_loss: Average loss amount ($)
-            
+            market_price: Current market price
+            vpin_toxicity: VPIN toxicity score (0-1)
+
         Returns:
             Position size in dollars
         """
         try:
-            kelly_result = self.kelly.calculate_edge(
-                model_prob=signal_confidence,
-                market_prob=market_implied_prob,
-                avg_win=avg_win,
-                avg_loss=avg_loss
+            kelly_result = self.kelly.calculate_position_size(
+                model_probability=signal_confidence,
+                market_implied_probability=market_implied_prob,
+                market_price=market_price,
+                vpin_toxicity=vpin_toxicity
             )
-            
+
             # Log Kelly calculation
             self.log.debug(
                 f"Kelly: edge={kelly_result.edge:.2%}, "
@@ -215,9 +215,9 @@ class TradingBot:
                 f"position=${kelly_result.position_size:.2f}, "
                 f"confidence={kelly_result.confidence}"
             )
-            
+
             return kelly_result.position_size
-            
+
         except Exception as e:
             self.log.warning(f"Kelly calculation failed, using default: {e}")
             return self.config.risk.max_position_size
@@ -235,11 +235,11 @@ class TradingBot:
         """
         try:
             # Add trade to VPIN calculator
-            self.vpin.add_trade(
-                is_buy=market_data.get('side') == 'buy',
-                size=market_data.get('size', 1),
-                price=market_data.get('price', 0.5)
-            )
+            self.vpin.add_trade({
+                'side': market_data.get('side', 'buy'),
+                'size': market_data.get('size', 1),
+                'price': market_data.get('price', 0.5)
+            })
             
             # Calculate VPIN
             vpin_signal = self.vpin.calculate_vpin()
@@ -256,7 +256,7 @@ class TradingBot:
                 if vpin_signal.action == "kill":
                     if not self.vpin_kill_active:
                         self.vpin_kill_active = True
-                        self.vpin_kill_until = datetime.utcnow() + vpin_signal.cooldown_duration
+                        self.vpin_kill_until = datetime.utcnow() + timedelta(minutes=5)
                         self.log.error(
                             f"🛑 VPIN KILL SWITCH ACTIVATED "
                             f"(VPIN={vpin_signal.vpin:.2f})"
@@ -401,8 +401,7 @@ class TradingBot:
             position_size = self.calculate_position_size(
                 signal_confidence=signal_strength,
                 market_implied_prob=0.5,
-                avg_win=self.risk.state.avg_win if self.risk.state.wins > 0 else 10.0,
-                avg_loss=self.risk.state.avg_loss if self.risk.state.losses > 0 else 5.0
+                market_price=current_price
             )
             
             # Update strategy with Kelly-calculated size
@@ -441,11 +440,11 @@ class TradingBot:
                 # Calculate Kelly position size
                 # Higher confidence when market is mispriced
                 signal_confidence = 0.65 if isinstance(self.strategy, SnipeStrategy) else 0.55
+                mid_price = order_book.mid_price if hasattr(order_book, 'mid_price') else 0.5
                 position_size = self.calculate_position_size(
                     signal_confidence=signal_confidence,
-                    market_implied_prob=order_book.mid_price if hasattr(order_book, 'mid_price') else 0.5,
-                    avg_win=25.0,  # Typical PM win
-                    avg_loss=10.0   # Typical PM loss
+                    market_implied_prob=mid_price,
+                    market_price=mid_price
                 )
                 
                 # Update strategy config with Kelly size
