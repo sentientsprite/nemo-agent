@@ -267,8 +267,8 @@ class TradingBot:
             return "trade"
             
         except Exception as e:
-            self.log.warning(f"VPIN calculation failed: {e}")
-            return "trade"  # Fail open (allow trading)
+            self.log.error(f"VPIN calculation failed: {e}")
+            return "withdraw"  # Fail closed - withdraw when VPIN is broken
     
     def is_vpin_kill_active(self) -> bool:
         """Check if VPIN kill switch is currently active."""
@@ -424,14 +424,18 @@ class TradingBot:
             
             if order_book:
                 # Check VPIN toxicity
-                # Simulated market data for VPIN (in production, use actual trade flow)
-                market_data = {
-                    'side': random.choice(['buy', 'sell']),
-                    'size': random.uniform(1, 10),
-                    'price': order_book.mid_price if hasattr(order_book, 'mid_price') else 0.5
-                }
-                
-                vpin_action = self.check_vpin_toxicity(market_data)
+                if self.config.dry_run:
+                    # In dry-run: use simulated market data for VPIN
+                    market_data = {
+                        'side': random.choice(['buy', 'sell']),
+                        'size': random.uniform(1, 10),
+                        'price': order_book.mid_price if hasattr(order_book, 'mid_price') else 0.5
+                    }
+                    vpin_action = self.check_vpin_toxicity(market_data)
+                else:
+                    # In live mode: skip VPIN check until real trade flow is implemented
+                    # TODO: Implement actual trade data feed for VPIN
+                    vpin_action = "trade"
                 
                 if vpin_action in ["withdraw", "kill"]:
                     self.log.warning(f"VPIN {vpin_action} for market {market.id}, skipping")
@@ -464,18 +468,22 @@ class TradingBot:
                         minute=(now.minute // 5) * 5
                     )
                 
-                # Generate simulated market data with some randomness
                 if order_book:
-                    # Simulate delta: random value between -$50 and +$50
-                    if random.random() < 0.3:  # 30% chance of tradeable signal
-                        current_delta = random.uniform(8.0, 50.0) * random.choice([-1, 1])
-                        zero_crosses = random.randint(0, 2)
+                    if self.config.dry_run:
+                        # In dry-run: generate simulated market data with randomness
+                        if random.random() < 0.3:  # 30% chance of tradeable signal
+                            current_delta = random.uniform(8.0, 50.0) * random.choice([-1, 1])
+                            zero_crosses = random.randint(0, 2)
+                        else:
+                            current_delta = random.uniform(-5.0, 5.0)  # Chop
+                            zero_crosses = random.randint(2, 5)
+                        
+                        self.strategy.run(market.id, market.yes_token, market.no_token, 
+                                         order_book, current_delta, zero_crosses)
                     else:
-                        current_delta = random.uniform(-5.0, 5.0)  # Chop
-                        zero_crosses = random.randint(2, 5)
-                    
-                    self.strategy.run(market.id, market.yes_token, market.no_token, 
-                                     order_book, current_delta, zero_crosses)
+                        # In live mode: use real market data
+                        # TODO: Implement actual market data feed
+                        self.log.warning("Live market data not yet implemented for SnipeStrategy")
             
             elif isinstance(self.strategy, CrowdFadeStrategy):
                 self.strategy.run(market.id, market.yes_token, market.no_token)

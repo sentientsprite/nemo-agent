@@ -183,7 +183,8 @@ class SnipeStrategy:
         position = self.risk.state.positions.get(market_id)
         if position and position.strategy == "snipe":
             remaining = self.seconds_remaining()
-            current_price = 0.75  # Would get from order book
+            # Get current price from order book
+            current_price = order_book.mid_price if hasattr(order_book, 'mid_price') else 0.5
             
             exit_signal = self.evaluate_exit(position, current_price, remaining)
             if exit_signal == "maker_exit":
