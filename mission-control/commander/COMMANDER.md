@@ -6,13 +6,21 @@
 
 ---
 
-## Active Sub-Agents
+## Active Sub-Agents (Overnight Shift)
 
 | Agent | Session Key | Task | Status | Spawned |
 |-------|-------------|------|--------|---------|
-| **Researcher** | `agent:main:subagent:ce1144c6-3b07-4495-93ca-54877f76729f` | Polymarket intelligence | 🟢 Running | 23:45 |
-| **Coder** | `agent:main:subagent:e40470d4-e586-42df-8371-82fa3f18b221` | Code review | 🟢 Running | 23:45 |
-| **Monitor** | `agent:main:subagent:c7382243-29b9-4970-8e15-c7b10e632737` | Trading bot health | 🟢 Running | 23:45 |
+| **Trader** | `agent:main:subagent:db3b4c28-959c-459e-8c38-0219804683c6` | Copy-target analysis | 🟢 Running | 00:20 |
+| **Security** | `agent:main:subagent:4c330f77-52d0-4a62-8ee5-bc173a2a1cc9` | Security audit | 🟢 Running | 00:20 |
+| **Planner** | `agent:main:subagent:a552a4dd-6a9c-4856-9b4e-6ec39742034a` | 30-day roadmap | 🟢 Running | 00:20 |
+
+## Completed Sub-Agents
+
+| Agent | Session Key | Task | Status | Completed |
+|-------|-------------|------|--------|-----------|
+| **Researcher** | `agent:main:subagent:ce1144c6-...` | Polymarket intelligence | ✅ Done | 23:48 |
+| **Coder** | `agent:main:subagent:e40470d4-...` | Code review | ✅ Done | 23:48 |
+| **Monitor** | `agent:main:subagent:c7382243-...` | Trading bot health | ✅ Done | 23:48 |
 
 ---
 
@@ -159,36 +167,68 @@ interface AgentMessage {
 
 ## Current Operations
 
-### Active Tasks
+### Overnight Shift (Batch 2)
 
-1. **Polymarket Intelligence Gathering**
-   - Agent: Researcher
-   - Started: 2026-02-27 23:45 MST
+1. **Copy-Target Analysis**
+   - Agent: Trader
+   - Started: 2026-02-28 00:20 MST
    - ETA: 30 minutes
+   - Output: `mission-control/agents/trader/output/copy-target-analysis-2026-02-27.md`
+
+2. **Security Audit**
+   - Agent: Security
+   - Started: 2026-02-28 00:20 MST
+   - ETA: 30 minutes
+   - Output: `mission-control/agents/security/output/security-audit-2026-02-27.md`
+
+3. **30-Day Roadmap Planning**
+   - Agent: Planner
+   - Started: 2026-02-28 00:20 MST
+   - ETA: 30 minutes
+   - Output: `mission-control/agents/planner/output/30-day-roadmap-2026-02-27.md`
+
+---
+
+## Completed Operations
+
+### Evening Shift (Batch 1) ✅
+
+1. **Polymarket Intelligence Gathering** — ✅ Complete
+   - Agent: Researcher
+   - Completed: 2026-02-27 23:48 MST
    - Output: `mission-control/agents/researcher/output/polymarket-intelligence-2026-02-27.md`
 
-2. **Trading Bot Code Review**
+2. **Trading Bot Code Review** — ✅ Complete
    - Agent: Coder
-   - Started: 2026-02-27 23:45 MST
-   - ETA: 30 minutes
+   - Completed: 2026-02-27 23:48 MST
    - Output: `mission-control/agents/coder/output/code-review-2026-02-27.md`
 
-3. **Trading Bot Health Monitoring**
+3. **Trading Bot Health Monitoring** — ✅ Complete
    - Agent: Monitor
-   - Started: 2026-02-27 23:45 MST
-   - Duration: 30 minutes (6 checks)
+   - Completed: 2026-02-27 23:48 MST
    - Output: `mission-control/agents/monitor/output/trading-bot-health-2026-02-27.md`
 
 ---
 
 ## Cost Tracking
 
-| Agent | Model | Est. Cost | Runtime |
-|-------|-------|-----------|---------|
-| Researcher | moonshot/kimi-k2.5 | ~$0.004 | 30 min |
-| Coder | moonshot/kimi-k2.5 | ~$0.004 | 30 min |
-| Monitor | moonshot/kimi-k2.5 | ~$0.004 | 30 min |
-| **Total** | | **~$0.012** | |
+### Evening Shift (Completed)
+| Agent | Model | Cost | Status |
+|-------|-------|------|--------|
+| Researcher | moonshot/kimi-k2.5 | ~$0.004 | ✅ Done |
+| Coder | moonshot/kimi-k2.5 | ~$0.004 | ✅ Done |
+| Monitor | moonshot/kimi-k2.5 | ~$0.004 | ✅ Done |
+| **Evening Subtotal** | | **~$0.012** | |
+
+### Overnight Shift (Active)
+| Agent | Model | Est. Cost | Status |
+|-------|-------|-----------|--------|
+| Trader | moonshot/kimi-k2.5 | ~$0.004 | 🟢 Running |
+| Security | moonshot/kimi-k2.5 | ~$0.004 | 🟢 Running |
+| Planner | moonshot/kimi-k2.5 | ~$0.004 | 🟢 Running |
+| **Overnight Subtotal** | | **~$0.012** | |
+
+| **Total Mission Cost** | | **~$0.024** | |
 
 **Daily Budget**: $25 / 3 agents = ~$8/day per agent
 **Monthly**: ~$250 for 3-agent team
