@@ -23,6 +23,8 @@
 ## Model Routing
 - **Main conversation:** Opus (complex reasoning, King interaction)
 - **Sub-agents/cron:** Kimi K2.5 (~$0.004/task, ~50x cheaper than Opus)
+  - **Model string:** `moonshot/kimi-k2.5` (NOT `anthropic/kimi-k2.5`)
+  - **Status:** Switched Feb 26 after Anthropic credit exhaustion
 - **Embeddings/memory:** Nomic Embed via LM Studio (free)
 
 ## Key Paths

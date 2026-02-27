@@ -11,6 +11,50 @@ Sub-agents failed due to low Anthropic API credits. NEMO completed 4 of 5 tasks 
 
 ---
 
+## 🐛 What Went Wrong
+
+### Sub-Agent Failure Analysis
+**Root Cause:** Wrong model string in `sessions_spawn` calls
+
+**Mistake:**
+```json
+{
+  "model": "anthropic/kimi-k2.5"  // ❌ WRONG
+}
+```
+
+**Should Have Been:**
+```json
+{
+  "model": "moonshot/kimi-k2.5"   // ✅ CORRECT
+}
+```
+
+**Result:**
+- All 5 sub-agents failed within 400ms
+- Anthropic API rejected requests (credit balance too low)
+- No fallback to cheaper model
+- Had to implement tasks directly (inefficient but successful)
+
+**Resolution:**
+- Switched to `moonshot/kimi-k2.5` for future sub-agents
+- Created `docs/sub-agent-best-practices.md`
+- Updated MEMORY.md with correct model string
+
+---
+
+## 💡 Lessons Learned
+
+1. **Always verify model string format** — Use `moonshot/` prefix for Kimi
+2. **Set explicit timeout** — Don't rely on defaults
+3. **Check response for `modelApplied`** — Verify the model actually loaded
+4. **Have fallback plan** — Direct implementation if sub-agents fail
+5. **Monitor API credits** — Set up alerts before exhaustion
+
+---
+
+---
+
 ## ✅ Completed (4/5)
 
 ### 1. Chainlink Oracle Integration ✓
