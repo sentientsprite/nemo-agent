@@ -1,0 +1,116 @@
+name: "Agency Launch Campaign"
+description: "Initial outreach to small business owners"
+
+# Target audience
+target:
+  industry: ["ecommerce", "local-services", "saas"]
+  company_size: "10-50 employees"
+  title_keywords: ["owner", "founder", "ceo", "director"]
+
+# Voice settings
+voice:
+  provider: bland-ai
+  voice_id: "maya"  # Options: maya, josh, mark, rachel
+  language: "en-US"
+  speed: 1.0
+
+# Conversation flow
+script:
+  # Opening hook (get permission to continue)
+  opening: |
+    Hi {{first_name}}, this is {{ai_name}} from {{agency_name}}.
+    We help {{industry}} businesses double their qualified leads in 90 days.
+    Do you have 2 minutes for me to explain how?
+  
+  # Qualification questions (BANT)
+  qualification:
+    budget:
+      question: "What's your current monthly marketing budget?"
+      good_answers: ["$2k+", "$5k+", "$10k+"]
+    
+    authority:
+      question: "Are you the decision maker for marketing, or should we include someone else?"
+      good_answers: ["yes", "i am", "decision maker"]
+    
+    need:
+      question: "What's your biggest challenge with lead generation right now?"
+      listen_for: ["not enough leads", "expensive", "quality", "volume"]
+    
+    timeline:
+      question: "If we could solve this, when would you want to start seeing results?"
+      good_answers: ["immediately", "this month", "next month"]
+  
+  # Value proposition (bridge to close)
+  value_bridge: |
+    We've helped over 50 {{industry}} companies just like yours.
+    On average, they see 150% more qualified leads in the first 90 days.
+    {{closer_name}}, our lead generation specialist, would love to show you exactly how we'd do it for {{company_name}}.
+  
+  # Close - get the appointment
+  close: |
+    He has a few openings this week. 
+    Would Tuesday at 2pm or Thursday at 10am work better for a quick strategy call?
+  
+  # If they say no to both times
+  close_alternative: |
+    No problem! What day this week works best for you?
+  
+  # Voicemail (if no answer)
+  voicemail: |
+    Hi {{first_name}}, this is {{ai_name}} from {{agency_name}}.
+    We're helping {{industry}} companies double their leads, and I wanted to reach out to {{company_name}}.
+    Give me a call back at {{callback_number}}, or grab time with us at {{calendar_link}}.
+    Talk soon!
+
+# Objection handling
+objections:
+  "not interested":
+    response: "Totally understand. Most people say that at first. Can I ask - are you getting enough qualified leads right now, or is that not a priority?"
+    if_still_no: "No problem. I'll send you an email with some case studies. If things change, feel free to reach out."
+  
+  "send me an email":
+    response: "I'd love to, but honestly, our best results come from a 10-minute conversation where we can understand your specific situation. What time works tomorrow?"
+  
+  "too expensive":
+    response: "I hear that a lot. Most of our clients say that upfront. But they're seeing 3-5x ROI in the first month. Worth a 15-minute call to see the numbers?"
+  
+  "we're good":
+    response: "That's great to hear! Just out of curiosity - how are you currently generating leads?"
+  
+  "call me back later":
+    response: "Of course! When would be a better time? I want to make sure I catch you when you're free."
+
+# Scheduling
+scheduling:
+  timezone_aware: true
+  business_hours: "9am-5pm"
+  days_available: ["tuesday", "wednesday", "thursday"]
+  retry_attempts: 3
+  retry_interval: "24h"
+  
+# Disqualification (stop if they say these)
+disqualify:
+  - "do not call"
+  - "take me off your list"
+  - "already have a solution"
+  - "no budget at all"
+
+# Handoff to closer
+handoff:
+  send_recording: true
+  send_transcript: true
+  send_qualification_notes: true
+  send_lead_score: true
+  notification_method: "email"  # email, slack, or webhook
+
+# Lead scoring (0-100)
+scoring:
+  answered_call: 10
+  stayed_on_2min: 15
+  disclosed_budget: 20
+  confirmed_authority: 15
+  expressed_need: 20
+  agreed_to_meeting: 20
+  
+  # Minimum score to book appointment
+  minimum_appointment_score: 60
