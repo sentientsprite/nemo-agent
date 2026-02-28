@@ -491,13 +491,13 @@
     <div class="typing-indicator" id="typingIndicator"></div>
     <div class="chat-input-area">
       <input type="text" class="chat-input" id="chatInput" placeholder="Type message..." onkeypress="handleChatInput(event)">
-      <div class="chat-hint">Press ENTER to send • @agent to mention</div>
+      <div class="chat-hint">Try: "status" "@Trader update" "priority" "deploy" "help"</div>
     </div>
   </div>
 </div>
 
 <script>
-// Agent Data with Personality
+// Agent Data with Managerial Messages
 const agents = {
   commander: {
     name: "Commander",
@@ -512,12 +512,24 @@ const agents = {
     xp: 8750,
     maxXp: 10000,
     personality: "strict but fair",
-    catchphrases: [
-      "Listen up, team!",
-      "New mission incoming.",
-      "Status report, now!",
-      "Good work, squad."
-    ]
+    messages: {
+      update: [
+        "Delegated 3 new tasks to Researcher and Coder.",
+        "Daily standup complete. All agents accounted for.",
+        "Reviewed Trader's performance metrics from yesterday.",
+        "Updated mission priorities based on Captain's feedback."
+      ],
+      help: [
+        "@Captain - Need clarification on priority ranking. Which comes first: volatility detector or macro model?",
+        "@Nemo - Can you check if the Researcher has access to X API credentials?",
+        "Team - Writer has capacity. Who needs documentation support?"
+      ],
+      question: [
+        "What's our target deployment date for live trading?",
+        "Should we schedule a strategy review this weekend?",
+        "Do we have budget approval for additional API credits?"
+      ]
+    }
   },
   researcher: {
     name: "Researcher",
@@ -532,12 +544,24 @@ const agents = {
     xp: 4200,
     maxXp: 6000,
     personality: "curious, always learning",
-    catchphrases: [
-      "Interesting finding...",
-      "According to my research...",
-      "Did you see this pattern?",
-      "Data never lies!"
-    ]
+    messages: {
+      update: [
+        "Completed sentiment analysis on 50 trading-related X accounts.",
+        "Found 3 new Polymarket strategies to evaluate.",
+        "Compiled competitor intelligence report.",
+        "Updated Kalshi market watchlist with 5 new events."
+      ],
+      help: [
+        "@Coder - Need help scraping historical Polymarket data. Can you build a parser?",
+        "@Captain - Requesting access to premium market data feed.",
+        "@Nemo - My X API rate limits are hit. Can you check usage?"
+      ],
+      question: [
+        "Which competitor strategies should I prioritize analyzing?",
+        "Do you want me to focus on crypto or prediction markets this week?",
+        "Should I set up alerts for specific keywords on X?"
+      ]
+    }
   },
   coder: {
     name: "Coder",
@@ -552,12 +576,24 @@ const agents = {
     xp: 9200,
     maxXp: 10000,
     personality: "night owl, coffee addict",
-    catchphrases: [
-      "It's not a bug, it's a feature!",
-      "Compiling...",
-      "Works on my machine!",
-      "Ship it! 🚀"
-    ]
+    messages: {
+      update: [
+        "8-bit office dashboard deployed and committed.",
+        "Fixed navigation links across all dashboard pages.",
+        "Refactored main.py to remove night shift integration.",
+        "Git push completed. All changes synced to GitHub."
+      ],
+      help: [
+        "@Captain - Need decision: should I start volatility detector or macro model first?",
+        "@Trader - What specific indicators do you need for the regime detector?",
+        "@Nemo - Can you review my Kelly integration test results?"
+      ],
+      question: [
+        "What's the preferred tech stack for the paper trading arena?",
+        "Should I add unit tests for the new modules?",
+        "Do you want real-time WebSocket feeds or polling for now?"
+      ]
+    }
   },
   trader: {
     name: "Trader",
@@ -572,12 +608,24 @@ const agents = {
     xp: 6800,
     maxXp: 8000,
     personality: "aggressive, risk-taker",
-    catchphrases: [
-      "Buy the dip!",
-      "Stonks only go up!",
-      "Paper hands!",
-      "To the moon! 🚀"
-    ]
+    messages: {
+      update: [
+        "24hr test stopped after 4 hours due to division-by-zero error.",
+        "Captured 23 trades worth of data before shutdown.",
+        "Win rate at 0% - dry-run simulation needs adjustment.",
+        "Awaiting Captain's decision on restart vs integration work."
+      ],
+      help: [
+        "@Captain - Should I fix the bug and restart, or move to next project?",
+        "@Analyst - Can you review the 4-hour test data for patterns?",
+        "@Coder - Need help fixing the division-by-zero in snipe strategy."
+      ],
+      question: [
+        "What's the criteria for graduating from dry-run to live?",
+        "Should I prioritize fixing momentum strategy or snipe?",
+        "Do we have capital allocation limits per strategy?"
+      ]
+    }
   },
   analyst: {
     name: "Analyst",
@@ -592,12 +640,24 @@ const agents = {
     xp: 5100,
     maxXp: 7000,
     personality: "methodical, precise",
-    catchphrases: [
-      "The data suggests...",
-      "Statistically speaking...",
-      "Correlation is not causation.",
-      "Let me run the numbers."
-    ]
+    messages: {
+      update: [
+        "Standing by for Trader's test results.",
+        "Prepared backtesting framework for strategy comparison.",
+        "Updated volatility metrics calculation.",
+        "Ready to analyze 24hr Snipe + Maker performance."
+      ],
+      help: [
+        "@Trader - Please send the 4-hour test log file when ready.",
+        "@Captain - Need more historical data for meaningful analysis.",
+        "@Coder - Can you expose strategy performance endpoints?"
+      ],
+      question: [
+        "What win rate threshold should I flag as underperforming?",
+        "Should I include Sharpe ratio in my reports?",
+        "How many trades minimum for statistical significance?"
+      ]
+    }
   },
   security: {
     name: "Security",
@@ -612,12 +672,24 @@ const agents = {
     xp: 7800,
     maxXp: 9000,
     personality: "paranoid, protective",
-    catchphrases: [
-      "Threat detected!",
-      "Fortify the perimeter!",
-      "None shall pass!",
-      "Scanning for vulnerabilities..."
-    ]
+    messages: {
+      update: [
+        "Daily security audit complete. All systems secure.",
+        "Detected VPIN kill switch activations - normal for dry-run.",
+        "Verified all localhost bindings. No external exposure.",
+        "Polymarket test key flagged for rotation before live deployment."
+      ],
+      help: [
+        "@Captain - Please rotate the Polymarket private key before live trading.",
+        "@Nemo - Recommend disabling completed cron jobs to reduce noise.",
+        "@Coder - Ensure no API keys are being logged in debug output."
+      ],
+      question: [
+        "Should I set up automated vulnerability scanning?",
+        "Do you want MFA alerts for any account access?",
+        "What's the incident response protocol if breach detected?"
+      ]
+    }
   },
   writer: {
     name: "Writer",
@@ -632,12 +704,24 @@ const agents = {
     xp: 3600,
     maxXp: 5000,
     personality: "creative, eloquent",
-    catchphrases: [
-      "Words are weapons.",
-      "Let me draft something...",
-      "Communication is key.",
-      "Storytime! 📚"
-    ]
+    messages: {
+      update: [
+        "Memory log for 2026-02-27 committed and pushed.",
+        "Updated README with new dashboard links.",
+        "Documented night shift integration test results.",
+        "Standing by for daily P&L report (tonight)."
+      ],
+      help: [
+        "@Commander - Who needs documentation support? I have capacity.",
+        "@Captain - Should I draft the live trading approval checklist?",
+        "@Nemo - Please review my MEMORY.md updates for accuracy."
+      ],
+      question: [
+        "What format do you prefer for strategy documentation?",
+        "Should I create user guides for the dashboards?",
+        "Do you want changelogs for each commit?"
+      ]
+    }
   },
   monitor: {
     name: "Monitor",
@@ -652,12 +736,24 @@ const agents = {
     xp: 12500,
     maxXp: 15000,
     personality: "observant, silent",
-    catchphrases: [
-      "I see everything.",
-      "Anomaly detected.",
-      "Systems nominal.",
-      "Watching... always watching."
-    ]
+    messages: {
+      update: [
+        "Hourly health check: Trading bot stopped (expected).",
+        "Disk usage at 32% - well within healthy range.",
+        "No auth failures detected in last 24 hours.",
+        "Gateway responsive on localhost:3000."
+      ],
+      help: [
+        "@Captain - VPIN is overly sensitive in simulation. Recommend threshold adjustment.",
+        "@Nemo - Multiple log files detected. Suggest log rotation policy.",
+        "@Security - Anomaly report ready for your review."
+      ],
+      question: [
+        "Should I alert on VPIN false positives?",
+        "What metrics should I include in daily health reports?",
+        "Do you want real-time alerts or batched summaries?"
+      ]
+    }
   },
   planner: {
     name: "Planner",
@@ -672,12 +768,24 @@ const agents = {
     xp: 4500,
     maxXp: 6000,
     personality: "visionary, patient",
-    catchphrases: [
-      "The big picture...",
-      "Five-year plan:",
-      "Strategy first.",
-      "Rome wasn't built in a day."
-    ]
+    messages: {
+      update: [
+        "Q1 2026 roadmap drafted.",
+        "Phase 2 Mission Control plan ready for review.",
+        "Capability expansion priorities ranked.",
+        "Awaiting Captain's input on timeline."
+      ],
+      help: [
+        "@Captain - Need your decision on next priority after 8-bit office.",
+        "@Commander - Please review Phase 2 resource allocation.",
+        "@Coder - Can you estimate effort for remaining tasks?"
+      ],
+      question: [
+        "What's our target for live trading launch?",
+        "Should we focus on one exchange or diversify?",
+        "What's the monthly API credit budget ceiling?"
+      ]
+    }
   },
   learner: {
     name: "Learner",
@@ -692,12 +800,24 @@ const agents = {
     xp: 7200,
     maxXp: 8000,
     personality: "humble, growth-minded",
-    catchphrases: [
-      "Every failure teaches.",
-      "Adapting...",
-      "What did we learn?",
-      "Level up! ⬆️"
-    ]
+    messages: {
+      update: [
+        "Night shift post-mortem complete.",
+        "Documented lessons from sub-agent failures.",
+        "Updated model routing best practices.",
+        "Recommended process improvements captured."
+      ],
+      help: [
+        "@Commander - Suggest we test sub-agent configs before deployment.",
+        "@Captain - Recommendation: Always verify model string format.",
+        "@Nemo - Please review my lessons learned document."
+      ],
+      question: [
+        "Should we implement rollback procedures for failed agents?",
+        "What's the feedback loop for strategy improvements?",
+        "How do we measure long-term learning effectiveness?"
+      ]
+    }
   }
 };
 
@@ -794,21 +914,39 @@ function addSystemMessage(message) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-// Simulate Agent Chat
+// Simulate Agent Chat - Managerial Updates Only
 function simulateAgentChat() {
-  if (Math.random() < 0.3) return; // 70% chance to skip
+  if (Math.random() < 0.4) return; // 60% chance to skip (reduced frequency)
   
   const agentIds = Object.keys(agents);
   const agentId = agentIds[Math.floor(Math.random() * agentIds.length)];
   const agent = agents[agentId];
+  
+  // Skip idle agents unless they have questions
+  if (agent.status === 'idle' && Math.random() > 0.3) return;
   
   // Show typing indicator
   showTyping(agent.name);
   
   setTimeout(() => {
     hideTyping();
-    const message = agent.catchphrases[Math.floor(Math.random() * agent.catchphrases.length)];
-    addChatMessage(agentId, message);
+    
+    // Pick message type based on agent status and randomness
+    const msgTypes = ['update', 'help', 'question'];
+    let msgType;
+    
+    if (agent.status === 'active') {
+      // Active agents mostly give updates, occasionally ask for help
+      msgType = Math.random() < 0.7 ? 'update' : (Math.random() < 0.5 ? 'help' : 'question');
+    } else {
+      // Idle agents ask for tasks or direction
+      msgType = Math.random() < 0.5 ? 'question' : 'help';
+    }
+    
+    const messages = agent.messages[msgType];
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    
+    addChatMessage(agentId, message, msgType === 'help');
   }, 1500);
 }
 
@@ -821,7 +959,7 @@ function hideTyping() {
   document.getElementById('typingIndicator').textContent = '';
 }
 
-// Handle User Input
+// Handle User Input - Managerial Responses
 function handleChatInput(event) {
   if (event.key !== 'Enter') return;
   
@@ -839,17 +977,23 @@ function handleChatInput(event) {
     message.toLowerCase().includes(`@${agents[id].name.toLowerCase()}`)
   );
   
-  // Agents respond to user
+  // Intelligent agent responses
   setTimeout(() => {
     if (mentioned) {
       const agent = agents[mentioned];
-      addChatMessage(mentioned, `You called, Captain? I'm on it!`, true);
-    } else if (message.toLowerCase().includes('status')) {
-      addChatMessage('commander', 'All systems operational, Captain!');
-    } else if (message.toLowerCase().includes('trade')) {
-      addChatMessage('trader', 'Markets are looking spicy! 🌶️');
-    } else if (message.toLowerCase().includes('security')) {
-      addChatMessage('security', 'Perimeter is secure. No threats detected.');
+      const responseType = Math.random() < 0.6 ? 'update' : (Math.random() < 0.5 ? 'help' : 'question');
+      const response = agent.messages[responseType][0]; // Use first message as acknowledgment
+      addChatMessage(mentioned, response, true);
+    } else if (message.toLowerCase().includes('status') || message.toLowerCase().includes('update')) {
+      addChatMessage('commander', "Here's the current status: 5 agents active, 4 idle. Trading bot stopped. Night shift integration complete. Awaiting your next directive.");
+    } else if (message.toLowerCase().includes('priorit')) {
+      addChatMessage('planner', "Current priority queue: 1) Volatility regime detector, 2) Macro regime model, 3) Paper trading arena. Need your decision on which to tackle first.");
+    } else if (message.toLowerCase().includes('help') || message.toLowerCase().includes('assist')) {
+      addChatMessage('commander', "Writer and Analyst have capacity. Who should I assign to assist?");
+    } else if (message.toLowerCase().includes('deploy') || message.toLowerCase().includes('start')) {
+      addChatMessage('coder', "Ready to deploy. Which module should I prioritize?");
+    } else if (message.toLowerCase().includes('security') || message.toLowerCase().includes('audit')) {
+      addChatMessage('security', "All systems secure. Daily audit passed. One action item: rotate Polymarket test key before live deployment.");
     }
   }, 1000);
 }
