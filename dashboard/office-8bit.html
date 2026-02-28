@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 NEMO 8-BIT OFFICE | Agent HQ</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  
+  * { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    image-rendering: pixelated;
+  }
+  
+  body { 
+    font-family: 'Press Start 2P', monospace;
+    background: #1a1c2c;
+    color: #f4f4f4;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* CRT Scanline Effect */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 1000;
+  }
+  
+  /* Header */
+  .header {
+    background: linear-gradient(180deg, #2d1b2e 0%, #1a1c2c 100%);
+    border-bottom: 4px solid #5d275d;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+    color: #ffcd75;
+    text-shadow: 4px 4px 0px #5d275d;
+    margin-bottom: 10px;
+  }
+  
+  .header-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 10px;
+    margin-top: 15px;
+  }
+  
+  .stat-box {
+    background: #29366f;
+    padding: 8px 12px;
+    border: 2px solid #1a1c2c;
+    box-shadow: inset -2px -2px 0 #1a1c2c, inset 2px 2px 0 #5965a3;
+  }
+  
+  .stat-label { color: #94b0c2; font-size: 8px; }
+  .stat-value { color: #38b764; margin-top: 4px; }
+  
+  /* Main Layout */
+  .game-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  
+  @media (max-width: 1200px) {
+    .game-container { grid-template-columns: 1fr; }
+  }
+  
+  /* Agent Grid */
+  .office-floor {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  @media (max-width: 900px) {
+    .office-floor { grid-template-columns: repeat(2, 1fr); }
+  }
+  
+  @media (max-width: 600px) {
+    .office-floor { grid-template-columns: 1fr; }
+  }
+  
+  /* Agent Card */
+  .agent-card {
+    background: #29366f;
+    border: 4px solid #1a1c2c;
+    box-shadow: 
+      inset -4px -4px 0 #1a1c2c,
+      inset 4px 4px 0 #5965a3,
+      4px 4px 0 rgba(0,0,0,0.3);
+    padding: 15px;
+    position: relative;
+    transition: transform 0.1s;
+  }
+  
+  .agent-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+      inset -4px -4px 0 #1a1c2c,
+      inset 4px 4px 0 #5965a3,
+      6px 6px 0 rgba(0,0,0,0.3);
+  }
+  
+  .agent-card.active {
+    border-color: #38b764;
+    animation: pulse-border 2s infinite;
+  }
+  
+  .agent-card.idle {
+    border-color: #a7f070;
+    opacity: 0.9;
+  }
+  
+  @keyframes pulse-border {
+    0%, 100% { border-color: #38b764; }
+    50% { border-color: #257179; }
+  }
+  
+  /* Avatar */
+  .avatar-container {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 10px;
+    background: #1a1c2c;
+    border: 3px solid #5d275d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    position: relative;
+  }
+  
+  .avatar-container::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #5d275d;
+  }
+  
+  .agent-emoji {
+    animation: bounce 1s infinite;
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+  
+  /* Agent Info */
+  .agent-name {
+    font-size: 10px;
+    color: #ffcd75;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .agent-role {
+    font-size: 8px;
+    color: #94b0c2;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .status-badge {
+    display: inline-block;
+    font-size: 7px;
+    padding: 3px 6px;
+    margin: 0 auto 10px;
+    display: block;
+    width: fit-content;
+  }
+  
+  .status-badge.active {
+    background: #38b764;
+    color: #1a1c2c;
+  }
+  
+  .status-badge.idle {
+    background: #a7f070;
+    color: #1a1c2c;
+  }
+  
+  /* Task Box */
+  .task-box {
+    background: #1a1c2c;
+    border: 2px solid #5d275d;
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 7px;
+    line-height: 1.6;
+  }
+  
+  .task-label {
+    color: #ef7d57;
+    font-size: 6px;
+    margin-bottom: 4px;
+  }
+  
+  .task-text {
+    color: #f4f4f4;
+  }
+  
+  /* Stats */
+  .agent-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    font-size: 7px;
+  }
+  
+  .stat {
+    background: #1a1c2c;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .stat-num {
+    color: #38b764;
+    font-size: 10px;
+  }
+  
+  .stat-label-small {
+    color: #94b0b0;
+    font-size: 6px;
+    margin-top: 2px;
+  }
+  
+  /* XP Bar */
+  .xp-bar {
+    margin-top: 10px;
+    background: #1a1c2c;
+    border: 2px solid #5d275d;
+    height: 12px;
+    position: relative;
+  }
+  
+  .xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38b764, #a7f070);
+    transition: width 0.5s;
+  }
+  
+  .xp-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6px;
+    color: #f4f4f4;
+    text-shadow: 1px 1px 0 #1a1c2c;
+  }
+  
+  /* Chat Section */
+  .chat-container {
+    background: #29366f;
+    border: 4px solid #1a1c2c;
+    box-shadow: 
+      inset -4px -4px 0 #1a1c2c,
+      inset 4px 4px 0 #5965a3;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    position: sticky;
+    top: 20px;
+  }
+  
+  .chat-header {
+    background: #5d275d;
+    padding: 10px;
+    font-size: 10px;
+    color: #ffcd75;
+    text-align: center;
+    border-bottom: 3px solid #1a1c2c;
+  }
+  
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    font-size: 8px;
+    line-height: 1.8;
+  }
+  
+  .chat-message {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #1a1c2c;
+    border-left: 3px solid #5d275d;
+  }
+  
+  .chat-message.mention {
+    border-left-color: #ef7d57;
+    background: #2d1b2e;
+  }
+  
+  .chat-author {
+    color: #ffcd75;
+    margin-bottom: 4px;
+  }
+  
+  .chat-text {
+    color: #f4f4f4;
+  }
+  
+  .chat-time {
+    color: #94b0c2;
+    font-size: 6px;
+    margin-top: 4px;
+  }
+  
+  .typing-indicator {
+    color: #94b0c2;
+    font-size: 8px;
+    padding: 10px;
+    font-style: italic;
+  }
+  
+  /* Chat Input */
+  .chat-input-area {
+    padding: 10px;
+    background: #1a1c2c;
+    border-top: 3px solid #5d275d;
+  }
+  
+  .chat-input {
+    width: 100%;
+    background: #29366f;
+    border: 2px solid #5d275d;
+    color: #f4f4f4;
+    padding: 8px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    outline: none;
+  }
+  
+  .chat-input:focus {
+    border-color: #ffcd75;
+  }
+  
+  .chat-hint {
+    font-size: 6px;
+    color: #94b0c2;
+    margin-top: 5px;
+  }
+  
+  /* Action Buttons */
+  .action-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    background: #b13e53;
+    border: none;
+    padding: 10px 15px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: #f4f4f4;
+    cursor: pointer;
+    box-shadow: inset -2px -2px 0 #8b1e33, inset 2px 2px 0 #d45e73;
+    transition: all 0.1s;
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: inset -2px -2px 0 #8b1e33, inset 2px 2px 0 #d45e73, 0 2px 0 rgba(0,0,0,0.3);
+  }
+  
+  .btn:active {
+    transform: translateY(0);
+  }
+  
+  .btn.green {
+    background: #38b764;
+    box-shadow: inset -2px -2px 0 #257179, inset 2px 2px 0 #58d784;
+  }
+  
+  /* Notification */
+  .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ef7d57;
+    color: #1a1c2c;
+    padding: 15px;
+    font-size: 8px;
+    border: 3px solid #1a1c2c;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+    z-index: 100;
+    animation: slideIn 0.3s;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #1a1c2c;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #5d275d;
+    border: 2px solid #1a1c2c;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #ef7d57;
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🎮 NEMO 8-BIT OFFICE</h1>
+  <div class="header-stats">
+    <div class="stat-box">
+      <div class="stat-label">AGENTS</div>
+      <div class="stat-value" id="activeAgents">5/10 ACTIVE</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">TASKS</div>
+      <div class="stat-value" id="totalTasks">124 DONE</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">UPTIME</div>
+      <div class="stat-value" id="uptime">99.9%</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">LEVEL</div>
+      <div class="stat-value">LV.42</div>
+    </div>
+  </div>
+</div>
+
+<div class="game-container">
+  <div class="main-area">
+    <div class="action-bar">
+      <button class="btn green" onclick="triggerTeamMeeting()">📢 TEAM MEETING</button>
+      <button class="btn" onclick="deployAllAgents()">🚀 DEPLOY ALL</button>
+      <button class="btn" onclick="toggleMusic()">🎵 TOGGLE MUSIC</button>
+    </div>
+    
+    <div class="office-floor" id="officeFloor">
+      <!-- Agents will be rendered here -->
+    </div>
+  </div>
+  
+  <div class="chat-container">
+    <div class="chat-header">
+      💬 AGENT GROUP CHAT
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <!-- Chat messages will appear here -->
+    </div>
+    <div class="typing-indicator" id="typingIndicator"></div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" id="chatInput" placeholder="Type message..." onkeypress="handleChatInput(event)">
+      <div class="chat-hint">Press ENTER to send • @agent to mention</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Agent Data with Personality
+const agents = {
+  commander: {
+    name: "Commander",
+    role: "Orchestrator",
+    emoji: "🎯",
+    color: "#ef7d57",
+    description: "Routes tasks & manages the squad",
+    status: "active",
+    currentTask: "Coordinating multi-agent ops",
+    tasksCompleted: 47,
+    successRate: 94,
+    xp: 8750,
+    maxXp: 10000,
+    personality: "strict but fair",
+    catchphrases: [
+      "Listen up, team!",
+      "New mission incoming.",
+      "Status report, now!",
+      "Good work, squad."
+    ]
+  },
+  researcher: {
+    name: "Researcher",
+    role: "Intel Gatherer",
+    emoji: "🔬",
+    color: "#38b764",
+    description: "Scans markets for alpha",
+    status: "active",
+    currentTask: "Monitoring X for sentiment",
+    tasksCompleted: 12,
+    successRate: 78,
+    xp: 4200,
+    maxXp: 6000,
+    personality: "curious, always learning",
+    catchphrases: [
+      "Interesting finding...",
+      "According to my research...",
+      "Did you see this pattern?",
+      "Data never lies!"
+    ]
+  },
+  coder: {
+    name: "Coder",
+    role: "Code Architect",
+    emoji: "💻",
+    color: "#257179",
+    description: "Builds the infrastructure",
+    status: "active",
+    currentTask: "Building 8-bit office",
+    tasksCompleted: 156,
+    successRate: 91,
+    xp: 9200,
+    maxXp: 10000,
+    personality: "night owl, coffee addict",
+    catchphrases: [
+      "It's not a bug, it's a feature!",
+      "Compiling...",
+      "Works on my machine!",
+      "Ship it! 🚀"
+    ]
+  },
+  trader: {
+    name: "Trader",
+    role: "Execution Agent",
+    emoji: "📈",
+    color: "#ffcd75",
+    description: "Makes the trades",
+    status: "active",
+    currentTask: "Running 24hr snipe test",
+    tasksCompleted: 89,
+    successRate: 65,
+    xp: 6800,
+    maxXp: 8000,
+    personality: "aggressive, risk-taker",
+    catchphrases: [
+      "Buy the dip!",
+      "Stonks only go up!",
+      "Paper hands!",
+      "To the moon! 🚀"
+    ]
+  },
+  analyst: {
+    name: "Analyst",
+    role: "Data Scientist",
+    emoji: "📊",
+    color: "#b13e53",
+    description: "Crunches the numbers",
+    status: "idle",
+    currentTask: "Awaiting test results",
+    tasksCompleted: 34,
+    successRate: 82,
+    xp: 5100,
+    maxXp: 7000,
+    personality: "methodical, precise",
+    catchphrases: [
+      "The data suggests...",
+      "Statistically speaking...",
+      "Correlation is not causation.",
+      "Let me run the numbers."
+    ]
+  },
+  security: {
+    name: "Security",
+    role: "Guardian",
+    emoji: "🛡️",
+    color: "#5d275d",
+    description: "Protects the network",
+    status: "active",
+    currentTask: "Running security audit",
+    tasksCompleted: 67,
+    successRate: 99,
+    xp: 7800,
+    maxXp: 9000,
+    personality: "paranoid, protective",
+    catchphrases: [
+      "Threat detected!",
+      "Fortify the perimeter!",
+      "None shall pass!",
+      "Scanning for vulnerabilities..."
+    ]
+  },
+  writer: {
+    name: "Writer",
+    role: "Communicator",
+    emoji: "✍️",
+    color: "#94b0c2",
+    description: "Handles documentation",
+    status: "idle",
+    currentTask: "Standing by for reports",
+    tasksCompleted: 23,
+    successRate: 88,
+    xp: 3600,
+    maxXp: 5000,
+    personality: "creative, eloquent",
+    catchphrases: [
+      "Words are weapons.",
+      "Let me draft something...",
+      "Communication is key.",
+      "Storytime! 📚"
+    ]
+  },
+  monitor: {
+    name: "Monitor",
+    role: "Watcher",
+    emoji: "👁️",
+    color: "#a7f070",
+    description: "Keeps eyes on everything",
+    status: "active",
+    currentTask: "Hourly health checks",
+    tasksCompleted: 892,
+    successRate: 100,
+    xp: 12500,
+    maxXp: 15000,
+    personality: "observant, silent",
+    catchphrases: [
+      "I see everything.",
+      "Anomaly detected.",
+      "Systems nominal.",
+      "Watching... always watching."
+    ]
+  },
+  planner: {
+    name: "Planner",
+    role: "Strategist",
+    emoji: "🗺️",
+    color: "#3b5dc9",
+    description: "Maps the future",
+    status: "idle",
+    currentTask: "Planning Phase 2",
+    tasksCompleted: 18,
+    successRate: 85,
+    xp: 4500,
+    maxXp: 6000,
+    personality: "visionary, patient",
+    catchphrases: [
+      "The big picture...",
+      "Five-year plan:",
+      "Strategy first.",
+      "Rome wasn't built in a day."
+    ]
+  },
+  learner: {
+    name: "Learner",
+    role: "Self-Improver",
+    emoji: "🧠",
+    color: "#29366f",
+    description: "Evolves from mistakes",
+    status: "idle",
+    currentTask: "Analyzing night shift",
+    tasksCompleted: 156,
+    successRate: 76,
+    xp: 7200,
+    maxXp: 8000,
+    personality: "humble, growth-minded",
+    catchphrases: [
+      "Every failure teaches.",
+      "Adapting...",
+      "What did we learn?",
+      "Level up! ⬆️"
+    ]
+  }
+};
+
+// Chat History
+let chatHistory = [];
+let typingAgent = null;
+
+// Initialize
+function init() {
+  renderAgents();
+  addSystemMessage("🏢 Welcome to NEMO 8-BIT OFFICE!");
+  addSystemMessage("💬 Agents are online and ready to chat.");
+  
+  // Start agent conversations
+  setInterval(simulateAgentChat, 8000);
+  setInterval(updateAgentTasks, 15000);
+}
+
+// Render Agent Cards
+function renderAgents() {
+  const floor = document.getElementById('officeFloor');
+  
+  floor.innerHTML = Object.entries(agents).map(([id, agent]) => `
+    <div class="agent-card ${agent.status}" data-agent="${id}">
+      <div class="avatar-container" style="border-color: ${agent.color}">
+        <span class="agent-emoji">${agent.emoji}</span>
+      </div>
+      <div class="agent-name">${agent.name}</div>
+      <div class="agent-role">${agent.role}</div>
+      <span class="status-badge ${agent.status}">${agent.status.toUpperCase()}</span>
+      
+      <div class="task-box">
+        <div class="task-label">CURRENT QUEST:</div>
+        <div class="task-text">${agent.currentTask}</div>
+      </div>
+      
+      <div class="agent-stats">
+        <div class="stat">
+          <div class="stat-num">${agent.tasksCompleted}</div>
+          <div class="stat-label-small">QUESTS</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" style="color: ${agent.successRate >= 80 ? '#38b764' : '#ef7d57'}">${agent.successRate}%</div>
+          <div class="stat-label-small">SUCCESS</div>
+        </div>
+      </div>
+      
+      <div class="xp-bar">
+        <div class="xp-fill" style="width: ${(agent.xp / agent.maxXp) * 100}%; background: ${agent.color}"></div>
+        <div class="xp-text">XP: ${agent.xp}/${agent.maxXp}</div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Update header stats
+  const activeCount = Object.values(agents).filter(a => a.status === 'active').length;
+  document.getElementById('activeAgents').textContent = `${activeCount}/10 ACTIVE`;
+}
+
+// Add Chat Message
+function addChatMessage(agentId, message, isMention = false) {
+  const agent = agents[agentId];
+  const chatMessages = document.getElementById('chatMessages');
+  const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  
+  const div = document.createElement('div');
+  div.className = `chat-message ${isMention ? 'mention' : ''}`;
+  div.innerHTML = `
+    <div class="chat-author" style="color: ${agent.color}">${agent.emoji} ${agent.name}</div>
+    <div class="chat-text">${message}</div>
+    <div class="chat-time">${time}</div>
+  `;
+  
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  
+  chatHistory.push({ agent: agentId, message, time });
+}
+
+function addSystemMessage(message) {
+  const chatMessages = document.getElementById('chatMessages');
+  const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  
+  const div = document.createElement('div');
+  div.className = 'chat-message';
+  div.style.borderLeftColor = '#ffcd75';
+  div.innerHTML = `
+    <div class="chat-author" style="color: #ffcd75">🐟 SYSTEM</div>
+    <div class="chat-text">${message}</div>
+    <div class="chat-time">${time}</div>
+  `;
+  
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Simulate Agent Chat
+function simulateAgentChat() {
+  if (Math.random() < 0.3) return; // 70% chance to skip
+  
+  const agentIds = Object.keys(agents);
+  const agentId = agentIds[Math.floor(Math.random() * agentIds.length)];
+  const agent = agents[agentId];
+  
+  // Show typing indicator
+  showTyping(agent.name);
+  
+  setTimeout(() => {
+    hideTyping();
+    const message = agent.catchphrases[Math.floor(Math.random() * agent.catchphrases.length)];
+    addChatMessage(agentId, message);
+  }, 1500);
+}
+
+// Show typing indicator
+function showTyping(agentName) {
+  document.getElementById('typingIndicator').textContent = `${agentName} is typing...`;
+}
+
+function hideTyping() {
+  document.getElementById('typingIndicator').textContent = '';
+}
+
+// Handle User Input
+function handleChatInput(event) {
+  if (event.key !== 'Enter') return;
+  
+  const input = document.getElementById('chatInput');
+  const message = input.value.trim();
+  if (!message) return;
+  
+  input.value = '';
+  
+  // Add user message
+  addSystemMessage(`👤 Captain: ${message}`);
+  
+  // Check for mentions
+  const mentioned = Object.keys(agents).find(id => 
+    message.toLowerCase().includes(`@${agents[id].name.toLowerCase()}`)
+  );
+  
+  // Agents respond to user
+  setTimeout(() => {
+    if (mentioned) {
+      const agent = agents[mentioned];
+      addChatMessage(mentioned, `You called, Captain? I'm on it!`, true);
+    } else if (message.toLowerCase().includes('status')) {
+      addChatMessage('commander', 'All systems operational, Captain!');
+    } else if (message.toLowerCase().includes('trade')) {
+      addChatMessage('trader', 'Markets are looking spicy! 🌶️');
+    } else if (message.toLowerCase().includes('security')) {
+      addChatMessage('security', 'Perimeter is secure. No threats detected.');
+    }
+  }, 1000);
+}
+
+// Update Agent Tasks (simulated)
+function updateAgentTasks() {
+  Object.values(agents).forEach(agent => {
+    if (agent.status === 'active' && Math.random() < 0.2) {
+      agent.tasksCompleted++;
+      agent.xp = Math.min(agent.xp + 50, agent.maxXp);
+    }
+  });
+  renderAgents();
+}
+
+// Actions
+function triggerTeamMeeting() {
+  addSystemMessage("📢 TEAM MEETING CALLED!");
+  addChatMessage('commander', 'All agents, report to the virtual office!');
+  
+  setTimeout(() => addChatMessage('trader', 'Present! 📈'), 500);
+  setTimeout(() => addChatMessage('researcher', 'Ready! 🔬'), 800);
+  setTimeout(() => addChatMessage('coder', 'Here! 💻'), 1100);
+  setTimeout(() => addChatMessage('security', 'Standing by. 🛡️'), 1400);
+}
+
+function deployAllAgents() {
+  addSystemMessage("🚀 DEPLOYING ALL AGENTS!");
+  Object.keys(agents).forEach((id, i) => {
+    setTimeout(() => {
+      agents[id].status = 'active';
+      renderAgents();
+      addChatMessage(id, 'Deploying!');
+    }, i * 200);
+  });
+}
+
+function toggleMusic() {
+  addSystemMessage("🎵 8-bit music would play here... (imagine it!)");
+}
+
+// Start
+init();
+</script>
+</body>
+</html>
