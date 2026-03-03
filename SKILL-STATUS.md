@@ -89,7 +89,7 @@
 
 | Skill | Status | Priority | Purpose |
 |-------|--------|----------|---------|
-| **kalshi-api** | ⏳ Pending | HIGH | Prediction markets trading |
+| **kalshi-api** | 🟡 In Progress | HIGH | Prediction markets trading |
 | **coinbase-api** | ⏳ Pending | HIGH | Crypto spot trading |
 | **market-scanner** | ⏳ Pending | HIGH | Scan for opportunities |
 | **backtester** | ⏳ Pending | MEDIUM | Strategy validation |

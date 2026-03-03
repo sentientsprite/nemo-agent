@@ -1,0 +1,19 @@
+#!/bin/bash
+# Kalshi API Skill Wrapper
+# Usage: kalshi <command> [options]
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PYTHON="${PYTHON:-python3}"
+
+# Check if credentials exist
+if [[ ! -f ~/.nemo/credentials/kalshi.json ]]; then
+    echo "❌ Kalshi credentials not found!"
+    echo "Create ~/.nemo/credentials/kalshi.json with:"
+    echo '{"api_key": "YOUR_KEY", "api_secret": "YOUR_SECRET", "mode": "demo"}'
+    exit 1
+fi
+
+# Run Python client
+exec "$PYTHON" "$SCRIPT_DIR/kalshi_client.py" "$@"
