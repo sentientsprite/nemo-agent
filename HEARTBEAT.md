@@ -1,141 +1,30 @@
-# NEMO Heartbeat - Activation Triggers
+# HEARTBEAT.md — Activation Triggers
 
-**Purpose**: Define conditions for NEMO to proactively check state and take action
-**Check Interval**: Every 5 minutes (if tasks defined)
-
----
+**Check Interval**: Every 5 minutes  
+**Full Details**: See MEMORY.md "Heartbeat Automation" section
 
 ## Active Triggers
 
-### 1. Security Audit (Daily)
-**Condition**: Once per day at 00:00 MST  
-**Action**: Run security check on gateway, credentials, sandbox  
-**Escalation**: Alert operator if any security issues found  
-**Current Status**: ✅ Enabled via cron
+### 1. Security Audit
+- **When**: Daily 00:00 MST
+- **Action**: Run security check
+- **Model**: T1 (local) for check, T3 (Opus) if issues found
 
-### 2. Session Compaction Monitor
-**Condition**: When context window >85% full  
-**Action**: Trigger memory flush and compaction  
-**Escalation**: Alert operator if compaction fails  
-**Current Status**: ✅ Enabled
+### 2. Session Compaction
+- **When**: Context >85% full
+- **Action**: Trigger memory flush
+- **Model**: Automatic (system-level)
 
-### 3. API Credit Check (Weekly)
-**Condition**: Sunday 00:00 MST  
-**Action**: Check Anthropic/Moonshot API usage and balance  
-**Escalation**: Request operator to add credits if <20% remaining  
-**Current Status**: ⏳ To be configured
+### 3. API Credit Check
+- **When**: Weekly Sunday 00:00 MST
+- **Action**: Check Anthropic/Moonshot balance
+- **Model**: T1 (local) for check, T2 (Kimi) for report
 
----
+## Response Protocol
 
-## Active Trading Triggers
-
-### 4. Trading Bot Health Check (Hourly)
-**Condition**: Every hour during 24hr tests  
-**Action**: Run trading-monitor skill to check bot status  
-**Command**: `~/.nemo/workspace/skills/trading-monitor/trading-monitor.sh`  
-**Escalation**: Alert if bot stopped or errors >5 in last hour  
-**Current Status**: ⏸️ **DISABLED** — 24hr test stopped, cron removed
-
-### 5. Night Shift Agent Check (DISABLED)
-**Condition**: Every hour  
-**Action**: Check status of sub-agents  
-**Current Status**: ⏸️ **DISABLED** — All agents completed 02:00 MST, cron removed
-
-## Future Trading Triggers (When Live)
-
-### Market Opportunity Scan
-**Condition**: Every 15 minutes during market hours  
-**Action**: Scan Kalshi/Coinbase for high-probability setups  
-**Escalation**: Alert operator if high-conviction trade found
-
-### Portfolio Health Check
-**Condition**: Every hour  
-**Action**: Verify position sizes, drawdown levels, exposure  
-**Escalation**: Pause trading if circuit breaker conditions met
-
-### Daily PnL Report
-**Condition**: 20:00 MST daily  
-**Action**: Compile trade summary, PnL, lessons learned  
-**Escalation**: Immediate alert if daily loss >5%
-
-### Weekly Strategy Review
-**Condition**: Saturday 10:00 MST  
-**Action**: Analyze week's performance, identify improvements  
-**Escalation**: Present findings to operator for approval
+**If all clear**: T1 acknowledgment only (HEARTBEAT_OK)  
+**If issues found**: Escalate to appropriate tier per severity  
+**If critical**: Immediate T3 alert to operator
 
 ---
-
-## Research Triggers
-
-### Autonom Paper Check
-**Condition**: Daily at 08:00 MST  
-**Action**: Check github.com/tmgthb/Autonomous-Agents for new papers  
-**Escalation**: Summarize relevant papers for operator review
-
-### Competitor Monitoring
-**Condition**: Twice daily (08:00, 20:00 MST)  
-**Action**: Scan Moltbook, X/Twitter for AI agent strategies  
-**Escalation**: Alert if significant new edge discovered
-
----
-
-## System Health Triggers
-
-### Gateway Health
-**Condition**: Every 5 minutes  
-**Action**: Verify gateway responsive on port 3000  
-**Escalation**: Restart if down, alert operator after 3 failures
-
-### Crabwalk Monitor
-**Condition**: Every 5 minutes  
-**Action**: Verify Crabwalk running on port 3000  
-**Escalation**: Restart if down
-
-### Dashboard Update
-**Condition**: Every 30 minutes  
-**Action**: Refresh dashboard data.json with current status  
-**Escalation**: None (logged error if fails)
-
-### GitHub Sync
-**Condition**: Every 6 hours  
-**Action**: Commit and push workspace changes  
-**Escalation**: Alert operator if push fails (likely auth issue)
-
----
-
-## Manual Triggers (Operator Initiated)
-
-### Immediate Audit
-**Command**: "NEMO, run security audit"  
-**Action**: Full security and risk check  
-**Response**: Immediate report
-
-### Status Report
-**Command**: "NEMO, status"  
-**Action**: Current state summary  
-**Response**: Dashboard snapshot + recent activity
-
-### Memory Flush
-**Command**: "NEMO, compact"  
-**Action**: Force context compaction  
-**Response**: Confirmation + new context window size
-
----
-
-## Heartbeat State
-
-**Current Status**: Partially Active
-- ✅ Security audit (daily cron)
-- ✅ Session compaction (automatic)
-- ✅ Trading bot health check (hourly, via skill)
-- ⏳ API credit check (pending setup)
-- ⏳ Live trading triggers (pending authorization)
-- ⏳ Research triggers (pending operator priority)
-
-**Next Activation**: As scheduled above
-
----
-
-**Note**: Keep this file updated as new triggers are added or removed. Empty this file to disable all heartbeat checks.
-
-🦞⏰
+*See MEMORY.md for full automation details and historical trigger status.*

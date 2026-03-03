@@ -48,6 +48,93 @@
 - **Address King as:** "Captain" (casual), "King" (always), "my liege" (rare moments)
 - **Mistakes:** "A thousand pardons, sire"
 
+---
+
+## Full Capabilities Reference (MOVED FROM TOOLS.md)
+
+### Communication
+- **Discord**: Send/receive DMs, threads, reactions (DM allowlist: 1476370671448625265)
+- **X/Twitter**: Browser automation (read only, API posting blocked with 402 error)
+- **Email**: Can send via operator's accounts if configured
+
+### File Operations
+- **read**: Any file in workspace (~/.nemo/workspace/)
+- **write**: Create/edit files in workspace
+- **edit**: Precise text replacement in files
+- **exec**: Execute shell commands (sandbox/gateway/full modes)
+
+### Web & Research
+- **browser**: Navigate, click, type, screenshot, extract content
+- **web_fetch**: Download and extract page content to markdown/text
+- **web_search**: Brave Search API for fast research
+
+### Code Execution
+- **Shell**: Execute commands in sandbox or host
+- **Docker**: Run containers with isolated environments
+- **Background Processes**: Spawn and manage long-running tasks with process tool
+
+### AI/LLM Tools
+- **sessions_spawn**: Spawn parallel sub-agents on cheaper models
+- **image**: Analyze images with vision models
+- **tts**: Convert text to speech
+
+### Memory & Search
+- **memory_search**: Semantic search of MEMORY.md + memory/*.md
+- **memory_get**: Safe snippet read from memory files
+- **sessions_history**: Fetch message history for a session
+
+### System Control
+- **cron**: Schedule recurring tasks (systemEvent or agentTurn)
+- **gateway**: Restart, apply config, or update NEMO gateway
+- **nodes**: Paired device control (camera, screen, location)
+- **canvas**: Present/eval/snapshot rendered UI
+
+### Trading Infrastructure (Planned)
+- **Kalshi API**: Paper → live prediction markets
+- **Coinbase API**: Crypto spot trading
+- **On-chain**: Wallet balance checks
+
+---
+
+## Heartbeat Automation (MOVED FROM HEARTBEAT.md)
+
+### Active Triggers
+1. **Security Audit** — Daily at 00:00 MST via cron
+2. **Session Compaction** — Automatic when context >85% full
+3. **API Credit Check** — Weekly Sunday 00:00 MST (to be configured)
+
+### Disabled Triggers
+- Trading bot health check (24hr test completed)
+- Night shift agent check (agents completed 02:00 MST)
+
+### Future Trading Triggers (Pending Live Authorization)
+- Market opportunity scan (every 15 min during market hours)
+- Portfolio health check (hourly)
+- Daily PnL report (20:00 MST)
+- Weekly strategy review (Saturday 10:00 MST)
+
+---
+
+## Token Efficiency System (NEW)
+
+### 4-Tier Model Routing (Effective March 2026)
+
+| Tier | Model | Cost | Use Case | Context |
+|------|-------|------|----------|---------|
+| **T1** | Mistral 7B (LM Studio) | **FREE** | Simple acks, routine checks, parsing | Minimal (50-100 tokens) |
+| **T2** | Kimi K2.5 | $0.004/reply | Default work, research, file edits | Standard |
+| **T3** | Opus | $0.20/reply | Security, trading decisions, complex strategy | Full |
+
+### Escalation Rules
+- **T1 → T2**: Task requires reasoning, analysis, or multi-step planning
+- **T2 → T3**: Security decisions, high-stakes financial choices, architecture design
+- **Auto-escalate**: Any request containing "security", "trading live", "real money", "architecture"
+
+### Heartbeat Optimization
+- Routine checks: T1 (local model, 50 tokens)
+- Issues found: T2 (Kimi, standard context)
+- Critical alerts: T3 (Opus, full context)
+
 ## Session History
 - **2026-02-25:** Full setup session — Discord, X, gateway, dashboard, security hardening, URL queue (41/41 processed), OpenClaw fork, token efficiency, skills installed, GitHub repo prepared
 - **2026-02-26:** Trading bots built (Coinbase + prediction markets), 8-hour dry-run test (-6.31%), Agent Body Framework completed, LAST_WILL.md and DREAM_LOG.md created, Snipe + Maker and Crowd Fade strategies implemented, Polymarket VPN deployment ready, X intelligence gathered (fees killed arbitrage), Spryte Engine core packages built, **24-hour Snipe + Maker test started**
@@ -92,12 +179,17 @@
 - Key in `/tmp/poly-bot-backup/.env` only — rotate after testing
 
 ## Pending
-- 24-hour Snipe + Maker test results (tomorrow 19:41 MST)
 - X account password change
 - Spryte Engine core integration testing
 - Moltbook claim (X OAuth broken, code: `current-7DMC`)
 - Trading sub-agent: Live deployment pending Captain's approval
 - **Multi-Agent Mission Control:** Phase 1 complete, Phase 2 (live agents) pending
+
+## Completed (2026-02-27)
+- ✅ **24-hour Snipe + Maker test** — Partial (4 hours, bot stopped due to division-by-zero)
+- ✅ **Night Shift Integration** — Kelly + VPIN + Chainlink + WebSocket all wired into main.py
+- ✅ **Virtual Agent Office** — Live dashboard at localhost:8420/office.html
+- ✅ **Trading P&L Dashboard** — Real-time view at localhost:8420/trading.html
 
 ## 🌙 Night Shift Operations (In Progress)
 **Deployed:** 2026-02-26 22:00 MST  
