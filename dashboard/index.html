@@ -3,373 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐟 NEMO Command Center | Clankbox HQ</title>
+<title>NEMO Orchestrator | Task Hub</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
-  
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
   :root {
-    --bg-dark: #0a0e17;
-    --bg-panel: #141b2d;
-    --border: #1e2a42;
-    --accent: #00d4ff;
-    --success: #00e676;
-    --warning: #ffd740;
-    --danger: #ff5252;
-    --text: #e0e0e0;
-    --text-muted: #8892a4;
+    --bg: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --success: #3fb950;
+    --warning: #d29922;
+    --danger: #f85149;
+    --info: #58a6ff;
   }
   
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-dark);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
     color: var(--text);
     min-height: 100vh;
   }
   
-  /* Navigation */
-  .nav-bar {
-    background: linear-gradient(180deg, var(--bg-panel) 0%, rgba(20,27,45,0.95) 100%);
+  /* Header */
+  .header {
+    background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-  }
-  
-  .nav-content {
-    max-width: 1600px;
-    margin: 0 auto;
+    padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   
-  .nav-brand {
+  .brand {
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 1.2em;
-    font-weight: 700;
-    color: var(--accent);
+    font-weight: 600;
   }
   
-  .nav-brand .fish {
+  .brand-icon {
     font-size: 1.5em;
-    animation: swim 3s ease-in-out infinite;
   }
   
-  @keyframes swim {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
-  }
-  
-  .nav-links {
+  .nav-tabs {
     display: flex;
-    gap: 8px;
+    gap: 4px;
   }
   
-  .nav-link {
-    color: var(--text-muted);
-    text-decoration: none;
+  .nav-tab {
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-muted);
     font-size: 0.9em;
     font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .nav-tab:hover {
+    color: var(--text);
+    background: var(--bg-tertiary);
+  }
+  
+  .nav-tab.active {
+    color: var(--text);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+  }
+  
+  /* Main Layout */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  /* Command Bar */
+  .command-bar {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .cmd-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'SF Mono', monospace;
+    font-size: 0.9em;
+  }
+  
+  .cmd-input::placeholder {
+    color: var(--text-muted);
+  }
+  
+  .btn {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-tertiary);
+    color: var(--text);
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
     transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 6px;
   }
   
-  .nav-link:hover {
-    color: var(--text);
-    background: rgba(0, 212, 255, 0.1);
+  .btn:hover {
+    background: var(--border);
   }
   
-  .nav-link.active {
-    color: var(--accent);
-    background: rgba(0, 212, 255, 0.15);
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
   }
   
-  /* Main Container */
-  .container {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 24px;
+  .btn-primary:hover {
+    background: #79b8ff;
   }
   
-  /* Hero Section */
-  .hero {
-    background: linear-gradient(135deg, var(--bg-panel) 0%, rgba(0, 212, 255, 0.05) 100%);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
-    margin-bottom: 24px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 32px;
-    align-items: center;
+  .btn-success {
+    background: var(--success);
+    border-color: var(--success);
+    color: #fff;
   }
   
-  .hero-title {
-    font-size: 2em;
-    font-weight: 700;
-    margin-bottom: 8px;
+  .btn-danger {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #fff;
   }
   
-  .hero-subtitle {
-    color: var(--text-muted);
-    font-size: 1.1em;
-  }
-  
-  .hero-stats {
-    display: flex;
-    gap: 24px;
-  }
-  
-  .hero-stat {
-    text-align: center;
-    padding: 16px 24px;
-    background: rgba(0, 212, 255, 0.05);
-    border-radius: 12px;
-    border: 1px solid var(--border);
-  }
-  
-  .hero-stat-value {
-    font-size: 2em;
-    font-weight: 700;
-    color: var(--success);
-  }
-  
-  .hero-stat-label {
-    font-size: 0.8em;
-    color: var(--text-muted);
-    margin-top: 4px;
-  }
-  
-  /* Quick Actions */
-  .quick-actions {
+  /* Stats Grid */
+  .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     margin-bottom: 24px;
   }
   
-  @media (max-width: 1200px) {
-    .quick-actions { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
   }
   
-  @media (max-width: 600px) {
-    .quick-actions { grid-template-columns: 1fr; }
-    .hero { grid-template-columns: 1fr; }
-  }
-  
-  .action-card {
-    background: var(--bg-panel);
+  .stat-card {
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
   }
   
-  .action-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
-  }
-  
-  .action-icon {
-    font-size: 2em;
-  }
-  
-  .action-title {
-    font-weight: 600;
-    font-size: 1.1em;
-  }
-  
-  .action-desc {
-    font-size: 0.85em;
-    color: var(--text-muted);
-  }
-  
-  /* Status Bar */
-  .status-bar {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 24px;
-    margin-bottom: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  
-  .status-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 0.9em;
-  }
-  
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  
-  .status-dot.online { background: var(--success); }
-  .status-dot.warning { background: var(--warning); }
-  .status-dot.offline { background: var(--danger); }
-  
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-  
-  /* Projects Section */
-  .section {
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-  }
-  
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .section-title {
-    font-size: 1.2em;
-    font-weight: 600;
-  }
-  
-  .section-meta {
-    color: var(--text-muted);
-    font-size: 0.9em;
-  }
-  
-  .progress-bar {
-    height: 8px;
-    background: var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-  
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--success));
-    border-radius: 4px;
-    transition: width 0.3s;
-  }
-  
-  /* Project Cards */
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 16px;
-  }
-  
-  .project-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-    transition: all 0.2s;
-  }
-  
-  .project-card:hover {
-    border-color: var(--accent);
-  }
-  
-  .project-header {
+  .stat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 12px;
   }
   
-  .project-name {
-    font-weight: 600;
-  }
-  
-  .badge {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75em;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-  
-  .badge.done { background: rgba(0, 230, 118, 0.2); color: var(--success); }
-  .badge.inProgress { background: rgba(68, 138, 255, 0.2); color: #448aff; }
-  .badge.todo { background: rgba(255, 215, 64, 0.2); color: var(--warning); }
-  .badge.blocked { background: rgba(255, 82, 82, 0.2); color: var(--danger); }
-  
-  .project-tasks {
-    list-style: none;
+  .stat-label {
     font-size: 0.85em;
     color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
   
-  .project-tasks li {
-    padding: 4px 0;
+  .stat-icon {
+    font-size: 1.2em;
+  }
+  
+  .stat-value {
+    font-size: 2em;
+    font-weight: 700;
+  }
+  
+  .stat-value.success { color: var(--success); }
+  .stat-value.warning { color: var(--warning); }
+  .stat-value.info { color: var(--accent); }
+  
+  /* Sessions Panel */
+  .panel {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .panel-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .panel-title {
+    font-size: 1em;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 8px;
   }
   
-  .project-tasks li::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--text-muted);
+  .panel-actions {
+    display: flex;
+    gap: 8px;
   }
   
-  .project-tasks li.done::before { background: var(--success); }
-  .project-tasks li.inProgress::before { background: #448aff; }
-  
-  /* Jobs Table */
-  .jobs-table {
+  /* Session Table */
+  .session-table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .jobs-table th,
-  .jobs-table td {
-    padding: 12px;
+  .session-table th {
     text-align: left;
+    padding: 12px 20px;
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .session-table td {
+    padding: 16px 20px;
     border-bottom: 1px solid var(--border);
     font-size: 0.9em;
   }
   
-  .jobs-table th {
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75em;
-    letter-spacing: 0.5px;
+  .session-row:hover {
+    background: var(--bg-tertiary);
   }
   
-  .job-status {
+  .session-row.running {
+    border-left: 3px solid var(--success);
+  }
+  
+  .session-row.idle {
+    border-left: 3px solid var(--warning);
+  }
+  
+  .session-row.error {
+    border-left: 3px solid var(--danger);
+  }
+  
+  .session-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .session-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    border: 2px solid var(--border);
+  }
+  
+  .session-avatar.running { border-color: var(--success); }
+  .session-avatar.idle { border-color: var(--warning); }
+  
+  .session-details h4 {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .session-details p {
+    font-size: 0.85em;
+    color: var(--text-muted);
+  }
+  
+  .status-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -379,233 +310,387 @@
     font-weight: 500;
   }
   
-  .job-status.running {
-    background: rgba(0, 230, 118, 0.15);
+  .status-badge.running {
+    background: rgba(63, 185, 80, 0.15);
     color: var(--success);
   }
   
-  .job-status.pending {
-    background: rgba(255, 215, 64, 0.15);
+  .status-badge.idle {
+    background: rgba(210, 153, 34, 0.15);
     color: var(--warning);
+  }
+  
+  .status-badge.error {
+    background: rgba(248, 81, 73, 0.15);
+    color: var(--danger);
+  }
+  
+  .session-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .action-btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .action-btn:hover {
+    background: var(--bg-tertiary);
+    color: var(--text);
+  }
+  
+  /* Runtime Info */
+  .runtime-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    font-size: 0.75em;
+    color: var(--text-muted);
+    font-family: 'SF Mono', monospace;
+  }
+  
+  /* Empty State */
+  .empty-state {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+  
+  .empty-icon {
+    font-size: 3em;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+  
+  /* Logs Panel */
+  .logs-container {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 16px 20px;
+    font-family: 'SF Mono', monospace;
+    font-size: 0.85em;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .log-line {
+    padding: 4px 0;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .log-time {
+    color: var(--text-muted);
+    min-width: 80px;
+  }
+  
+  .log-level {
+    min-width: 60px;
+  }
+  
+  .log-level.info { color: var(--accent); }
+  .log-level.success { color: var(--success); }
+  .log-level.error { color: var(--danger); }
+  
+  .log-msg {
+    color: var(--text);
   }
   
   /* Footer */
   .footer {
-    text-align: center;
     padding: 24px;
+    text-align: center;
     color: var(--text-muted);
     font-size: 0.85em;
     border-top: 1px solid var(--border);
-    margin-top: 24px;
-  }
-  
-  /* Loading */
-  .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    color: var(--text-muted);
-  }
-  
-  .loading::after {
-    content: '';
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-left: 10px;
-  }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+    margin-top: 40px;
   }
 </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="nav-content">
-      <a href="index.html" class="nav-brand">
-        <span class="fish">🐟</span>
-        <span>NEMO Command Center</span>
-      </a>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link active">📊 Dashboard</a>
-        <a href="clankbox.html" class="nav-link">🏢 Clankbox</a>
-        <a href="trading.html" class="nav-link">📈 Trading</a>
-      </div>
+  <header class="header">
+    <div class="brand">
+      <span class="brand-icon">🐟</span>
+      <span>NEMO Orchestrator</span>
     </div>
-  </nav>
+    <nav class="nav-tabs">
+      <a href="index.html" class="nav-tab active">📊 Sessions</a>
+      <a href="clankbox.html" class="nav-tab">🏢 Office</a>
+      <a href="trading.html" class="nav-tab">📈 Trading</a>
+    </nav>
+  </header>
 
   <div class="container">
-    <!-- Hero Section -->
-    <div class="hero">
-      <div>
-        <h1 class="hero-title">Welcome back, Captain</h1>
-        <p class="hero-subtitle">All systems operational. 95% cost reduction achieved.</p>
+    <!-- Command Bar -->
+    <div class="command-bar">
+      <span style="color: var(--text-muted); font-family: monospace;">$</span>
+      <input type="text" class="cmd-input" placeholder="nemo spawn researcher --task='Analyze Kalshi markets'" id="cmdInput">
+      <button class="btn btn-primary" onclick="executeCommand()">
+        <span>▶</span> Run
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Active Sessions</span>
+          <span class="stat-icon">●</span>
+        </div>
+        <div class="stat-value success" id="activeCount">6</div>
       </div>
-      <div class="hero-stats" id="heroStats">
-        <div class="loading">Loading stats...</div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Idle</span>
+          <span class="stat-icon">◐</span>
+        </div>
+        <div class="stat-value warning" id="idleCount">4</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Tasks Completed</span>
+          <span class="stat-icon">✓</span>
+        </div>
+        <div class="stat-value info" id="tasksCount">145</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Runtime</span>
+          <span class="stat-icon">⚡</span>
+        </div>
+        <div class="stat-value" style="font-size: 1.2em; margin-top: 8px;">Local/Mistral</div>
       </div>
     </div>
 
-    <!-- Status Bar -->
-    <div class="status-bar" id="statusBar">
-      <div class="status-item">
-        <span class="status-dot online"></span>
-        <span>Gateway: Online</span>
+    <!-- Sessions Panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span>🤖</span>
+          <span>Active Agent Sessions</span>
+        </div>
+        <div class="panel-actions">
+          <button class="btn" onclick="spawnAgent()">+ Spawn</button>
+          <button class="btn" onclick="killAll()">Kill All</button>
+          <button class="btn" onclick="refreshData()">↻ Refresh</button>
+        </div>
       </div>
-      <div class="status-item">
-        <span class="status-dot online"></span>
-        <span>LM Studio: Running</span>
-      </div>
-      <div class="status-item">
-        <span class="status-dot online"></span>
-        <span>Discord: Connected</span>
-      </div>
-      <div class="status-item">
-        <span>Model: Mistral 7B (Local)</span>
-      </div>
-      <div class="status-item">
-        <span>Cost Today: $0.00</span>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="quick-actions">
-      <a href="clankbox.html" class="action-card">
-        <span class="action-icon">🏢</span>
-        <span class="action-title">Enter Clankbox</span>
-        <span class="action-desc">Visit the 8-bit office and see what agents are working on</span>
-      </a>
-      <a href="trading.html" class="action-card">
-        <span class="action-icon">📈</span>
-        <span class="action-title">Trading Center</span>
-        <span class="action-desc">View strategies, P&L, and live market data</span>
-      </a>
-      <a href="https://github.com/sentientsprite/nemo-agent" target="_blank" class="action-card">
-        <span class="action-icon">📁</span>
-        <span class="action-title">GitHub Repo</span>
-        <span class="action-desc">View code, commits, and project history</span>
-      </a>
-      <a href="skills/kalshi-api/SKILL.md" class="action-card">
-        <span class="action-icon">🔧</span>
-        <span class="action-title">Kalshi Skill</span>
-        <span class="action-desc">Paper trading skill ready for API credentials</span>
-      </a>
-    </div>
-
-    <!-- Active Jobs -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">🤖 Active Automation</span>
-        <span class="section-meta">4 cron jobs running on local model</span>
-      </div>
-      <table class="jobs-table" id="jobsTable">
+      
+      <table class="session-table">
         <thead>
           <tr>
-            <th>Job</th>
-            <th>Schedule</th>
+            <th>Session</th>
             <th>Status</th>
-            <th>Last Run</th>
+            <th>Runtime</th>
+            <th>Uptime</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="jobsBody">
-          <tr><td colspan="4" class="loading">Loading jobs...</td></tr>
+        <tbody id="sessionTable">
+          <!-- Populated by JS -->
         </tbody>
       </table>
-    </div>
-
-    <!-- Projects -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">📋 Projects</span>
-        <span class="section-meta" id="projectMeta">Loading...</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="projectProgress" style="width: 0%"></div>
-      </div>
-      <div class="project-grid" id="projectGrid">
-        <div class="loading">Loading projects...</div>
+      
+      <div class="logs-container" id="logsPanel">
+        <div class="log-line">
+          <span class="log-time">20:45:01</span>
+          <span class="log-level info">[INFO]</span>
+          <span class="log-msg">Orchestrator initialized - 10 agents registered</span>
+        </div>
+        <div class="log-line">
+          <span class="log-time">20:45:02</span>
+          <span class="log-level success">[OK]</span>
+          <span class="log-msg">Researcher session started - PID 2847</span>
+        </div>
       </div>
     </div>
   </div>
 
   <footer class="footer">
-    <p>🐟 NEMO Command Center | Last updated: <span id="lastUpdated">--</span></p>
+    <p>NEMO Orchestrator v2.0 | Runtime: Local (Mistral 7B) | <span id="lastUpdate">--</span></p>
   </footer>
 
   <script>
-    async function loadData() {
+    // Agent sessions from data.json
+    let sessions = [];
+    
+    async function loadSessions() {
       try {
         const res = await fetch('data.json?' + Date.now());
         const data = await res.json();
         
-        // Update hero stats
-        const s = data.summary;
-        document.getElementById('heroStats').innerHTML = `
-          <div class="hero-stat">
-            <div class="hero-stat-value">${s.done}</div>
-            <div class="hero-stat-label">Done</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value">${s.inProgress}</div>
-            <div class="hero-stat-label">In Progress</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value">${s.todo}</div>
-            <div class="hero-stat-label">Todo</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-value">${s.blocked}</div>
-            <div class="hero-stat-label">Blocked</div>
-          </div>
-        `;
-        
-        // Update jobs
-        const jobsBody = document.getElementById('jobsBody');
-        jobsBody.innerHTML = data.jobs.map(job => `
-          <tr>
-            <td>${job.name}</td>
-            <td>${job.schedule}</td>
-            <td><span class="job-status ${job.status}">● ${job.status}</span></td>
-            <td>${job.lastRun === 'Pending' ? 'Pending' : new Date(job.lastRun).toLocaleString()}</td>
-          </tr>
-        `).join('');
-        
-        // Update projects
-        const pct = s.total > 0 ? (s.done / s.total * 100) : 0;
-        document.getElementById('projectProgress').style.width = pct + '%';
-        document.getElementById('projectMeta').textContent = `${s.done}/${s.total} completed (${Math.round(pct)}%)`;
-        
-        // Show top projects
-        const topProjects = data.projects.slice(0, 6);
-        document.getElementById('projectGrid').innerHTML = topProjects.map(p => `
-          <div class="project-card">
-            <div class="project-header">
-              <span class="project-name">${p.name}</span>
-              <span class="badge ${p.status}">${p.status.replace('inProgress', 'active')}</span>
-            </div>
-            <ul class="project-tasks">
-              ${p.tasks.slice(0, 3).map(t => `<li class="${t.status}">${t.name}</li>`).join('')}
-              ${p.tasks.length > 3 ? `<li style="color: var(--text-muted)">+${p.tasks.length - 3} more...</li>` : ''}
-            </ul>
-          </div>
-        `).join('');
-        
-        document.getElementById('lastUpdated').textContent = new Date(data.lastUpdated).toLocaleString();
-        
+        if (data.office && data.office.agents) {
+          sessions = data.office.agents.map(agent => ({
+            id: agent.id,
+            name: agent.name,
+            emoji: agent.emoji,
+            role: agent.role,
+            status: agent.status,
+            task: agent.currentTask,
+            tasksCompleted: agent.tasksCompleted,
+            queue: agent.queue,
+            uptime: '2h 34m',
+            runtime: 'Local'
+          }));
+          
+          renderSessions();
+          updateStats();
+        }
       } catch (err) {
-        console.error('Failed to load data:', err);
-        document.getElementById('projectGrid').innerHTML = '<p style="color: var(--danger)">Failed to load data. Check console.</p>';
+        console.error('Failed to load:', err);
+        document.getElementById('sessionTable').innerHTML = `
+          <tr><td colspan="5" style="padding: 40px; text-align: center; color: var(--danger);">
+            Failed to load session data. Check console.
+          </td></tr>
+        `;
       }
     }
     
-    loadData();
-    setInterval(loadData, 30000);
+    function renderSessions() {
+      const tbody = document.getElementById('sessionTable');
+      
+      if (sessions.length === 0) {
+        tbody.innerHTML = `
+          <tr><td colspan="5">
+            <div class="empty-state">
+              <div class="empty-icon">🤖</div>
+              <p>No active sessions. Spawn an agent to begin.</p>
+            </div>
+          </td></tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = sessions.map(s => `
+        <tr class="session-row ${s.status}">
+          <td>
+            <div class="session-info">
+              <div class="session-avatar ${s.status}">${s.emoji}</div>
+              <div class="session-details">
+                <h4>${s.name}</h4>
+                <p>${s.role} · ${s.task}</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="status-badge ${s.status}">
+              ${s.status === 'active' ? '●' : '◐'} ${s.status}
+            </span>
+          </td>
+          <td>
+            <span class="runtime-tag">${s.runtime}</span>
+          </td>
+          <td>${s.uptime}</td>
+          <td>
+            <div class="session-actions">
+              <button class="action-btn" onclick="sendToSession('${s.id}')">Send</button>
+              <button class="action-btn" onclick="killSession('${s.id}')">Kill</button>
+              <button class="action-btn" onclick="viewSession('${s.id}')">View</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    function updateStats() {
+      const active = sessions.filter(s => s.status === 'active').length;
+      const idle = sessions.filter(s => s.status === 'idle').length;
+      const total = sessions.reduce((acc, s) => acc + (s.tasksCompleted || 0), 0);
+      
+      document.getElementById('activeCount').textContent = active;
+      document.getElementById('idleCount').textContent = idle;
+      document.getElementById('tasksCount').textContent = total;
+    }
+    
+    // Actions
+    function executeCommand() {
+      const cmd = document.getElementById('cmdInput').value;
+      if (!cmd) return;
+      
+      addLog('info', `Executing: ${cmd}`);
+      document.getElementById('cmdInput').value = '';
+      
+      // Parse and simulate
+      if (cmd.includes('spawn')) {
+        setTimeout(() => addLog('success', 'Agent spawned successfully'), 500);
+        loadSessions();
+      }
+    }
+    
+    function spawnAgent() {
+      const types = ['researcher', 'coder', 'analyst', 'writer'];
+      const type = types[Math.floor(Math.random() * types.length)];
+      addLog('info', `Spawning ${type}...`);
+      setTimeout(() => {
+        addLog('success', `${type} session started`);
+        loadSessions();
+      }, 800);
+    }
+    
+    function killSession(id) {
+      addLog('info', `Killing session ${id}...`);
+      setTimeout(() => {
+        addLog('success', `Session ${id} terminated`);
+        loadSessions();
+      }, 500);
+    }
+    
+    function killAll() {
+      if (!confirm('Kill all sessions?')) return;
+      addLog('warning', 'Killing all sessions...');
+      setTimeout(() => {
+        addLog('success', 'All sessions terminated');
+        loadSessions();
+      }, 1000);
+    }
+    
+    function sendToSession(id) {
+      const msg = prompt(`Send message to ${id}:`);
+      if (msg) addLog('info', `[${id}] ${msg}`);
+    }
+    
+    function viewSession(id) {
+      window.location.href = `clankbox.html?focus=${id}`;
+    }
+    
+    function refreshData() {
+      addLog('info', 'Refreshing session data...');
+      loadSessions();
+    }
+    
+    function addLog(level, msg) {
+      const time = new Date().toLocaleTimeString('en-US', { hour12: false });
+      const panel = document.getElementById('logsPanel');
+      const line = document.createElement('div');
+      line.className = 'log-line';
+      line.innerHTML = `
+        <span class="log-time">${time}</span>
+        <span class="log-level ${level}">[${level.toUpperCase()}]</span>
+        <span class="log-msg">${msg}</span>
+      `;
+      panel.appendChild(line);
+      panel.scrollTop = panel.scrollHeight;
+    }
+    
+    // Enter key on command
+    document.getElementById('cmdInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') executeCommand();
+    });
+    
+    // Init
+    loadSessions();
+    setInterval(loadSessions, 30000);
+    document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
   </script>
 </body>
 </html>

@@ -3,380 +3,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏢 THE CLANKBOX | NEMO Office</title>
+<title>🏢 NEMO Office | Virtual Workspace</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
-  
-  * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
   
   :root {
-    --bg-dark: #0a0e17;
-    --bg-panel: #141b2d;
-    --border: #1e2a42;
-    --accent: #00d4ff;
-    --success: #00e676;
-    --warning: #ffd740;
-    --danger: #ff5252;
+    --bg: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-tertiary: #21262d;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --success: #3fb950;
+    --warning: #d29922;
+    --danger: #f85149;
   }
   
   body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg-dark);
-    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
   }
   
-  /* Navigation */
-  .nav-bar {
-    background: linear-gradient(180deg, var(--bg-panel) 0%, rgba(20,27,45,0.95) 100%);
+  /* Header */
+  .header {
+    background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  
-  .nav-content {
-    max-width: 1600px;
-    margin: 0 auto;
+    padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
   
-  .nav-brand {
+  .brand {
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 1.2em;
-    font-weight: 700;
-    color: var(--accent);
+    font-weight: 600;
     text-decoration: none;
+    color: var(--text);
   }
   
-  .nav-brand .fish {
+  .brand-icon {
     font-size: 1.5em;
-    animation: swim 3s ease-in-out infinite;
   }
   
-  @keyframes swim {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
-  }
-  
-  .nav-links {
+  .nav-tabs {
     display: flex;
-    gap: 8px;
+    gap: 4px;
   }
   
-  .nav-link {
-    color: #8892a4;
-    text-decoration: none;
+  .nav-tab {
     padding: 8px 16px;
-    border-radius: 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-muted);
     font-size: 0.9em;
     font-weight: 500;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
   
-  .nav-link:hover {
-    color: #e0e0e0;
-    background: rgba(0, 212, 255, 0.1);
+  .nav-tab:hover {
+    color: var(--text);
+    background: var(--bg-tertiary);
   }
   
-  .nav-link.active {
-    color: var(--accent);
-    background: rgba(0, 212, 255, 0.15);
+  .nav-tab.active {
+    color: var(--text);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
   }
   
-  /* Main Container */
+  /* Container */
   .container {
     max-width: 1600px;
     margin: 0 auto;
     padding: 24px;
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 380px;
     gap: 24px;
   }
   
-  @media (max-width: 1200px) {
+  @media (max-width: 1100px) {
     .container { grid-template-columns: 1fr; }
   }
   
-  /* Office Floor */
-  .office-section {
-    background: var(--bg-panel);
+  /* Office Panel */
+  .office-panel {
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 12px;
     overflow: hidden;
   }
   
-  .office-header {
-    padding: 20px 24px;
+  .panel-header {
+    padding: 16px 20px;
     border-bottom: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .office-title {
-    font-size: 1.3em;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .panel-title {
+    font-size: 1em;
+    font-weight: 600;
   }
   
-  .office-actions {
+  .panel-actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
   }
   
   .btn {
-    background: rgba(0, 212, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 6px;
     border: 1px solid var(--border);
-    color: var(--accent);
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
+    background: var(--bg-tertiary);
+    color: var(--text);
     font-size: 0.85em;
-    font-weight: 500;
+    cursor: pointer;
     transition: all 0.2s;
   }
   
   .btn:hover {
-    background: rgba(0, 212, 255, 0.2);
-    border-color: var(--accent);
+    background: var(--border);
   }
   
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  
+  /* Game World */
   .game-world {
     position: relative;
     width: 100%;
     height: 600px;
     background: 
-      /* Floor grid */
-      linear-gradient(90deg, rgba(30,42,66,0.3) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(30,42,66,0.3) 1px, transparent 1px),
-      #0f1419;
+      linear-gradient(90deg, rgba(48,54,61,0.5) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(48,54,61,0.5) 1px, transparent 1px),
+      var(--bg);
     background-size: 40px 40px;
     overflow: hidden;
   }
   
-  /* Desks */
+  /* Grid desks */
   .desk {
     position: absolute;
     width: 80px;
-    height: 50px;
-    background: linear-gradient(145deg, #2a3a52 0%, #1e2a42 100%);
+    height: 60px;
+    background: var(--bg-tertiary);
     border: 2px solid var(--border);
-    border-radius: 4px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 8px;
+    font-size: 1.5em;
+    transition: all 0.3s;
+  }
+  
+  .desk:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.2);
+  }
+  
+  .desk-label {
+    position: absolute;
+    bottom: -20px;
+    font-size: 0.6em;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  
+  .desk.computer::before {
+    content: '🖥️';
+    position: absolute;
+    top: 8px;
+    font-size: 1.2em;
+  }
+  
+  /* Avatar - simplified for orchestrator style */
+  .avatar {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 3px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5em;
-  }
-  
-  .desk::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 20px;
-    background: linear-gradient(145deg, #3a4a62 0%, #2e3a52 100%);
-    border: 2px solid var(--border);
-    border-radius: 4px 4px 0 0;
-  }
-  
-  /* 8-Bit Avatar */
-  .avatar {
-    position: absolute;
-    width: 32px;
-    height: 48px;
+    font-size: 1.4em;
+    cursor: pointer;
     transition: all 0.3s ease;
     z-index: 100;
-    cursor: pointer;
   }
   
   .avatar:hover {
-    transform: scale(1.2);
+    transform: scale(1.15);
+    border-color: var(--accent);
     z-index: 200;
   }
   
-  .avatar-sprite {
-    position: relative;
-    width: 100%;
-    height: 100%;
+  .avatar.active {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.2);
   }
   
-  /* Head */
-  .avatar-head {
-    position: absolute;
-    top: 0;
-    left: 4px;
-    width: 24px;
-    height: 20px;
-    background: #fdbcb4;
-    border: 2px solid #1a1c2c;
-    border-radius: 2px;
+  .avatar.idle {
+    border-color: var(--warning);
+    opacity: 0.8;
   }
   
-  /* Eyes */
-  .avatar-eyes::before,
-  .avatar-eyes::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    width: 4px;
-    height: 4px;
-    background: #1a1c2c;
-    border-radius: 50%;
+  .avatar.nemo {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(63, 185, 80, 0.2));
   }
   
-  .avatar-eyes::before { left: 8px; }
-  .avatar-eyes::after { right: 8px; }
-  
-  /* Body */
-  .avatar-body {
-    position: absolute;
-    top: 20px;
-    left: 2px;
-    width: 28px;
-    height: 20px;
-    border: 2px solid #1a1c2c;
-    border-radius: 2px;
-  }
-  
-  /* Legs */
-  .avatar-legs {
-    position: absolute;
-    top: 40px;
-    left: 6px;
-    width: 20px;
-    height: 8px;
-    background: #3d3225;
-    border: 2px solid #1a1c2c;
-    border-radius: 2px;
-  }
-  
-  /* Walking animation */
-  .avatar.walking .avatar-legs {
-    animation: walk 0.3s infinite alternate;
-  }
-  
-  @keyframes walk {
-    0% { transform: translateX(-2px); }
-    100% { transform: translateX(2px); }
-  }
-  
-  /* Direction */
-  .avatar.left .avatar-sprite {
-    transform: scaleX(-1);
-  }
-  
-  /* Agent colors */
-  .avatar.commander .avatar-body { background: #ef7d57; }
-  .avatar.researcher .avatar-body { background: #38b764; }
-  .avatar.coder .avatar-body { background: #257179; }
-  .avatar.trader .avatar-body { background: #ffcd75; }
-  .avatar.analyst .avatar-body { background: #b13e53; }
-  .avatar.security .avatar-body { background: #5d275d; }
-  .avatar.writer .avatar-body { background: #94b0c2; }
-  .avatar.monitor .avatar-body { background: #a7f070; }
-  .avatar.planner .avatar-body { background: #3b5dc9; }
-  .avatar.learner .avatar-body { background: #29366f; }
-  .avatar.nemo .avatar-body { background: linear-gradient(135deg, #00d4ff, #00e676); }
-  
-  /* Name tag */
   .avatar-name {
     position: absolute;
-    top: -25px;
+    top: -28px;
     left: 50%;
     transform: translateX(-50%);
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    color: #fff;
-    background: rgba(0,0,0,0.8);
-    padding: 3px 6px;
+    background: var(--bg-secondary);
+    padding: 4px 10px;
     border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
     white-space: nowrap;
+    border: 1px solid var(--border);
     opacity: 0;
     transition: opacity 0.2s;
     pointer-events: none;
   }
   
-  .avatar:hover .avatar-name {
+  .avatar:hover .avatar-name,
+  .avatar.selected .avatar-name {
     opacity: 1;
   }
   
-  /* Status indicator */
   .avatar-status {
     position: absolute;
-    bottom: -5px;
-    right: -5px;
+    bottom: -2px;
+    right: -2px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    border: 2px solid #1a1c2c;
+    border: 2px solid var(--bg);
   }
   
   .avatar-status.active { background: var(--success); }
   .avatar-status.idle { background: var(--warning); }
-  .avatar-status.offline { background: var(--danger); }
   
   /* Thought bubble */
   .thought-bubble {
     position: absolute;
-    top: -60px;
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
-    background: #fff;
-    color: #1a1c2c;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
     padding: 8px 12px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 7px;
-    border: 2px solid #1a1c2c;
-    border-radius: 4px;
-    white-space: nowrap;
-    opacity: 0;
-    animation: fadeInOut 4s forwards;
-    z-index: 300;
+    border-radius: 8px;
+    font-size: 0.8em;
     max-width: 200px;
     white-space: normal;
     text-align: center;
+    opacity: 0;
+    animation: fadeInOut 4s forwards;
+    z-index: 300;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
   
   .thought-bubble::after {
     content: '';
     position: absolute;
-    bottom: -8px;
+    bottom: -6px;
     left: 50%;
     transform: translateX(-50%);
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 8px solid #1a1c2c;
+    border-top: 6px solid var(--border);
   }
   
   @keyframes fadeInOut {
     0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    80% { opacity: 1; }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; }
     100% { opacity: 0; }
   }
   
-  /* Agent Info Panel */
-  .info-panel {
-    background: var(--bg-panel);
+  /* Side Panel */
+  .side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .info-card {
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    position: sticky;
-    top: 88px;
+    border-radius: 12px;
+    padding: 20px;
   }
   
   .info-header {
@@ -384,351 +321,352 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
   
   .info-avatar {
-    width: 64px;
-    height: 64px;
-    background: linear-gradient(135deg, var(--accent), var(--success));
-    border-radius: 12px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 3px solid var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2em;
+    font-size: 1.8em;
   }
   
   .info-title h2 {
-    font-size: 1.3em;
+    font-size: 1.2em;
     margin-bottom: 4px;
   }
   
   .info-title p {
-    color: #8892a4;
+    color: var(--text-muted);
     font-size: 0.9em;
   }
   
   .info-section {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   
   .info-section h3 {
-    font-size: 0.85em;
-    color: #8892a4;
+    font-size: 0.8em;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 10px;
   }
   
-  .info-task {
-    background: rgba(0, 212, 255, 0.05);
+  .task-box {
+    background: var(--bg-tertiary);
     border-left: 3px solid var(--accent);
     padding: 12px;
     border-radius: 0 8px 8px 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   
-  .info-task-text {
+  .task-text {
     font-size: 0.95em;
     margin-bottom: 6px;
   }
   
-  .info-task-meta {
+  .task-meta {
     font-size: 0.8em;
-    color: #8892a4;
+    color: var(--text-muted);
   }
   
-  .info-stats {
+  /* Stats */
+  .stats-row {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
   
-  .stat-box {
-    background: rgba(255,255,255,0.03);
+  .stat-item {
+    background: var(--bg-tertiary);
     padding: 12px;
     border-radius: 8px;
     text-align: center;
   }
   
-  .stat-value {
+  .stat-num {
     font-size: 1.5em;
     font-weight: 700;
-    color: var(--success);
+    color: var(--accent);
   }
   
   .stat-label {
     font-size: 0.75em;
-    color: #8892a4;
+    color: var(--text-muted);
     margin-top: 4px;
   }
   
-  /* Agent List */
-  .agent-list {
-    margin-top: 20px;
+  /* Session List */
+  .session-list {
+    max-height: 300px;
+    overflow-y: auto;
   }
   
-  .agent-list h3 {
-    font-size: 0.85em;
-    color: #8892a4;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 12px;
-  }
-  
-  .agent-row {
+  .session-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
   }
   
-  .agent-row:hover {
-    background: rgba(0, 212, 255, 0.05);
+  .session-item:hover {
+    background: var(--bg-tertiary);
   }
   
-  .agent-row.active {
-    background: rgba(0, 212, 255, 0.1);
+  .session-item.active {
+    background: rgba(88, 166, 255, 0.1);
     border: 1px solid var(--accent);
   }
   
-  .agent-row-emoji {
-    font-size: 1.3em;
+  .session-emoji {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em;
   }
   
-  .agent-row-info {
+  .session-emoji.active { border-color: var(--success); }
+  .session-emoji.idle { border-color: var(--warning); }
+  
+  .session-info {
     flex: 1;
   }
   
-  .agent-row-name {
+  .session-name {
     font-weight: 600;
     font-size: 0.9em;
   }
   
-  .agent-row-role {
-    font-size: 0.75em;
-    color: #8892a4;
+  .session-role {
+    font-size: 0.8em;
+    color: var(--text-muted);
   }
   
-  .agent-row-status {
+  .session-status {
     width: 8px;
     height: 8px;
     border-radius: 50%;
   }
   
-  .agent-row-status.active { background: var(--success); }
-  .agent-row-status.idle { background: var(--warning); }
+  .session-status.active { background: var(--success); }
+  .session-status.idle { background: var(--warning); }
   
-  /* Instructions */
-  .instructions {
-    margin-top: 20px;
-    padding: 16px;
-    background: rgba(0, 212, 255, 0.05);
-    border-radius: 8px;
-    font-size: 0.85em;
-    color: #8892a4;
+  /* Controls */
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
   
-  .instructions strong {
-    color: var(--accent);
+  .control-btn {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-tertiary);
+    color: var(--text);
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .control-btn:hover {
+    background: var(--border);
   }
 </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="nav-content">
-      <a href="index.html" class="nav-brand">
-        <span class="fish">🐟</span>
-        <span>NEMO Command Center</span>
-      </a>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">📊 Dashboard</a>
-        <a href="clankbox.html" class="nav-link active">🏢 Clankbox</a>
-        <a href="trading.html" class="nav-link">📈 Trading</a>
-      </div>
-    </div>
-  </nav>
+  <header class="header">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">🐟</span>
+      <span>NEMO Orchestrator</span>
+    </a>
+    <nav class="nav-tabs">
+      <a href="index.html" class="nav-tab">📊 Sessions</a>
+      <a href="clankbox.html" class="nav-tab active">🏢 Office</a>
+      <a href="trading.html" class="nav-tab">📈 Trading</a>
+    </nav>
+  </header>
 
   <div class="container">
     <!-- Office Floor -->
-    <div class="office-section">
-      <div class="office-header">
-        <div class="office-title">
-          🏢 THE CLANKBOX
-          <span style="font-size: 0.7em; color: #8892a4; font-weight: 400;">| Agent Headquarters</span>
-        </div>
-        <div class="office-actions">
+    <div class="office-panel">
+      <div class="panel-header">
+        <span class="panel-title">🏢 Virtual Office — Live Agent Sessions</span>
+        <div class="panel-actions">
           <button class="btn" onclick="gatherMeeting()">📢 Meeting</button>
           <button class="btn" onclick="scatterAgents()">🏃 Scatter</button>
-          <button class="btn" onclick="returnToWork()">💻 Work</button>
+          <button class="btn btn-primary" onclick="returnToWork()">💻 Work</button>
         </div>
       </div>
       
       <div class="game-world" id="gameWorld">
-        <!-- Desks arranged in office layout -->
-        <div class="desk" style="top: 80px; left: 100px;">💻</div>
-        <div class="desk" style="top: 80px; left: 250px;">💻</div>
-        <div class="desk" style="top: 80px; left: 400px;">💻</div>
-        <div class="desk" style="top: 200px; left: 100px;">💻</div>
-        <div class="desk" style="top: 200px; left: 250px;">💻</div>
-        <div class="desk" style="top: 200px; left: 400px;">💻</div>
-        <div class="desk" style="top: 320px; left: 100px;">💻</div>
-        <div class="desk" style="top: 320px; left: 250px;">💻</div>
-        <div class="desk" style="top: 320px; left: 400px;">💻</div>
-        <div class="desk" style="top: 440px; left: 175px;">💻</div>
-        <div class="desk" style="top: 440px; left: 325px;">💻</div>
-        
-        <!-- Avatars will be spawned here -->
+        <!-- Desks -->
+        <div class="desk computer" style="top: 60px; left: 60px;"><span class="desk-label">Command</span></div>
+        <div class="desk computer" style="top: 60px; left: 180px;"><span class="desk-label">Research</span></div>
+        <div class="desk computer" style="top: 60px; left: 300px;"><span class="desk-label">Code</span></div>
+        <div class="desk computer" style="top: 60px; left: 420px;"><span class="desk-label">Trade</span></div>
+        <div class="desk computer" style="top: 180px; left: 60px;"><span class="desk-label">Analysis</span></div>
+        <div class="desk computer" style="top: 180px; left: 180px;"><span class="desk-label">Security</span></div>
+        <div class="desk computer" style="top: 180px; left: 300px;"><span class="desk-label">Writer</span></div>
+        <div class="desk computer" style="top: 180px; left: 420px;"><span class="desk-label">Monitor</span></div>
+        <div class="desk computer" style="top: 300px; left: 120px;"><span class="desk-label">Planner</span></div>
+        <div class="desk computer" style="top: 300px; left: 360px;"><span class="desk-label">Learner</span></div>
       </div>
     </div>
 
-    <!-- Info Panel -->
-    <div class="info-panel">
-      <div class="info-header">
-        <div class="info-avatar" id="selectedAvatar">🐟</div>
-        <div class="info-title">
-          <h2 id="selectedName">Captain</h2>
-          <p id="selectedRole">Commander</p>
-        </div>
-      </div>
-      
-      <div class="info-section">
-        <h3>🎯 Current Task</h3>
-        <div class="info-task">
-          <div class="info-task-text" id="selectedTask">Overseeing all operations</div>
-          <div class="info-task-meta">Click any agent to see their task</div>
-        </div>
-      </div>
-      
-      <div class="info-section">
-        <h3>📊 Stats</h3>
-        <div class="info-stats" id="selectedStats">
-          <div class="stat-box">
-            <div class="stat-value">10</div>
-            <div class="stat-label">Agents</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-value">6</div>
-            <div class="stat-label">Active</div>
+    <!-- Side Panel -->
+    <div class="side-panel">
+      <!-- Selected Agent Info -->
+      <div class="info-card">
+        <div class="info-header">
+          <div class="info-avatar" id="selectedAvatar">🐟</div>
+          <div class="info-title">
+            <h2 id="selectedName">Captain</h2>
+            <p id="selectedRole">Commander</p>
           </div>
         </div>
+        
+        <div class="info-section">
+          <h3>🎯 Current Task</h3>
+          <div class="task-box">
+            <div class="task-text" id="selectedTask">Overseeing all agent operations</div>
+            <div class="task-meta">Runtime: Local • Click agent to view</div>
+          </div>
+        </div>
+        
+        <div class="info-section">
+          <h3>📊 Session Stats</h3>
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-num" id="statTasks">145</div>
+              <div class="stat-label">Tasks Done</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="statQueue">2</div>
+              <div class="stat-label">Queue</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="controls">
+          <button class="control-btn" onclick="sendMessage()">💬 Send Msg</button>
+          <button class="control-btn" onclick="viewLogs()">📋 View Logs</button>
+          <button class="control-btn" onclick="pauseSession()">⏸ Pause</button>
+          <button class="control-btn" onclick="killSession()">⏹ Kill</button>
+        </div>
       </div>
-      
-      <div class="agent-list">
-        <h3>👥 Agents</h3>
-        <div id="agentList"></div>
-      </div>
-      
-      <div class="instructions">
-        <strong>Controls:</strong><br>
-        • Click agent to focus<br>
-        • Click office to move Nemo<br>
-        • Watch them work in real-time
+
+      <!-- Session List -->
+      <div class="info-card">
+        <div class="info-section" style="margin-bottom: 0;">
+          <h3>🤖 All Sessions</h3>
+          <div class="session-list" id="sessionList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Agent data with positions
     let agents = {};
-    let selectedAgent = 'nemo';
+    let selectedAgentId = 'nemo';
     
-    // Nemo (Captain) - You control this one
-    const nemo = {
-      id: 'nemo',
-      name: 'Captain',
-      role: 'Commander',
-      emoji: '🐟',
-      color: '#00d4ff',
-      status: 'active',
-      currentTask: 'Overseeing operations',
-      tasksCompleted: 145,
-      x: 250,
-      y: 500,
-      desk: { x: 250, y: 500 }
+    // Desk positions
+    const deskPositions = {
+      commander: { x: 75, y: 45 },
+      researcher: { x: 195, y: 45 },
+      coder: { x: 315, y: 45 },
+      trader: { x: 435, y: 45 },
+      analyst: { x: 75, y: 165 },
+      security: { x: 195, y: 165 },
+      writer: { x: 315, y: 165 },
+      monitor: { x: 435, y: 165 },
+      planner: { x: 135, y: 285 },
+      learner: { x: 375, y: 285 },
+      nemo: { x: 255, y: 420 }
     };
     
-    // Load data and initialize
     async function init() {
       try {
         const res = await fetch('data.json?' + Date.now());
         const data = await res.json();
         
-        // Map office agents from data.json
-        const officeAgents = data.office?.agents || [];
-        const deskPositions = [
-          { x: 115, y: 60 },   // Commander
-          { x: 265, y: 60 },   // Researcher
-          { x: 415, y: 60 },   // Coder
-          { x: 115, y: 180 },  // Trader
-          { x: 265, y: 180 },  // Analyst
-          { x: 415, y: 180 },  // Security
-          { x: 115, y: 300 },  // Writer
-          { x: 265, y: 300 },  // Monitor
-          { x: 415, y: 300 },  // Planner
-          { x: 190, y: 420 },  // Learner
-        ];
+        // Load agents from data
+        if (data.office?.agents) {
+          data.office.agents.forEach(agent => {
+            const pos = deskPositions[agent.id] || { x: 100, y: 100 };
+            agents[agent.id] = {
+              ...agent,
+              x: pos.x,
+              y: pos.y,
+              desk: { ...pos }
+            };
+          });
+        }
         
-        officeAgents.forEach((agent, i) => {
-          const pos = deskPositions[i] || { x: 100 + i * 50, y: 100 };
-          agents[agent.id] = {
-            ...agent,
-            x: pos.x,
-            y: pos.y,
-            desk: { ...pos }
-          };
-        });
-        
-        // Add Nemo
-        agents.nemo = nemo;
+        // Add Nemo (you)
+        agents.nemo = {
+          id: 'nemo',
+          name: 'Captain',
+          role: 'Commander',
+          emoji: '🐟',
+          status: 'active',
+          currentTask: 'Overseeing operations',
+          tasksCompleted: 145,
+          queue: 2,
+          x: 255,
+          y: 420,
+          desk: { x: 255, y: 420 }
+        };
         
         spawnAvatars();
-        buildAgentList();
+        renderSessionList();
         selectAgent('nemo');
         
-        // Start random movements
-        setInterval(randomAgentMovement, 5000);
-        setInterval(randomThoughts, 8000);
+        // Random movements and thoughts
+        setInterval(randomMovement, 6000);
+        setInterval(randomThoughts, 10000);
         
       } catch (err) {
-        console.error('Failed to load data:', err);
-        // Use default data
-        agents.nemo = nemo;
-        spawnAvatars();
+        console.error('Failed to load:', err);
       }
     }
     
-    // Spawn avatar elements
     function spawnAvatars() {
       const world = document.getElementById('gameWorld');
       
       Object.entries(agents).forEach(([id, agent]) => {
         const avatar = document.createElement('div');
-        avatar.className = `avatar ${id} ${agent.status}`;
+        avatar.className = `avatar ${id} ${agent.status} ${id === 'nemo' ? 'nemo' : ''}`;
         avatar.id = `avatar-${id}`;
         avatar.style.left = agent.x + 'px';
         avatar.style.top = agent.y + 'px';
+        avatar.innerHTML = `
+          <div class="avatar-name">${agent.name}</div>
+          ${agent.emoji}
+          <div class="avatar-status ${agent.status}"></div>
+        `;
+        
         avatar.onclick = (e) => {
           e.stopPropagation();
           selectAgent(id);
         };
-        
-        avatar.innerHTML = `
-          <div class="avatar-name">${agent.name}</div>
-          <div class="avatar-sprite">
-            <div class="avatar-head">
-              <div class="avatar-eyes"></div>
-            </div>
-            <div class="avatar-body"></div>
-            <div class="avatar-legs"></div>
-          </div>
-          <div class="avatar-status ${agent.status}"></div>
-        `;
         
         world.appendChild(avatar);
       });
@@ -736,102 +674,95 @@
       // Click floor to move Nemo
       world.onclick = (e) => {
         const rect = world.getBoundingClientRect();
-        const x = e.clientX - rect.left - 16;
-        const y = e.clientY - rect.top - 24;
+        const x = e.clientX - rect.left - 22;
+        const y = e.clientY - rect.top - 22;
         moveAvatar('nemo', x, y);
       };
     }
     
-    // Move avatar
-    function moveAvatar(id, targetX, targetY) {
+    function moveAvatar(id, x, y) {
       const avatar = document.getElementById(`avatar-${id}`);
       if (!avatar) return;
       
-      const currentX = parseInt(avatar.style.left);
-      const direction = targetX < currentX ? 'left' : 'right';
+      const boundedX = Math.max(10, Math.min(x, 520));
+      const boundedY = Math.max(10, Math.min(y, 540));
       
-      avatar.classList.add('walking', direction);
-      avatar.style.left = Math.max(0, Math.min(targetX, 550)) + 'px';
-      avatar.style.top = Math.max(0, Math.min(targetY, 550)) + 'px';
+      avatar.style.left = boundedX + 'px';
+      avatar.style.top = boundedY + 'px';
       
-      setTimeout(() => avatar.classList.remove('walking'), 500);
-      
-      // Update data
       if (agents[id]) {
-        agents[id].x = targetX;
-        agents[id].y = targetY;
+        agents[id].x = boundedX;
+        agents[id].y = boundedY;
       }
     }
     
-    // Select agent
     function selectAgent(id) {
-      selectedAgent = id;
+      selectedAgentId = id;
       const agent = agents[id];
       if (!agent) return;
+      
+      // Update UI
+      document.querySelectorAll('.avatar').forEach(a => a.classList.remove('selected'));
+      document.getElementById(`avatar-${id}`)?.classList.add('selected');
       
       document.getElementById('selectedAvatar').textContent = agent.emoji;
       document.getElementById('selectedName').textContent = agent.name;
       document.getElementById('selectedRole').textContent = agent.role;
       document.getElementById('selectedTask').textContent = agent.currentTask || 'Standing by';
+      document.getElementById('statTasks').textContent = agent.tasksCompleted || 0;
+      document.getElementById('statQueue').textContent = agent.queue || 0;
       
-      document.getElementById('selectedStats').innerHTML = `
-        <div class="stat-box">
-          <div class="stat-value">${agent.tasksCompleted || 0}</div>
-          <div class="stat-label">Tasks Done</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">${agent.queue || 0}</div>
-          <div class="stat-label">In Queue</div>
-        </div>
-      `;
-      
-      // Highlight in list
-      document.querySelectorAll('.agent-row').forEach(row => {
-        row.classList.remove('active');
-        if (row.dataset.id === id) row.classList.add('active');
+      // Update list
+      document.querySelectorAll('.session-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.id === id);
       });
     }
     
-    // Build agent list
-    function buildAgentList() {
-      const list = document.getElementById('agentList');
+    function renderSessionList() {
+      const list = document.getElementById('sessionList');
       list.innerHTML = Object.entries(agents).map(([id, agent]) => `
-        <div class="agent-row ${id === 'nemo' ? 'active' : ''}" data-id="${id}" onclick="selectAgent('${id}')">
-          <span class="agent-row-emoji">${agent.emoji}</span>
-          <div class="agent-row-info">
-            <div class="agent-row-name">${agent.name}</div>
-            <div class="agent-row-role">${agent.role}</div>
+        <div class="session-item ${id === 'nemo' ? 'active' : ''}" data-id="${id}" onclick="selectAgent('${id}')">
+          <div class="session-emoji ${agent.status}">${agent.emoji}</div>
+          <div class="session-info">
+            <div class="session-name">${agent.name}</div>
+            <div class="session-role">${agent.role}</div>
           </div>
-          <div class="agent-row-status ${agent.status}"></div>
+          <div class="session-status ${agent.status}"></div>
         </div>
       `).join('');
     }
     
-    // Random agent movement
-    function randomAgentMovement() {
-      const activeAgents = Object.keys(agents).filter(id => 
-        id !== 'nemo' && agents[id].status === 'active' && Math.random() < 0.3
-      );
-      
-      activeAgents.forEach(id => {
+    function randomMovement() {
+      Object.keys(agents).forEach(id => {
+        if (id === 'nemo') return;
+        if (agents[id].status !== 'active') return;
+        if (Math.random() > 0.4) return;
+        
         const agent = agents[id];
-        // 50% chance to return to desk, 50% wander
+        const offsetX = (Math.random() - 0.5) * 60;
+        const offsetY = (Math.random() - 0.5) * 40;
+        
         if (Math.random() < 0.5) {
           moveAvatar(id, agent.desk.x, agent.desk.y);
         } else {
-          const offsetX = (Math.random() - 0.5) * 100;
-          const offsetY = (Math.random() - 0.5) * 50;
           moveAvatar(id, agent.desk.x + offsetX, agent.desk.y + offsetY);
         }
       });
     }
     
-    // Show thought bubble
+    function randomThoughts() {
+      const activeIds = Object.keys(agents).filter(id => agents[id].status === 'active');
+      if (activeIds.length === 0) return;
+      
+      const id = activeIds[Math.floor(Math.random() * activeIds.length)];
+      const thoughts = ['Working...', 'Processing...', 'Analyzing...', 'Optimizing...'];
+      showThought(id, thoughts[Math.floor(Math.random() * thoughts.length)]);
+    }
+    
     function showThought(id, text) {
       const avatar = document.getElementById(`avatar-${id}`);
       if (!avatar) return;
       
-      // Remove existing thoughts
       avatar.querySelectorAll('.thought-bubble').forEach(b => b.remove());
       
       const bubble = document.createElement('div');
@@ -842,43 +773,22 @@
       setTimeout(() => bubble.remove(), 4000);
     }
     
-    // Random thoughts
-    function randomThoughts() {
-      const thoughts = [
-        '💭 Working on task...',
-        '💭 Almost done...',
-        '💭 Need coffee...',
-        '💭 Looking good!',
-        '💭 Checking data...',
-        '💭 Optimizing...',
-        '📊 Processing...',
-        '🔍 Analyzing...'
-      ];
-      
-      const activeIds = Object.keys(agents).filter(id => agents[id].status === 'active');
-      if (activeIds.length === 0) return;
-      
-      const randomId = activeIds[Math.floor(Math.random() * activeIds.length)];
-      const thought = thoughts[Math.floor(Math.random() * thoughts.length)];
-      showThought(randomId, thought);
-    }
-    
     // Actions
     function gatherMeeting() {
       showThought('nemo', '📢 Team meeting!');
       Object.keys(agents).forEach((id, i) => {
         setTimeout(() => {
-          moveAvatar(id, 250 + (i * 20), 300 + (i * 10));
-          if (id !== 'nemo') showThought(id, '🫡 On my way!');
-        }, i * 200);
+          moveAvatar(id, 200 + i * 25, 350);
+          if (id !== 'nemo') showThought(id, 'On my way!');
+        }, i * 150);
       });
     }
     
     function scatterAgents() {
-      showThought('nemo', '🏃 Free roam!');
+      showThought('nemo', '🏃 Free time!');
       Object.keys(agents).forEach(id => {
         if (id !== 'nemo') {
-          moveAvatar(id, 50 + Math.random() * 450, 50 + Math.random() * 450);
+          moveAvatar(id, 30 + Math.random() * 480, 30 + Math.random() * 480);
         }
       });
     }
@@ -891,7 +801,34 @@
       });
     }
     
-    // Initialize
+    function sendMessage() {
+      const msg = prompt(`Message to ${agents[selectedAgentId]?.name}:`);
+      if (msg) showThought(selectedAgentId, `💬 ${msg}`);
+    }
+    
+    function viewLogs() {
+      alert(`Viewing logs for ${agents[selectedAgentId]?.name}...\n(In full version, this would open a terminal panel)`);
+    }
+    
+    function pauseSession() {
+      const agent = agents[selectedAgentId];
+      if (agent) {
+        agent.status = 'idle';
+        document.getElementById(`avatar-${selectedAgentId}`).classList.remove('active');
+        document.getElementById(`avatar-${selectedAgentId}`).classList.add('idle');
+        renderSessionList();
+      }
+    }
+    
+    function killSession() {
+      if (!confirm(`Kill session ${agents[selectedAgentId]?.name}?`)) return;
+      showThought(selectedAgentId, '💀 Session terminated');
+      setTimeout(() => {
+        document.getElementById(`avatar-${selectedAgentId}`)?.remove();
+      }, 1000);
+    }
+    
+    // Init
     init();
   </script>
 </body>
