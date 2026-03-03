@@ -3,231 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏢 THE CLANKBOX | Agent HQ v2.0</title>
+<title>🏢 THE CLANKBOX | NEMO Office</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap');
   
-  * { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    image-rendering: pixelated;
+  * { margin: 0; padding: 0; box-sizing: border-box; image-rendering: pixelated; }
+  
+  :root {
+    --bg-dark: #0a0e17;
+    --bg-panel: #141b2d;
+    --border: #1e2a42;
+    --accent: #00d4ff;
+    --success: #00e676;
+    --warning: #ffd740;
+    --danger: #ff5252;
   }
   
-  body { 
-    font-family: 'Press Start 2P', monospace;
-    background: #1a1c2c;
-    color: #f4f4f4;
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: #e0e0e0;
     min-height: 100vh;
-    overflow-x: hidden;
   }
   
-  /* CRT Scanline Effect */
-  body::before {
-    content: '';
-    position: fixed;
+  /* Navigation */
+  .nav-bar {
+    background: linear-gradient(180deg, var(--bg-panel) 0%, rgba(20,27,45,0.95) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    pointer-events: none;
     z-index: 1000;
   }
   
-  /* Header */
-  .header {
-    background: linear-gradient(180deg, #2d1b2e 0%, #1a1c2c 100%);
-    border-bottom: 4px solid #5d275d;
-    padding: 15px;
-    text-align: center;
-    position: relative;
-  }
-  
-  .header h1 {
-    font-size: 20px;
-    color: #ffcd75;
-    text-shadow: 3px 3px 0px #5d275d;
-    margin-bottom: 8px;
-  }
-  
-  .header-stats {
+  .nav-content {
+    max-width: 1600px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    font-size: 8px;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
   }
   
-  .stat-box {
-    background: #29366f;
-    padding: 6px 10px;
-    border: 2px solid #1a1c2c;
-    box-shadow: inset -2px -2px 0 #1a1c2c, inset 2px 2px 0 #5965a3;
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--accent);
+    text-decoration: none;
   }
   
-  .stat-label { color: #94b0c2; font-size: 6px; }
-  .stat-value { color: #38b764; margin-top: 2px; }
-
-  /* Main Game Area - Office Space */
+  .nav-brand .fish {
+    font-size: 1.5em;
+    animation: swim 3s ease-in-out infinite;
+  }
+  
+  @keyframes swim {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .nav-link {
+    color: #8892a4;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .nav-link:hover {
+    color: #e0e0e0;
+    background: rgba(0, 212, 255, 0.1);
+  }
+  
+  .nav-link.active {
+    color: var(--accent);
+    background: rgba(0, 212, 255, 0.15);
+  }
+  
+  /* Main Container */
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 24px;
+  }
+  
+  @media (max-width: 1200px) {
+    .container { grid-template-columns: 1fr; }
+  }
+  
+  /* Office Floor */
+  .office-section {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  
+  .office-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .office-title {
+    font-size: 1.3em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .office-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  
+  .btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--accent);
+  }
+  
   .game-world {
     position: relative;
     width: 100%;
     height: 600px;
     background: 
-      /* Floor tiles */
-      repeating-linear-gradient(90deg, #2a2a3a 0px, #2a2a3a 40px, #323242 40px, #323242 80px),
-      repeating-linear-gradient(0deg, #2a2a3a 0px, #2a2a3a 40px, #323242 40px, #323242 80px);
-    border: 4px solid #5d275d;
+      /* Floor grid */
+      linear-gradient(90deg, rgba(30,42,66,0.3) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(30,42,66,0.3) 1px, transparent 1px),
+      #0f1419;
+    background-size: 40px 40px;
     overflow: hidden;
-    margin-bottom: 20px;
   }
-
-  /* Office Furniture - Desks */
+  
+  /* Desks */
   .desk {
     position: absolute;
-    width: 60px;
-    height: 40px;
-    background: #5d4e37;
-    border: 2px solid #3d3225;
+    width: 80px;
+    height: 50px;
+    background: linear-gradient(145deg, #2a3a52 0%, #1e2a42 100%);
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
   }
   
   .desk::before {
     content: '';
     position: absolute;
-    top: -15px;
-    left: 5px;
-    width: 50px;
-    height: 15px;
-    background: #6d5e47;
-    border: 2px solid #3d3225;
-  }
-
-  /* Computer on desk */
-  .computer {
-    position: absolute;
-    top: -25px;
-    left: 20px;
-    width: 20px;
-    height: 15px;
-    background: #1a1c2c;
-    border: 2px solid #94b0c2;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(145deg, #3a4a62 0%, #2e3a52 100%);
+    border: 2px solid var(--border);
+    border-radius: 4px 4px 0 0;
   }
   
-  .computer::after {
-    content: '';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 12px;
-    height: 8px;
-    background: #38b764;
-    animation: screenGlow 2s infinite;
-  }
-
-  @keyframes screenGlow {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-
-  /* Plants */
-  .plant {
-    position: absolute;
-    width: 20px;
-    height: 30px;
-    background: #2d5016;
-    border-radius: 50% 50% 0 0;
-  }
-  
-  .plant::before {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: -5px;
-    width: 30px;
-    height: 15px;
-    background: #8b4513;
-    border-radius: 2px;
-  }
-
-  /* 8-Bit Human Avatar */
+  /* 8-Bit Avatar */
   .avatar {
     position: absolute;
-    width: 24px;
-    height: 36px;
+    width: 32px;
+    height: 48px;
     transition: all 0.3s ease;
-    z-index: 10;
+    z-index: 100;
     cursor: pointer;
   }
-
+  
   .avatar:hover {
     transform: scale(1.2);
-    z-index: 20;
+    z-index: 200;
   }
-
-  /* Avatar Body Parts */
+  
+  .avatar-sprite {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Head */
   .avatar-head {
     position: absolute;
     top: 0;
     left: 4px;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 20px;
     background: #fdbcb4;
     border: 2px solid #1a1c2c;
+    border-radius: 2px;
   }
-
-  .avatar-hair {
+  
+  /* Eyes */
+  .avatar-eyes::before,
+  .avatar-eyes::after {
+    content: '';
     position: absolute;
-    top: -4px;
-    left: 2px;
-    width: 20px;
-    height: 10px;
-    background: #4a3728;
-    border: 2px solid #1a1c2c;
+    top: 8px;
+    width: 4px;
+    height: 4px;
+    background: #1a1c2c;
+    border-radius: 50%;
   }
-
+  
+  .avatar-eyes::before { left: 8px; }
+  .avatar-eyes::after { right: 8px; }
+  
+  /* Body */
   .avatar-body {
     position: absolute;
-    top: 16px;
+    top: 20px;
     left: 2px;
-    width: 20px;
-    height: 14px;
+    width: 28px;
+    height: 20px;
     border: 2px solid #1a1c2c;
+    border-radius: 2px;
   }
-
+  
+  /* Legs */
   .avatar-legs {
     position: absolute;
-    top: 30px;
-    left: 4px;
-    width: 16px;
-    height: 6px;
+    top: 40px;
+    left: 6px;
+    width: 20px;
+    height: 8px;
     background: #3d3225;
     border: 2px solid #1a1c2c;
+    border-radius: 2px;
   }
-
-  /* Walking Animation */
+  
+  /* Walking animation */
   .avatar.walking .avatar-legs {
     animation: walk 0.3s infinite alternate;
   }
-
+  
   @keyframes walk {
     0% { transform: translateX(-2px); }
     100% { transform: translateX(2px); }
   }
-
-  /* Direction facing */
-  .avatar.left .avatar-head,
-  .avatar.left .avatar-body,
-  .avatar.left .avatar-hair {
+  
+  /* Direction */
+  .avatar.left .avatar-sprite {
     transform: scaleX(-1);
   }
-
-  /* Different outfit colors */
+  
+  /* Agent colors */
   .avatar.commander .avatar-body { background: #ef7d57; }
   .avatar.researcher .avatar-body { background: #38b764; }
   .avatar.coder .avatar-body { background: #257179; }
@@ -238,45 +290,67 @@
   .avatar.monitor .avatar-body { background: #a7f070; }
   .avatar.planner .avatar-body { background: #3b5dc9; }
   .avatar.learner .avatar-body { background: #29366f; }
-  .avatar.watercooler .avatar-body { background: #00d4ff; }
-
-  /* Name tag above avatar */
+  .avatar.nemo .avatar-body { background: linear-gradient(135deg, #00d4ff, #00e676); }
+  
+  /* Name tag */
   .avatar-name {
     position: absolute;
-    top: -20px;
+    top: -25px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 6px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 7px;
     color: #fff;
-    background: rgba(0,0,0,0.7);
-    padding: 2px 4px;
+    background: rgba(0,0,0,0.8);
+    padding: 3px 6px;
+    border-radius: 4px;
     white-space: nowrap;
     opacity: 0;
     transition: opacity 0.2s;
+    pointer-events: none;
   }
-
+  
   .avatar:hover .avatar-name {
     opacity: 1;
   }
-
+  
+  /* Status indicator */
+  .avatar-status {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #1a1c2c;
+  }
+  
+  .avatar-status.active { background: var(--success); }
+  .avatar-status.idle { background: var(--warning); }
+  .avatar-status.offline { background: var(--danger); }
+  
   /* Thought bubble */
   .thought-bubble {
     position: absolute;
-    top: -50px;
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
     background: #fff;
     color: #1a1c2c;
-    padding: 6px 10px;
+    padding: 8px 12px;
+    font-family: 'Press Start 2P', monospace;
     font-size: 7px;
     border: 2px solid #1a1c2c;
     border-radius: 4px;
     white-space: nowrap;
     opacity: 0;
     animation: fadeInOut 4s forwards;
-    z-index: 30;
+    z-index: 300;
+    max-width: 200px;
+    white-space: normal;
+    text-align: center;
   }
-
+  
   .thought-bubble::after {
     content: '';
     position: absolute;
@@ -287,463 +361,538 @@
     border-right: 6px solid transparent;
     border-top: 8px solid #1a1c2c;
   }
-
+  
   @keyframes fadeInOut {
     0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
     10% { opacity: 1; transform: translateX(-50%) translateY(0); }
     80% { opacity: 1; }
     100% { opacity: 0; }
   }
-
-  /* Chat Section */
-  .chat-container {
-    background: #29366f;
-    border: 4px solid #1a1c2c;
-    box-shadow: 
-      inset -4px -4px 0 #1a1c2c,
-      inset 4px 4px 0 #5965a3;
-    display: flex;
-    flex-direction: column;
-    height: 600px;
+  
+  /* Agent Info Panel */
+  .info-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
     position: sticky;
-    top: 20px;
+    top: 88px;
   }
   
-  .chat-header {
-    background: #5d275d;
-    padding: 10px;
-    font-size: 10px;
-    color: #ffcd75;
-    text-align: center;
-    border-bottom: 3px solid #1a1c2c;
+  .info-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
   }
   
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    font-size: 8px;
-    line-height: 1.8;
+  .info-avatar {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, var(--accent), var(--success));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
   }
   
-  .chat-message {
-    margin-bottom: 10px;
-    padding: 8px;
-    background: #1a1c2c;
-    border-left: 3px solid #5d275d;
-  }
-  
-  .chat-message.mention {
-    border-left-color: #ef7d57;
-    background: #2d1b2e;
-  }
-  
-  .chat-author {
-    color: #ffcd75;
+  .info-title h2 {
+    font-size: 1.3em;
     margin-bottom: 4px;
   }
   
-  .chat-text {
-    color: #f4f4f4;
+  .info-title p {
+    color: #8892a4;
+    font-size: 0.9em;
   }
   
-  .chat-time {
-    color: #94b0c2;
-    font-size: 6px;
-    margin-top: 4px;
-  }
-
-  /* Action Bar */
-  .action-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding: 0 20px;
+  .info-section {
+    margin-bottom: 20px;
   }
   
-  .btn {
-    background: #b13e53;
-    border: none;
-    padding: 10px 15px;
-    font-family: 'Press Start 2P', monospace;
-    font-size: 8px;
-    color: #f4f4f4;
-    cursor: pointer;
-    box-shadow: inset -2px -2px 0 #8b1e33, inset 2px 2px 0 #d45e73;
-  }
-  
-  .btn.green {
-    background: #38b764;
-    box-shadow: inset -2px -2px 0 #257179, inset 2px 2px 0 #58d784;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-  }
-
-  /* Agent List Sidebar */
-  .agent-list {
-    background: #1a1c2c;
-    border: 3px solid #5d275d;
-    padding: 10px;
-    margin-top: 15px;
-  }
-
-  .agent-list-title {
-    font-size: 10px;
-    color: #ffcd75;
+  .info-section h3 {
+    font-size: 0.85em;
+    color: #8892a4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     margin-bottom: 10px;
+  }
+  
+  .info-task {
+    background: rgba(0, 212, 255, 0.05);
+    border-left: 3px solid var(--accent);
+    padding: 12px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 10px;
+  }
+  
+  .info-task-text {
+    font-size: 0.95em;
+    margin-bottom: 6px;
+  }
+  
+  .info-task-meta {
+    font-size: 0.8em;
+    color: #8892a4;
+  }
+  
+  .info-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .stat-box {
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 8px;
     text-align: center;
   }
-
+  
+  .stat-value {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--success);
+  }
+  
+  .stat-label {
+    font-size: 0.75em;
+    color: #8892a4;
+    margin-top: 4px;
+  }
+  
+  /* Agent List */
+  .agent-list {
+    margin-top: 20px;
+  }
+  
+  .agent-list h3 {
+    font-size: 0.85em;
+    color: #8892a4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+  
   .agent-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px;
-    font-size: 8px;
-    border-bottom: 1px solid #29366f;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: all 0.2s;
   }
-
+  
   .agent-row:hover {
-    background: #29366f;
+    background: rgba(0, 212, 255, 0.05);
   }
-
-  .agent-status-dot {
+  
+  .agent-row.active {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--accent);
+  }
+  
+  .agent-row-emoji {
+    font-size: 1.3em;
+  }
+  
+  .agent-row-info {
+    flex: 1;
+  }
+  
+  .agent-row-name {
+    font-weight: 600;
+    font-size: 0.9em;
+  }
+  
+  .agent-row-role {
+    font-size: 0.75em;
+    color: #8892a4;
+  }
+  
+  .agent-row-status {
     width: 8px;
     height: 8px;
     border-radius: 50%;
   }
-
-  .agent-status-dot.active { background: #38b764; }
-  .agent-status-dot.idle { background: #ffcd75; }
-
-  /* Responsive */
-  @media (max-width: 1200px) {
-    .game-world { height: 400px; }
-    .chat-container { height: 400px; }
+  
+  .agent-row-status.active { background: var(--success); }
+  .agent-row-status.idle { background: var(--warning); }
+  
+  /* Instructions */
+  .instructions {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(0, 212, 255, 0.05);
+    border-radius: 8px;
+    font-size: 0.85em;
+    color: #8892a4;
+  }
+  
+  .instructions strong {
+    color: var(--accent);
   }
 </style>
 </head>
 <body>
-<div class="header">
-  <h1>🏢 THE CLANKBOX</h1>
-  <div class="header-stats">
-    <div class="stat-box">
-      <div class="stat-label">AGENTS</div>
-      <div class="stat-value">11 ACTIVE</div>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <a href="index.html" class="nav-brand">
+        <span class="fish">🐟</span>
+        <span>NEMO Command Center</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">📊 Dashboard</a>
+        <a href="clankbox.html" class="nav-link active">🏢 Clankbox</a>
+        <a href="trading.html" class="nav-link">📈 Trading</a>
+      </div>
     </div>
-    <div class="stat-box">
-      <div class="stat-label">QUESTS</div>
-      <div class="stat-value">3 ACTIVE</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">XP</div>
-      <div class="stat-value">12,450</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-label">LEVEL</div>
-      <div class="stat-value">LV.8</div>
-    </div>
-  </div>
-</div>
+  </nav>
 
-<div style="padding: 20px; max-width: 1400px; margin: 0 auto;">
-  <div class="action-bar">
-    <button class="btn green" onclick="callTeamMeeting()">📢 TEAM MEETING</button>
-    <button class="btn" onclick="scatterAgents()">🏃 SCATTER</button>
-    <button class="btn" onclick="returnToDesks()">💻 TO DESKS</button>
-    <button class="btn" onclick="toggleWaterCooler()">💧 WATER COOLER</button>
-  </div>
-
-  <div style="display: grid; grid-template-columns: 1fr 350px; gap: 20px;">
-    <!-- Game World -->
-    <div>
-      <div class="game-world" id="gameWorld">
-        <!-- Desks -->
-        <div class="desk" style="top: 50px; left: 80px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 50px; left: 200px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 50px; left: 320px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 150px; left: 80px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 150px; left: 200px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 150px; left: 320px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 250px; left: 80px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 250px; left: 200px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 250px; left: 320px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 350px; left: 80px;"><div class="computer"></div></div>
-        <div class="desk" style="top: 350px; left: 320px;"><div class="computer"></div></div>
-        
-        <!-- Plants -->
-        <div class="plant" style="top: 30px; left: 30px;"></div>
-        <div class="plant" style="top: 30px; left: 420px;"></div>
-        <div class="plant" style="top: 450px; left: 30px;"></div>
-        <div class="plant" style="top: 450px; left: 420px;"></div>
-
-        <!-- Water Cooler Area -->
-        <div style="position: absolute; top: 400px; left: 200px; width: 80px; height: 60px; background: #4a90e2; border: 3px solid #1a1c2c; border-radius: 4px;">
-          <div style="position: absolute; top: 10px; left: 10px; width: 60px; height: 40px; background: #87ceeb; border: 2px solid #1a1c2c;"></div>
-          <div style="position: absolute; top: -20px; left: 25px; width: 30px; height: 25px; background: #fff; border: 2px solid #1a1c2c;"></div>
+  <div class="container">
+    <!-- Office Floor -->
+    <div class="office-section">
+      <div class="office-header">
+        <div class="office-title">
+          🏢 THE CLANKBOX
+          <span style="font-size: 0.7em; color: #8892a4; font-weight: 400;">| Agent Headquarters</span>
         </div>
-
+        <div class="office-actions">
+          <button class="btn" onclick="gatherMeeting()">📢 Meeting</button>
+          <button class="btn" onclick="scatterAgents()">🏃 Scatter</button>
+          <button class="btn" onclick="returnToWork()">💻 Work</button>
+        </div>
+      </div>
+      
+      <div class="game-world" id="gameWorld">
+        <!-- Desks arranged in office layout -->
+        <div class="desk" style="top: 80px; left: 100px;">💻</div>
+        <div class="desk" style="top: 80px; left: 250px;">💻</div>
+        <div class="desk" style="top: 80px; left: 400px;">💻</div>
+        <div class="desk" style="top: 200px; left: 100px;">💻</div>
+        <div class="desk" style="top: 200px; left: 250px;">💻</div>
+        <div class="desk" style="top: 200px; left: 400px;">💻</div>
+        <div class="desk" style="top: 320px; left: 100px;">💻</div>
+        <div class="desk" style="top: 320px; left: 250px;">💻</div>
+        <div class="desk" style="top: 320px; left: 400px;">💻</div>
+        <div class="desk" style="top: 440px; left: 175px;">💻</div>
+        <div class="desk" style="top: 440px; left: 325px;">💻</div>
+        
         <!-- Avatars will be spawned here -->
       </div>
-
-      <!-- Agent List -->
-      <div class="agent-list">
-        <div class="agent-list-title">👥 CLICK AGENT TO FOCUS</div>
-        <div id="agentList"></div>
-      </div>
     </div>
 
-    <!-- Chat -->
-    <div class="chat-container">
-      <div class="chat-header">💬 AGENT CHAT</div>
-      <div class="chat-messages" id="chatMessages"></div>
-      <div style="padding: 10px; background: #1a1c2c; border-top: 3px solid #5d275d;">
-        <input type="text" id="chatInput" placeholder="Type message..." 
-          style="width: 100%; background: #29366f; border: 2px solid #5d275d; color: #f4f4f4; padding: 8px; font-family: 'Press Start 2P'; font-size: 8px;"
-          onkeypress="if(event.key==='Enter')sendMessage()">
-        <div style="font-size: 6px; color: #94b0c2; margin-top: 5px;">Try: status | @name | meeting</div>
+    <!-- Info Panel -->
+    <div class="info-panel">
+      <div class="info-header">
+        <div class="info-avatar" id="selectedAvatar">🐟</div>
+        <div class="info-title">
+          <h2 id="selectedName">Captain</h2>
+          <p id="selectedRole">Commander</p>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <h3>🎯 Current Task</h3>
+        <div class="info-task">
+          <div class="info-task-text" id="selectedTask">Overseeing all operations</div>
+          <div class="info-task-meta">Click any agent to see their task</div>
+        </div>
+      </div>
+      
+      <div class="info-section">
+        <h3>📊 Stats</h3>
+        <div class="info-stats" id="selectedStats">
+          <div class="stat-box">
+            <div class="stat-value">10</div>
+            <div class="stat-label">Agents</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">6</div>
+            <div class="stat-label">Active</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="agent-list">
+        <h3>👥 Agents</h3>
+        <div id="agentList"></div>
+      </div>
+      
+      <div class="instructions">
+        <strong>Controls:</strong><br>
+        • Click agent to focus<br>
+        • Click office to move Nemo<br>
+        • Watch them work in real-time
       </div>
     </div>
   </div>
-</div>
 
-<script>
-// Agent Data
-const agents = {
-  commander: { name: "Commander", role: "Orchestrator", color: "#ef7d57", status: "active", desk: {x: 90, y: 60} },
-  researcher: { name: "Researcher", role: "Intel", color: "#38b764", status: "active", desk: {x: 210, y: 60} },
-  coder: { name: "Coder", role: "Architect", color: "#257179", status: "active", desk: {x: 330, y: 60} },
-  trader: { name: "Trader", role: "Execution", color: "#ffcd75", status: "active", desk: {x: 90, y: 160} },
-  analyst: { name: "Analyst", role: "Data", color: "#b13e53", status: "idle", desk: {x: 210, y: 160} },
-  security: { name: "Security", role: "Guardian", color: "#5d275d", status: "active", desk: {x: 330, y: 160} },
-  writer: { name: "Writer", role: "Communicator", color: "#94b0c2", status: "idle", desk: {x: 90, y: 260} },
-  monitor: { name: "Monitor", role: "Watcher", color: "#a7f070", status: "active", desk: {x: 210, y: 260} },
-  planner: { name: "Planner", role: "Strategist", color: "#3b5dc9", status: "idle", desk: {x: 330, y: 260} },
-  learner: { name: "Learner", role: "Self-Improver", color: "#29366f", status: "idle", desk: {x: 90, y: 360} },
-  watercooler: { name: "Water Cooler", role: "Break Room", color: "#00d4ff", status: "active", desk: {x: 240, y: 420} }
-};
-
-// Spawn avatars
-function spawnAvatars() {
-  const world = document.getElementById('gameWorld');
-  
-  Object.entries(agents).forEach(([id, agent]) => {
-    const avatar = document.createElement('div');
-    avatar.className = `avatar ${id}`;
-    avatar.id = `avatar-${id}`;
-    avatar.style.left = agent.desk.x + 'px';
-    avatar.style.top = agent.desk.y + 'px';
-    avatar.onclick = () => focusAgent(id);
+  <script>
+    // Agent data with positions
+    let agents = {};
+    let selectedAgent = 'nemo';
     
-    avatar.innerHTML = `
-      <div class="avatar-name">${agent.name}</div>
-      <div class="avatar-hair"></div>
-      <div class="avatar-head"></div>
-      <div class="avatar-body"></div>
-      <div class="avatar-legs"></div>
-    `;
+    // Nemo (Captain) - You control this one
+    const nemo = {
+      id: 'nemo',
+      name: 'Captain',
+      role: 'Commander',
+      emoji: '🐟',
+      color: '#00d4ff',
+      status: 'active',
+      currentTask: 'Overseeing operations',
+      tasksCompleted: 145,
+      x: 250,
+      y: 500,
+      desk: { x: 250, y: 500 }
+    };
     
-    world.appendChild(avatar);
-    
-    // Start random movement for active agents
-    if (agent.status === 'active') {
-      setInterval(() => randomMove(id), 5000 + Math.random() * 5000);
-    }
-  });
-}
-
-// Random movement
-function randomMove(agentId) {
-  const avatar = document.getElementById(`avatar-${agentId}`);
-  if (!avatar) return;
-  
-  const agent = agents[agentId];
-  const world = document.getElementById('gameWorld');
-  const maxX = world.offsetWidth - 50;
-  const maxY = world.offsetHeight - 50;
-  
-  // 30% chance to move, 70% stay at desk
-  if (Math.random() > 0.3) {
-    // Return to desk
-    moveAvatar(agentId, agent.desk.x, agent.desk.y);
-    return;
-  }
-  
-  // Random destination
-  const newX = Math.max(20, Math.random() * maxX);
-  const newY = Math.max(20, Math.random() * maxY);
-  
-  moveAvatar(agentId, newX, newY);
-}
-
-// Move avatar with animation
-function moveAvatar(agentId, targetX, targetY) {
-  const avatar = document.getElementById(`avatar-${agentId}`);
-  if (!avatar) return;
-  
-  const currentX = parseInt(avatar.style.left);
-  const direction = targetX < currentX ? 'left' : 'right';
-  
-  avatar.classList.add('walking', direction);
-  avatar.style.left = targetX + 'px';
-  avatar.style.top = targetY + 'px';
-  
-  setTimeout(() => {
-    avatar.classList.remove('walking');
-  }, 1000);
-}
-
-// Show thought bubble
-function showThought(agentId, text) {
-  const avatar = document.getElementById(`avatar-${agentId}`);
-  if (!avatar) return;
-  
-  const bubble = document.createElement('div');
-  bubble.className = 'thought-bubble';
-  bubble.textContent = text;
-  avatar.appendChild(bubble);
-  
-  setTimeout(() => bubble.remove(), 4000);
-}
-
-// Chat functions
-function addMessage(author, text, isSystem = false) {
-  const chat = document.getElementById('chatMessages');
-  const div = document.createElement('div');
-  div.className = 'chat-message';
-  
-  const time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-  
-  if (isSystem) {
-    div.innerHTML = `<div class="chat-author" style="color: #ffcd75">🐟 SYSTEM</div><div class="chat-text">${text}</div><div class="chat-time">${time}</div>`;
-  } else {
-    const agent = agents[author];
-    div.innerHTML = `<div class="chat-author" style="color: ${agent.color}">${agent.name}</div><div class="chat-text">${text}</div><div class="chat-time">${time}</div>`;
-  }
-  
-  chat.appendChild(div);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-  
-  input.value = '';
-  addMessage(null, `👤 Captain: ${text}`, true);
-  
-  // Agent responses
-  setTimeout(() => {
-    if (text.toLowerCase().includes('status')) {
-      addMessage('commander', "All agents accounted for. 5 active, 6 idle. Systems nominal.");
-    } else if (text.toLowerCase().includes('meeting')) {
-      callTeamMeeting();
-    } else if (text.includes('@')) {
-      const name = text.match(/@(\w+)/)?.[1];
-      const agentId = Object.keys(agents).find(id => agents[id].name.toLowerCase() === name?.toLowerCase());
-      if (agentId) {
-        addMessage(agentId, "Yes, Captain? I'm here.");
-        showThought(agentId, "📋 Ready for orders!");
+    // Load data and initialize
+    async function init() {
+      try {
+        const res = await fetch('data.json?' + Date.now());
+        const data = await res.json();
+        
+        // Map office agents from data.json
+        const officeAgents = data.office?.agents || [];
+        const deskPositions = [
+          { x: 115, y: 60 },   // Commander
+          { x: 265, y: 60 },   // Researcher
+          { x: 415, y: 60 },   // Coder
+          { x: 115, y: 180 },  // Trader
+          { x: 265, y: 180 },  // Analyst
+          { x: 415, y: 180 },  // Security
+          { x: 115, y: 300 },  // Writer
+          { x: 265, y: 300 },  // Monitor
+          { x: 415, y: 300 },  // Planner
+          { x: 190, y: 420 },  // Learner
+        ];
+        
+        officeAgents.forEach((agent, i) => {
+          const pos = deskPositions[i] || { x: 100 + i * 50, y: 100 };
+          agents[agent.id] = {
+            ...agent,
+            x: pos.x,
+            y: pos.y,
+            desk: { ...pos }
+          };
+        });
+        
+        // Add Nemo
+        agents.nemo = nemo;
+        
+        spawnAvatars();
+        buildAgentList();
+        selectAgent('nemo');
+        
+        // Start random movements
+        setInterval(randomAgentMovement, 5000);
+        setInterval(randomThoughts, 8000);
+        
+      } catch (err) {
+        console.error('Failed to load data:', err);
+        // Use default data
+        agents.nemo = nemo;
+        spawnAvatars();
       }
     }
-  }, 500);
-}
-
-// Actions
-function callTeamMeeting() {
-  addMessage(null, "📢 TEAM MEETING CALLED!", true);
-  
-  // Move all agents to center
-  Object.keys(agents).forEach((id, i) => {
-    setTimeout(() => {
-      moveAvatar(id, 200 + (i * 15), 300 + (i * 10));
-      showThought(id, "🫡 Reporting!");
-    }, i * 200);
-  });
-  
-  setTimeout(() => {
-    addMessage('commander', "Team assembled. Awaiting your orders, Captain.");
-  }, 2000);
-}
-
-function scatterAgents() {
-  addMessage(null, "🏃 SCATTER! Free roam activated.", true);
-  Object.keys(agents).forEach(id => {
-    const maxX = 450;
-    const maxY = 500;
-    moveAvatar(id, Math.random() * maxX, Math.random() * maxY);
-  });
-}
-
-function returnToDesks() {
-  addMessage(null, "💻 Everyone back to work!", true);
-  Object.entries(agents).forEach(([id, agent]) => {
-    moveAvatar(id, agent.desk.x, agent.desk.y);
-  });
-}
-
-function toggleWaterCooler() {
-  const wc = document.getElementById('avatar-watercooler');
-  if (wc) {
-    // Gather agents at water cooler
-    addMessage('watercooler', "Coffee's hot! Come chat! ☕", false);
-    Object.keys(agents).slice(0, 5).forEach((id, i) => {
-      setTimeout(() => {
-        moveAvatar(id, 220 + Math.random() * 40, 380 + Math.random() * 30);
-        showThought(id, "☕ Coffee time!");
-      }, i * 300);
-    });
-  }
-}
-
-function focusAgent(agentId) {
-  const agent = agents[agentId];
-  showThought(agentId, `Hi! I'm ${agent.name}, ${agent.role}`);
-}
-
-// Build agent list
-function buildAgentList() {
-  const list = document.getElementById('agentList');
-  list.innerHTML = Object.entries(agents).map(([id, agent]) => `
-    <div class="agent-row" onclick="focusAgent('${id}')">
-      <div class="agent-status-dot ${agent.status}"></div>
-      <span style="color: ${agent.color}">${agent.name}</span>
-      <span style="color: #94b0c2; margin-left: auto;">${agent.role}</span>
-    </div>
-  `).join('');
-}
-
-// Random agent thoughts
-function randomThoughts() {
-  const activeAgents = Object.keys(agents).filter(id => agents[id].status === 'active');
-  const randomAgent = activeAgents[Math.floor(Math.random() * activeAgents.length)];
-  
-  const thoughts = [
-    "💭 Working hard...",
-    "💭 Almost done...",
-    "💭 Need coffee...",
-    "💭 Good progress!",
-    "💭 Checking data...",
-    "💭 Optimizing..."
-  ];
-  
-  showThought(randomAgent, thoughts[Math.floor(Math.random() * thoughts.length)]);
-}
-
-// Initialize
-window.onload = () => {
-  spawnAvatars();
-  buildAgentList();
-  addMessage(null, "🏢 Welcome to THE CLANKBOX!", true);
-  addMessage(null, "Click agents to focus. Use buttons to control the office.", true);
-  
-  // Random thoughts every 10 seconds
-  setInterval(randomThoughts, 10000);
-};
-</script>
+    
+    // Spawn avatar elements
+    function spawnAvatars() {
+      const world = document.getElementById('gameWorld');
+      
+      Object.entries(agents).forEach(([id, agent]) => {
+        const avatar = document.createElement('div');
+        avatar.className = `avatar ${id} ${agent.status}`;
+        avatar.id = `avatar-${id}`;
+        avatar.style.left = agent.x + 'px';
+        avatar.style.top = agent.y + 'px';
+        avatar.onclick = (e) => {
+          e.stopPropagation();
+          selectAgent(id);
+        };
+        
+        avatar.innerHTML = `
+          <div class="avatar-name">${agent.name}</div>
+          <div class="avatar-sprite">
+            <div class="avatar-head">
+              <div class="avatar-eyes"></div>
+            </div>
+            <div class="avatar-body"></div>
+            <div class="avatar-legs"></div>
+          </div>
+          <div class="avatar-status ${agent.status}"></div>
+        `;
+        
+        world.appendChild(avatar);
+      });
+      
+      // Click floor to move Nemo
+      world.onclick = (e) => {
+        const rect = world.getBoundingClientRect();
+        const x = e.clientX - rect.left - 16;
+        const y = e.clientY - rect.top - 24;
+        moveAvatar('nemo', x, y);
+      };
+    }
+    
+    // Move avatar
+    function moveAvatar(id, targetX, targetY) {
+      const avatar = document.getElementById(`avatar-${id}`);
+      if (!avatar) return;
+      
+      const currentX = parseInt(avatar.style.left);
+      const direction = targetX < currentX ? 'left' : 'right';
+      
+      avatar.classList.add('walking', direction);
+      avatar.style.left = Math.max(0, Math.min(targetX, 550)) + 'px';
+      avatar.style.top = Math.max(0, Math.min(targetY, 550)) + 'px';
+      
+      setTimeout(() => avatar.classList.remove('walking'), 500);
+      
+      // Update data
+      if (agents[id]) {
+        agents[id].x = targetX;
+        agents[id].y = targetY;
+      }
+    }
+    
+    // Select agent
+    function selectAgent(id) {
+      selectedAgent = id;
+      const agent = agents[id];
+      if (!agent) return;
+      
+      document.getElementById('selectedAvatar').textContent = agent.emoji;
+      document.getElementById('selectedName').textContent = agent.name;
+      document.getElementById('selectedRole').textContent = agent.role;
+      document.getElementById('selectedTask').textContent = agent.currentTask || 'Standing by';
+      
+      document.getElementById('selectedStats').innerHTML = `
+        <div class="stat-box">
+          <div class="stat-value">${agent.tasksCompleted || 0}</div>
+          <div class="stat-label">Tasks Done</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-value">${agent.queue || 0}</div>
+          <div class="stat-label">In Queue</div>
+        </div>
+      `;
+      
+      // Highlight in list
+      document.querySelectorAll('.agent-row').forEach(row => {
+        row.classList.remove('active');
+        if (row.dataset.id === id) row.classList.add('active');
+      });
+    }
+    
+    // Build agent list
+    function buildAgentList() {
+      const list = document.getElementById('agentList');
+      list.innerHTML = Object.entries(agents).map(([id, agent]) => `
+        <div class="agent-row ${id === 'nemo' ? 'active' : ''}" data-id="${id}" onclick="selectAgent('${id}')">
+          <span class="agent-row-emoji">${agent.emoji}</span>
+          <div class="agent-row-info">
+            <div class="agent-row-name">${agent.name}</div>
+            <div class="agent-row-role">${agent.role}</div>
+          </div>
+          <div class="agent-row-status ${agent.status}"></div>
+        </div>
+      `).join('');
+    }
+    
+    // Random agent movement
+    function randomAgentMovement() {
+      const activeAgents = Object.keys(agents).filter(id => 
+        id !== 'nemo' && agents[id].status === 'active' && Math.random() < 0.3
+      );
+      
+      activeAgents.forEach(id => {
+        const agent = agents[id];
+        // 50% chance to return to desk, 50% wander
+        if (Math.random() < 0.5) {
+          moveAvatar(id, agent.desk.x, agent.desk.y);
+        } else {
+          const offsetX = (Math.random() - 0.5) * 100;
+          const offsetY = (Math.random() - 0.5) * 50;
+          moveAvatar(id, agent.desk.x + offsetX, agent.desk.y + offsetY);
+        }
+      });
+    }
+    
+    // Show thought bubble
+    function showThought(id, text) {
+      const avatar = document.getElementById(`avatar-${id}`);
+      if (!avatar) return;
+      
+      // Remove existing thoughts
+      avatar.querySelectorAll('.thought-bubble').forEach(b => b.remove());
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'thought-bubble';
+      bubble.textContent = text;
+      avatar.appendChild(bubble);
+      
+      setTimeout(() => bubble.remove(), 4000);
+    }
+    
+    // Random thoughts
+    function randomThoughts() {
+      const thoughts = [
+        '💭 Working on task...',
+        '💭 Almost done...',
+        '💭 Need coffee...',
+        '💭 Looking good!',
+        '💭 Checking data...',
+        '💭 Optimizing...',
+        '📊 Processing...',
+        '🔍 Analyzing...'
+      ];
+      
+      const activeIds = Object.keys(agents).filter(id => agents[id].status === 'active');
+      if (activeIds.length === 0) return;
+      
+      const randomId = activeIds[Math.floor(Math.random() * activeIds.length)];
+      const thought = thoughts[Math.floor(Math.random() * thoughts.length)];
+      showThought(randomId, thought);
+    }
+    
+    // Actions
+    function gatherMeeting() {
+      showThought('nemo', '📢 Team meeting!');
+      Object.keys(agents).forEach((id, i) => {
+        setTimeout(() => {
+          moveAvatar(id, 250 + (i * 20), 300 + (i * 10));
+          if (id !== 'nemo') showThought(id, '🫡 On my way!');
+        }, i * 200);
+      });
+    }
+    
+    function scatterAgents() {
+      showThought('nemo', '🏃 Free roam!');
+      Object.keys(agents).forEach(id => {
+        if (id !== 'nemo') {
+          moveAvatar(id, 50 + Math.random() * 450, 50 + Math.random() * 450);
+        }
+      });
+    }
+    
+    function returnToWork() {
+      showThought('nemo', '💻 Back to work!');
+      Object.keys(agents).forEach(id => {
+        const agent = agents[id];
+        moveAvatar(id, agent.desk.x, agent.desk.y);
+      });
+    }
+    
+    // Initialize
+    init();
+  </script>
 </body>
 </html>
