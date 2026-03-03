@@ -18,7 +18,6 @@
     --success: #3fb950;
     --warning: #d29922;
     --danger: #f85149;
-    --info: #58a6ff;
   }
   
   body {
@@ -28,7 +27,6 @@
     min-height: 100vh;
   }
   
-  /* Header */
   .header {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
@@ -47,10 +45,8 @@
     gap: 12px;
     font-size: 1.2em;
     font-weight: 600;
-  }
-  
-  .brand-icon {
-    font-size: 1.5em;
+    text-decoration: none;
+    color: var(--text);
   }
   
   .nav-tabs {
@@ -68,25 +64,21 @@
     transition: all 0.2s;
   }
   
-  .nav-tab:hover {
+  .nav-tab:hover, .nav-tab.active {
     color: var(--text);
     background: var(--bg-tertiary);
   }
   
   .nav-tab.active {
-    color: var(--text);
-    background: var(--bg-tertiary);
     border: 1px solid var(--border);
   }
   
-  /* Main Layout */
   .container {
     max-width: 1400px;
     margin: 0 auto;
     padding: 24px;
   }
   
-  /* Command Bar */
   .command-bar {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
@@ -109,10 +101,6 @@
     font-size: 0.9em;
   }
   
-  .cmd-input::placeholder {
-    color: var(--text-muted);
-  }
-  
   .btn {
     padding: 10px 16px;
     border-radius: 6px;
@@ -123,38 +111,12 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
   
-  .btn:hover {
-    background: var(--border);
-  }
+  .btn:hover { background: var(--border); }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #79b8ff; }
   
-  .btn-primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-  }
-  
-  .btn-primary:hover {
-    background: #79b8ff;
-  }
-  
-  .btn-success {
-    background: var(--success);
-    border-color: var(--success);
-    color: #fff;
-  }
-  
-  .btn-danger {
-    background: var(--danger);
-    border-color: var(--danger);
-    color: #fff;
-  }
-  
-  /* Stats Grid */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -173,22 +135,11 @@
     padding: 20px;
   }
   
-  .stat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  
   .stat-label {
     font-size: 0.85em;
     color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .stat-icon {
-    font-size: 1.2em;
+    margin-bottom: 8px;
   }
   
   .stat-value {
@@ -196,16 +147,12 @@
     font-weight: 700;
   }
   
-  .stat-value.success { color: var(--success); }
-  .stat-value.warning { color: var(--warning); }
-  .stat-value.info { color: var(--accent); }
-  
-  /* Sessions Panel */
   .panel {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 12px;
     overflow: hidden;
+    margin-bottom: 24px;
   }
   
   .panel-header {
@@ -219,63 +166,39 @@
   .panel-title {
     font-size: 1em;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 8px;
   }
   
-  .panel-actions {
-    display: flex;
-    gap: 8px;
-  }
-  
-  /* Session Table */
-  .session-table {
+  table {
     width: 100%;
     border-collapse: collapse;
   }
   
-  .session-table th {
+  th {
     text-align: left;
     padding: 12px 20px;
     font-size: 0.75em;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
     color: var(--text-muted);
     background: var(--bg-tertiary);
     border-bottom: 1px solid var(--border);
   }
   
-  .session-table td {
+  td {
     padding: 16px 20px;
     border-bottom: 1px solid var(--border);
     font-size: 0.9em;
   }
   
-  .session-row:hover {
-    background: var(--bg-tertiary);
-  }
+  tr:hover { background: var(--bg-tertiary); }
   
-  .session-row.running {
-    border-left: 3px solid var(--success);
-  }
-  
-  .session-row.idle {
-    border-left: 3px solid var(--warning);
-  }
-  
-  .session-row.error {
-    border-left: 3px solid var(--danger);
-  }
-  
-  .session-info {
+  .agent-cell {
     display: flex;
     align-items: center;
     gap: 12px;
   }
   
-  .session-avatar {
+  .agent-avatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -287,18 +210,11 @@
     border: 2px solid var(--border);
   }
   
-  .session-avatar.running { border-color: var(--success); }
-  .session-avatar.idle { border-color: var(--warning); }
+  .agent-avatar.active { border-color: var(--success); }
+  .agent-avatar.idle { border-color: var(--warning); }
   
-  .session-details h4 {
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-  
-  .session-details p {
-    font-size: 0.85em;
-    color: var(--text-muted);
-  }
+  .agent-name { font-weight: 600; }
+  .agent-role { font-size: 0.8em; color: var(--text-muted); }
   
   .status-badge {
     display: inline-flex;
@@ -310,35 +226,36 @@
     font-weight: 500;
   }
   
-  .status-badge.running {
-    background: rgba(63, 185, 80, 0.15);
-    color: var(--success);
+  .status-badge.active { background: rgba(63, 185, 80, 0.15); color: var(--success); }
+  .status-badge.idle { background: rgba(210, 153, 34, 0.15); color: var(--warning); }
+  
+  .project-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
   }
   
-  .status-badge.idle {
-    background: rgba(210, 153, 34, 0.15);
-    color: var(--warning);
+  .project-link:hover {
+    text-decoration: underline;
   }
   
-  .status-badge.error {
-    background: rgba(248, 81, 73, 0.15);
-    color: var(--danger);
-  }
-  
-  .session-actions {
-    display: flex;
-    gap: 8px;
+  .task-text {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   
   .action-btn {
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 6px;
     border: 1px solid var(--border);
     background: transparent;
     color: var(--text-muted);
     font-size: 0.8em;
     cursor: pointer;
-    transition: all 0.2s;
   }
   
   .action-btn:hover {
@@ -346,351 +263,340 @@
     color: var(--text);
   }
   
-  /* Runtime Info */
-  .runtime-tag {
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+  
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s;
+  }
+  
+  .project-card:hover {
+    border-color: var(--accent);
+  }
+  
+  .project-card.inProgress {
+    border-left: 3px solid var(--accent);
+  }
+  
+  .project-card.done {
+    border-left: 3px solid var(--success);
+    opacity: 0.7;
+  }
+  
+  .project-card.blocked {
+    border-left: 3px solid var(--danger);
+  }
+  
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .project-name {
+    font-weight: 600;
+  }
+  
+  .project-status {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    text-transform: uppercase;
+  }
+  
+  .project-agents {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .project-agent {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 2px 8px;
+    padding: 4px 8px;
     background: var(--bg-tertiary);
-    border-radius: 4px;
-    font-size: 0.75em;
-    color: var(--text-muted);
-    font-family: 'SF Mono', monospace;
-  }
-  
-  /* Empty State */
-  .empty-state {
-    padding: 60px 20px;
-    text-align: center;
-    color: var(--text-muted);
-  }
-  
-  .empty-icon {
-    font-size: 3em;
-    margin-bottom: 16px;
-    opacity: 0.5;
-  }
-  
-  /* Logs Panel */
-  .logs-container {
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-    padding: 16px 20px;
-    font-family: 'SF Mono', monospace;
-    font-size: 0.85em;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .log-line {
-    padding: 4px 0;
-    display: flex;
-    gap: 12px;
-  }
-  
-  .log-time {
-    color: var(--text-muted);
-    min-width: 80px;
-  }
-  
-  .log-level {
-    min-width: 60px;
-  }
-  
-  .log-level.info { color: var(--accent); }
-  .log-level.success { color: var(--success); }
-  .log-level.error { color: var(--danger); }
-  
-  .log-msg {
+    border-radius: 12px;
+    font-size: 0.8em;
+    text-decoration: none;
     color: var(--text);
   }
   
-  /* Footer */
-  .footer {
-    padding: 24px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 0.85em;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
+  .project-agent:hover {
+    background: var(--border);
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
   }
 </style>
 </head>
 <body>
   <header class="header">
-    <div class="brand">
-      <span class="brand-icon">🐟</span>
+    <a href="index.html" class="brand">
+      <span>🐟</span>
       <span>NEMO Orchestrator</span>
-    </div>
+    </a>
     <nav class="nav-tabs">
       <a href="index.html" class="nav-tab active">📊 Sessions</a>
-      <a href="clankbox.html" class="nav-tab">🏢 Office</a>
+      <a href="office.html" class="nav-tab">🏢 Office</a>
       <a href="trading.html" class="nav-tab">📈 Trading</a>
     </nav>
   </header>
 
   <div class="container">
-    <!-- Command Bar -->
     <div class="command-bar">
       <span style="color: var(--text-muted); font-family: monospace;">$</span>
-      <input type="text" class="cmd-input" placeholder="nemo spawn researcher --task='Analyze Kalshi markets'" id="cmdInput">
-      <button class="btn btn-primary" onclick="executeCommand()">
-        <span>▶</span> Run
-      </button>
+      <input type="text" class="cmd-input" placeholder="spawn researcher --task='Analyze markets' --project='Kalshi API'" id="cmdInput">
+      <button class="btn btn-primary" onclick="executeCommand()">▶ Run</button>
     </div>
 
-    <!-- Stats -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Active Sessions</span>
-          <span class="stat-icon">●</span>
-        </div>
-        <div class="stat-value success" id="activeCount">6</div>
+        <div class="stat-label">Active Agents</div>
+        <div class="stat-value" style="color: var(--success);" id="activeCount">-</div>
       </div>
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Idle</span>
-          <span class="stat-icon">◐</span>
-        </div>
-        <div class="stat-value warning" id="idleCount">4</div>
+        <div class="stat-label">In Progress Projects</div>
+        <div class="stat-value" style="color: var(--accent);" id="projectCount">-</div>
       </div>
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Tasks Completed</span>
-          <span class="stat-icon">✓</span>
-        </div>
-        <div class="stat-value info" id="tasksCount">145</div>
+        <div class="stat-label">Tasks Completed</div>
+        <div class="stat-value" id="taskCount">-</div>
       </div>
       <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Runtime</span>
-          <span class="stat-icon">⚡</span>
-        </div>
-        <div class="stat-value" style="font-size: 1.2em; margin-top: 8px;">Local/Mistral</div>
+        <div class="stat-label">Monthly Cost</div>
+        <div class="stat-value" style="color: var(--success);">$7.50</div>
       </div>
     </div>
 
-    <!-- Sessions Panel -->
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">
-          <span>🤖</span>
-          <span>Active Agent Sessions</span>
-        </div>
-        <div class="panel-actions">
-          <button class="btn" onclick="spawnAgent()">+ Spawn</button>
-          <button class="btn" onclick="killAll()">Kill All</button>
-          <button class="btn" onclick="refreshData()">↻ Refresh</button>
-        </div>
+        <span class="panel-title">🤖 Agent Sessions</span>
+        <button class="btn" onclick="refreshData()">↻ Refresh</button>
       </div>
-      
-      <table class="session-table">
+      <table id="agentTable">
         <thead>
           <tr>
-            <th>Session</th>
+            <th>Agent</th>
             <th>Status</th>
-            <th>Runtime</th>
-            <th>Uptime</th>
+            <th>Current Task</th>
+            <th>Project</th>
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="sessionTable">
-          <!-- Populated by JS -->
+        <tbody id="agentTableBody">
+          <tr><td colspan="5" style="text-align: center; padding: 40px;">Loading...</td></tr>
         </tbody>
       </table>
-      
-      <div class="logs-container" id="logsPanel">
-        <div class="log-line">
-          <span class="log-time">20:45:01</span>
-          <span class="log-level info">[INFO]</span>
-          <span class="log-msg">Orchestrator initialized - 10 agents registered</span>
-        </div>
-        <div class="log-line">
-          <span class="log-time">20:45:02</span>
-          <span class="log-level success">[OK]</span>
-          <span class="log-msg">Researcher session started - PID 2847</span>
-        </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">📋 Projects</span>
+      </div>
+      <div class="project-grid" id="projectGrid">
+        Loading...
       </div>
     </div>
   </div>
 
-  <footer class="footer">
-    <p>NEMO Orchestrator v2.0 | Runtime: Local (Mistral 7B) | <span id="lastUpdate">--</span></p>
-  </footer>
-
   <script>
-    // Agent sessions from data.json
-    let sessions = [];
+    // Map agents to projects based on their currentTask
+    function getAgentProject(agent, projects) {
+      const task = agent.currentTask?.toLowerCase() || '';
+      
+      if (task.includes('kalshi')) return 'Kalshi API Skill';
+      if (task.includes('snipe') || task.includes('trading') || task.includes('test')) return 'Trading Bot Development';
+      if (task.includes('documentation') || task.includes('file audit')) return 'Documentation & Tracking';
+      if (task.includes('security') || task.includes('audit')) return 'Security Hardening';
+      if (task.includes('health check') || task.includes('24/7') || task.includes('operations')) return '24/7 Operations';
+      if (task.includes('spryte') || task.includes('integration')) return 'Spryte Engine Fork';
+      if (task.includes('social') || task.includes('media')) return 'Social Media Presence';
+      if (task.includes('token') || task.includes('efficiency')) return 'Token Efficiency System';
+      if (task.includes('market intelligence') || task.includes('research')) return 'Polymarket Intelligence';
+      
+      return 'General';
+    }
     
-    async function loadSessions() {
+    // Get project status
+    function getProjectStatus(name, projects) {
+      const project = projects.find(p => p.name === name);
+      return project?.status || 'unknown';
+    }
+    
+    async function loadData() {
       try {
         const res = await fetch('data.json?' + Date.now());
         const data = await res.json();
         
-        if (data.office && data.office.agents) {
-          sessions = data.office.agents.map(agent => ({
-            id: agent.id,
-            name: agent.name,
-            emoji: agent.emoji,
-            role: agent.role,
-            status: agent.status,
-            task: agent.currentTask,
-            tasksCompleted: agent.tasksCompleted,
-            queue: agent.queue,
-            uptime: '2h 34m',
-            runtime: 'Local'
-          }));
+        const agents = data.office?.agents || [];
+        const projects = data.projects || [];
+        
+        // Update stats
+        const active = agents.filter(a => a.status === 'active').length;
+        const inProgress = projects.filter(p => p.status === 'inProgress').length;
+        const totalTasks = agents.reduce((sum, a) => sum + (a.tasksCompleted || 0), 0);
+        
+        document.getElementById('activeCount').textContent = active;
+        document.getElementById('projectCount').textContent = inProgress;
+        document.getElementById('taskCount').textContent = totalTasks;
+        
+        // Build agent table with project links
+        const tbody = document.getElementById('agentTableBody');
+        tbody.innerHTML = agents.map(agent => {
+          const projectName = getAgentProject(agent, projects);
+          const projectStatus = getProjectStatus(projectName, projects);
           
-          renderSessions();
-          updateStats();
-        }
-      } catch (err) {
-        console.error('Failed to load:', err);
-        document.getElementById('sessionTable').innerHTML = `
-          <tr><td colspan="5" style="padding: 40px; text-align: center; color: var(--danger);">
-            Failed to load session data. Check console.
-          </td></tr>
-        `;
-      }
-    }
-    
-    function renderSessions() {
-      const tbody = document.getElementById('sessionTable');
-      
-      if (sessions.length === 0) {
-        tbody.innerHTML = `
-          <tr><td colspan="5">
-            <div class="empty-state">
-              <div class="empty-icon">🤖</div>
-              <p>No active sessions. Spawn an agent to begin.</p>
-            </div>
-          </td></tr>
-        `;
-        return;
-      }
-      
-      tbody.innerHTML = sessions.map(s => `
-        <tr class="session-row ${s.status}">
-          <td>
-            <div class="session-info">
-              <div class="session-avatar ${s.status}">${s.emoji}</div>
-              <div class="session-details">
-                <h4>${s.name}</h4>
-                <p>${s.role} · ${s.task}</p>
+          return `
+            <tr>
+              <td>
+                <div class="agent-cell">
+                  <div class="agent-avatar ${agent.status}">${agent.emoji}</div>
+                  <div>
+                    <div class="agent-name">${agent.name}</div>
+                    <div class="agent-role">${agent.role}</div>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="status-badge ${agent.status}">
+                  ${agent.status === 'active' ? '●' : '◐'} ${agent.status}
+                </span>
+              </td>
+              <td class="task-text" title="${agent.currentTask}">${agent.currentTask}</td>
+              <td>
+                <a href="#project-${projectName.replace(/\s+/g, '-').toLowerCase()}" class="project-link">
+                  ${projectName}
+                </a>
+              </td>
+              <td>
+                <button class="action-btn" onclick="viewAgent('${agent.id}')">View</button>
+                <button class="action-btn" onclick="sendAgent('${agent.id}')">Send</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+        
+        // Build project cards with assigned agents
+        const projectAgents = {};
+        agents.forEach(agent => {
+          const project = getAgentProject(agent, projects);
+          if (!projectAgents[project]) projectAgents[project] = [];
+          projectAgents[project].push(agent);
+        });
+        
+        const grid = document.getElementById('projectGrid');
+        grid.innerHTML = projects.map(project => {
+          const assigned = projectAgents[project.name] || [];
+          const total = project.tasks.length;
+          const done = project.tasks.filter(t => t.status === 'done').length;
+          const pct = total > 0 ? (done / total * 100) : 0;
+          
+          return `
+            <div class="project-card ${project.status}" id="project-${project.name.replace(/\s+/g, '-').toLowerCase()}">
+              <div class="project-header">
+                <span class="project-name">${project.name}</span>
+                <span class="project-status" style="
+                  background: ${project.status === 'done' ? 'rgba(63,185,80,0.2)' : project.status === 'inProgress' ? 'rgba(88,166,255,0.2)' : 'rgba(210,153,34,0.2)'};
+                  color: ${project.status === 'done' ? 'var(--success)' : project.status === 'inProgress' ? 'var(--accent)' : 'var(--warning)'};
+                ">${project.status}</span>
               </div>
+              
+              ${assigned.length > 0 ? `
+                <div style="margin-bottom: 12px;">
+                  <div style="font-size: 0.8em; color: var(--text-muted); margin-bottom: 6px;">Assigned Agents:</div>
+                  <div class="project-agents">
+                    ${assigned.map(a => `
+                      <a href="#agent-${a.id}" class="project-agent" onclick="focusAgent('${a.id}')">
+                        ${a.emoji} ${a.name}
+                      </a>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : '<div style="font-size: 0.8em; color: var(--text-muted); margin-bottom: 12px;">No active agents</div>'}
+              
+              <div style="font-size: 0.85em; color: var(--text-muted);">
+                ${done}/${total} tasks complete
+              </div>
+              
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: ${pct}%; background: ${pct === 100 ? 'var(--success)' : 'var(--accent)'};"></div>
+              </div>
+              
+              ${project.note ? `<div style="margin-top: 12px; font-size: 0.8em; color: var(--text-muted);">${project.note}</div>` : ''}
             </div>
-          </td>
-          <td>
-            <span class="status-badge ${s.status}">
-              ${s.status === 'active' ? '●' : '◐'} ${s.status}
-            </span>
-          </td>
-          <td>
-            <span class="runtime-tag">${s.runtime}</span>
-          </td>
-          <td>${s.uptime}</td>
-          <td>
-            <div class="session-actions">
-              <button class="action-btn" onclick="sendToSession('${s.id}')">Send</button>
-              <button class="action-btn" onclick="killSession('${s.id}')">Kill</button>
-              <button class="action-btn" onclick="viewSession('${s.id}')">View</button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
+          `;
+        }).join('');
+        
+      } catch (err) {
+        console.error('Failed to load data:', err);
+        document.getElementById('agentTableBody').innerHTML = `
+          <tr><td colspan="5" style="text-align: center; padding: 40px; color: var(--danger);">
+            Error loading data. Check console.
+          </td></tr>
+        `;
+      }
     }
     
-    function updateStats() {
-      const active = sessions.filter(s => s.status === 'active').length;
-      const idle = sessions.filter(s => s.status === 'idle').length;
-      const total = sessions.reduce((acc, s) => acc + (s.tasksCompleted || 0), 0);
-      
-      document.getElementById('activeCount').textContent = active;
-      document.getElementById('idleCount').textContent = idle;
-      document.getElementById('tasksCount').textContent = total;
-    }
-    
-    // Actions
     function executeCommand() {
       const cmd = document.getElementById('cmdInput').value;
       if (!cmd) return;
-      
-      addLog('info', `Executing: ${cmd}`);
+      alert(`Command: ${cmd}\n\n(In full implementation, this would spawn a new agent session)`);
       document.getElementById('cmdInput').value = '';
-      
-      // Parse and simulate
-      if (cmd.includes('spawn')) {
-        setTimeout(() => addLog('success', 'Agent spawned successfully'), 500);
-        loadSessions();
-      }
     }
     
-    function spawnAgent() {
-      const types = ['researcher', 'coder', 'analyst', 'writer'];
-      const type = types[Math.floor(Math.random() * types.length)];
-      addLog('info', `Spawning ${type}...`);
-      setTimeout(() => {
-        addLog('success', `${type} session started`);
-        loadSessions();
-      }, 800);
+    function viewAgent(id) {
+      window.location.href = `office.html?agent=${id}`;
     }
     
-    function killSession(id) {
-      addLog('info', `Killing session ${id}...`);
-      setTimeout(() => {
-        addLog('success', `Session ${id} terminated`);
-        loadSessions();
-      }, 500);
+    function sendAgent(id) {
+      const msg = prompt(`Send command to ${id}:`);
+      if (msg) alert(`Sent to ${id}: ${msg}`);
     }
     
-    function killAll() {
-      if (!confirm('Kill all sessions?')) return;
-      addLog('warning', 'Killing all sessions...');
-      setTimeout(() => {
-        addLog('success', 'All sessions terminated');
-        loadSessions();
-      }, 1000);
-    }
-    
-    function sendToSession(id) {
-      const msg = prompt(`Send message to ${id}:`);
-      if (msg) addLog('info', `[${id}] ${msg}`);
-    }
-    
-    function viewSession(id) {
-      window.location.href = `clankbox.html?focus=${id}`;
+    function focusAgent(id) {
+      // Scroll to agent in table and highlight
+      const rows = document.querySelectorAll('#agentTableBody tr');
+      rows.forEach(row => {
+        if (row.innerHTML.includes(`viewAgent('${id}')`)) {
+          row.style.background = 'rgba(88, 166, 255, 0.2)';
+          row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTimeout(() => row.style.background = '', 2000);
+        }
+      });
     }
     
     function refreshData() {
-      addLog('info', 'Refreshing session data...');
-      loadSessions();
+      loadData();
     }
     
-    function addLog(level, msg) {
-      const time = new Date().toLocaleTimeString('en-US', { hour12: false });
-      const panel = document.getElementById('logsPanel');
-      const line = document.createElement('div');
-      line.className = 'log-line';
-      line.innerHTML = `
-        <span class="log-time">${time}</span>
-        <span class="log-level ${level}">[${level.toUpperCase()}]</span>
-        <span class="log-msg">${msg}</span>
-      `;
-      panel.appendChild(line);
-      panel.scrollTop = panel.scrollHeight;
-    }
-    
-    // Enter key on command
     document.getElementById('cmdInput').addEventListener('keypress', (e) => {
       if (e.key === 'Enter') executeCommand();
     });
     
-    // Init
-    loadSessions();
-    setInterval(loadSessions, 30000);
-    document.getElementById('lastUpdate').textContent = new Date().toLocaleString();
+    loadData();
+    setInterval(loadData, 30000);
   </script>
 </body>
 </html>
