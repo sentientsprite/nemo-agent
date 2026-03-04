@@ -3,21 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEMO Office | Agent Workspace</title>
+<title>NEMO Office | Live Agent Workspace</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
   :root {
     --bg: #0d1117;
     --bg-secondary: #161b22;
-    --bg-tertiary: #21262d;
     --border: #30363d;
     --text: #c9d1d9;
     --text-muted: #8b949e;
     --accent: #58a6ff;
     --success: #3fb950;
     --warning: #d29922;
-    --danger: #f85149;
   }
   
   body {
@@ -66,15 +64,12 @@
   
   .nav-tab:hover, .nav-tab.active {
     color: var(--text);
-    background: var(--bg-tertiary);
-  }
-  
-  .nav-tab.active {
+    background: var(--bg-secondary);
     border: 1px solid var(--border);
   }
   
   .container {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 24px;
     display: grid;
@@ -106,135 +101,43 @@
     font-weight: 600;
   }
   
-  .workspace {
+  .zoom-controls {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .zoom-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1em;
+  }
+  
+  .zoom-btn:hover {
+    background: var(--border);
+  }
+  
+  #canvas-container {
     position: relative;
     width: 100%;
     height: 600px;
-    background: 
-      linear-gradient(90deg, rgba(48,54,61,0.3) 1px, transparent 1px),
-      linear-gradient(0deg, rgba(48,54,61,0.3) 1px, transparent 1px),
-      var(--bg);
-    background-size: 40px 40px;
+    background: #1a1f2e;
     overflow: hidden;
+    cursor: grab;
   }
   
-  /* Project zones */
-  .zone {
-    position: absolute;
-    border: 2px dashed var(--border);
-    border-radius: 12px;
-    padding: 8px 12px;
-    font-size: 0.75em;
-    color: var(--text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  #canvas-container:active {
+    cursor: grabbing;
   }
   
-  .zone-kalshi { top: 20px; left: 20px; width: 200px; height: 150px; border-color: var(--accent); }
-  .zone-trading { top: 20px; left: 240px; width: 200px; height: 150px; border-color: var(--warning); }
-  .zone-docs { top: 20px; left: 460px; width: 180px; height: 150px; border-color: var(--success); }
-  .zone-ops { top: 190px; left: 20px; width: 280px; height: 140px; }
-  .zone-spryte { top: 190px; left: 320px; width: 200px; height: 140px; border-color: var(--accent); }
-  .zone-general { top: 350px; left: 20px; width: 620px; height: 220px; }
-  
-  /* Workstations */
-  .station {
-    position: absolute;
-    width: 70px;
-    text-align: center;
+  canvas {
+    display: block;
   }
   
-  .station-desk {
-    width: 60px;
-    height: 40px;
-    background: var(--bg-tertiary);
-    border: 2px solid var(--border);
-    border-radius: 6px;
-    margin: 0 auto 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2em;
-  }
-  
-  .station-label {
-    font-size: 0.65em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-  
-  /* Agent avatar */
-  .agent {
-    position: absolute;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: var(--bg-tertiary);
-    border: 3px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3em;
-    cursor: pointer;
-    transition: all 0.2s;
-    z-index: 50;
-  }
-  
-  .agent:hover {
-    transform: scale(1.1);
-    border-color: var(--accent);
-    z-index: 100;
-  }
-  
-  .agent.active { border-color: var(--success); }
-  .agent.idle { border-color: var(--warning); opacity: 0.8; }
-  
-  .agent-label {
-    position: absolute;
-    top: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-secondary);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.7em;
-    font-weight: 600;
-    white-space: nowrap;
-    border: 1px solid var(--border);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  
-  .agent:hover .agent-label,
-  .agent.selected .agent-label {
-    opacity: 1;
-  }
-  
-  .agent-task {
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--bg-secondary);
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 0.7em;
-    max-width: 180px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border: 1px solid var(--border);
-    opacity: 0;
-    transition: opacity 0.2s;
-    pointer-events: none;
-  }
-  
-  .agent:hover .agent-task {
-    opacity: 1;
-  }
-  
-  /* Side panel */
   .side-panel {
     display: flex;
     flex-direction: column;
@@ -261,7 +164,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: var(--bg-tertiary);
+    background: var(--bg);
     border: 3px solid var(--accent);
     display: flex;
     align-items: center;
@@ -292,11 +195,10 @@
   }
   
   .task-box {
-    background: var(--bg-tertiary);
+    background: var(--bg);
     border-left: 3px solid var(--accent);
     padding: 12px;
     border-radius: 0 8px 8px 0;
-    margin-bottom: 8px;
   }
   
   .task-project {
@@ -316,7 +218,7 @@
   }
   
   .stat-item {
-    background: var(--bg-tertiary);
+    background: var(--bg);
     padding: 12px;
     border-radius: 8px;
     text-align: center;
@@ -337,7 +239,7 @@
   .project-link {
     display: block;
     padding: 10px;
-    background: var(--bg-tertiary);
+    background: var(--bg);
     border-radius: 6px;
     margin-bottom: 8px;
     text-decoration: none;
@@ -352,6 +254,27 @@
   
   .project-link strong {
     color: var(--accent);
+  }
+  
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8em;
+    color: var(--text-muted);
+  }
+  
+  .legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
   }
 </style>
 </head>
@@ -371,61 +294,21 @@
   <div class="container">
     <div class="office-panel">
       <div class="panel-header">
-        <span class="panel-title">🏢 Agent Workspace</span>
+        <span class="panel-title">🏢 Live Agent Workspace</span>
+        <div class="zoom-controls">
+          <button class="zoom-btn" onclick="zoomOut()">−</button>
+          <button class="zoom-btn" onclick="zoomIn()">+</button>
+        </div>
       </div>
-      
-      <div class="workspace" id="workspace">
-        <!-- Project Zones -->
-        <div class="zone zone-kalshi">Kalshi API</div>
-        <div class="zone zone-trading">Trading Bot</div>
-        <div class="zone zone-docs">Documentation</div>
-        <div class="zone zone-ops">24/7 Ops</div>
-        <div class="zone zone-spryte">Spryte Engine</div>
-        <div class="zone zone-general">General / Planning</div>
-        
-        <!-- Workstations -->
-        <div class="station" style="top: 60px; left: 40px;">
-          <div class="station-desk">💻</div>
-          <div class="station-label">Coder</div>
-        </div>
-        <div class="station" style="top: 60px; left: 280px;">
-          <div class="station-desk">📈</div>
-          <div class="station-label">Trader</div>
-        </div>
-        <div class="station" style="top: 60px; left: 500px;">
-          <div class="station-desk">✍️</div>
-          <div class="station-label">Writer</div>
-        </div>
-        <div class="station" style="top: 230px; left: 40px;">
-          <div class="station-desk">👁️</div>
-          <div class="station-label">Monitor</div>
-        </div>
-        <div class="station" style="top: 230px; left: 180px;">
-          <div class="station-desk">🛡️</div>
-          <div class="station-label">Security</div>
-        </div>
-        <div class="station" style="top: 230px; left: 340px;">
-          <div class="station-desk">💻</div>
-          <div class="station-label">Dev</div>
-        </div>
-        <div class="station" style="top: 380px; left: 40px;">
-          <div class="station-desk">🎯</div>
-          <div class="station-label">Command</div>
-        </div>
-        <div class="station" style="top: 380px; left: 200px;">
-          <div class="station-desk">🔬</div>
-          <div class="station-label">Research</div>
-        </div>
-        <div class="station" style="top: 380px; left: 360px;">
-          <div class="station-desk">📊</div>
-          <div class="station-label">Analysis</div>
-        </div>
-        <div class="station" style="top: 380px; left: 520px;">
-          <div class="station-desk">🧠</div>
-          <div class="station-label">Learning</div>
-        </div>
-        
-        <!-- Agents positioned by project -->
+      <div id="canvas-container">
+        <canvas id="officeCanvas"></canvas>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-color" style="background: #58a6ff;"></div>Kalshi API</div>
+        <div class="legend-item"><div class="legend-color" style="background: #d29922;"></div>Trading Bot</div>
+        <div class="legend-item"><div class="legend-color" style="background: #3fb950;"></div>Documentation</div>
+        <div class="legend-item"><div class="legend-color" style="background: #8b949e;"></div>Operations</div>
+        <div class="legend-item"><div class="legend-color" style="background: #a371f7;"></div>Spryte Engine</div>
       </div>
     </div>
 
@@ -460,20 +343,22 @@
             </div>
           </div>
         </div>
-        
+      </div>
+
+      <div class="info-card">
         <div class="info-section">
           <h3>Quick Links</h3>
           <a href="index.html#project-kalshi-api-skill" class="project-link">
             <strong>Kalshi API Skill</strong><br>
-            <small>Framework complete, needs credentials</small>
+            <small>Coder assigned • Needs credentials</small>
           </a>
           <a href="index.html#project-trading-bot-development" class="project-link">
-            <strong>Trading Bot Development</strong><br>
-            <small>Bug fix needed for Snipe strategy</small>
+            <strong>Trading Bot</strong><br>
+            <small>Trader/Analyst • Bug fix pending</small>
           </a>
           <a href="index.html#project-spryte-engine-fork" class="project-link">
-            <strong>Spryte Engine Fork</strong><br>
-            <small>70% integration complete</small>
+            <strong>Spryte Engine</strong><br>
+            <small>Coder • 70% complete</small>
           </a>
         </div>
       </div>
@@ -481,19 +366,48 @@
   </div>
 
   <script>
-    let agents = {};
-    let selectedId = null;
+    // Canvas setup
+    const canvas = document.getElementById('officeCanvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('canvas-container');
     
-    // Position agents by their project
+    // Office state
+    let agents = {};
+    let selectedAgentId = null;
+    let zoom = 1;
+    let panX = 0, panY = 0;
+    let isDragging = false;
+    let dragStartX, dragStartY;
+    
+    // Tile size
+    const TILE_SIZE = 32;
+    
+    // Project zones (x, y, w, h, color, name)
+    const zones = [
+      { x: 2, y: 2, w: 8, h: 6, color: '#58a6ff', name: 'Kalshi API', project: 'Kalshi API Skill' },
+      { x: 12, y: 2, w: 8, h: 6, color: '#d29922', name: 'Trading', project: 'Trading Bot Development' },
+      { x: 22, y: 2, w: 6, h: 6, color: '#3fb950', name: 'Docs', project: 'Documentation & Tracking' },
+      { x: 2, y: 10, w: 10, h: 5, color: '#8b949e', name: 'Ops', project: '24/7 Operations' },
+      { x: 14, y: 10, w: 8, h: 5, color: '#a371f7', name: 'Spryte', project: 'Spryte Engine Fork' },
+      { x: 2, y: 17, w: 26, h: 5, color: '#30363d', name: 'General', project: 'General' }
+    ];
+    
+    // Agent positions by project
     const projectPositions = {
-      'Kalshi API Skill': { x: 60, y: 90 },
-      'Trading Bot Development': { x: 300, y: 90 },
-      'Documentation & Tracking': { x: 520, y: 90 },
-      '24/7 Operations': { x: 60, y: 260 },
-      'Security Hardening': { x: 200, y: 260 },
-      'Spryte Engine Fork': { x: 360, y: 260 },
-      'General': { x: 60, y: 410 }
+      'Kalshi API Skill': { x: 6, y: 5 },
+      'Trading Bot Development': { x: 16, y: 5 },
+      'Documentation & Tracking': { x: 25, y: 5 },
+      '24/7 Operations': { x: 7, y: 12 },
+      'Security Hardening': { x: 7, y: 12 },
+      'Spryte Engine Fork': { x: 18, y: 12 },
+      'General': { x: 15, y: 19 }
     };
+    
+    function resizeCanvas() {
+      const rect = container.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
     
     function getAgentProject(agent) {
       const task = agent.currentTask?.toLowerCase() || '';
@@ -506,7 +420,8 @@
       return 'General';
     }
     
-    async function init() {
+    // Load agent data
+    async function loadAgents() {
       try {
         const res = await fetch('data.json?' + Date.now());
         const data = await res.json();
@@ -514,57 +429,184 @@
         if (data.office?.agents) {
           data.office.agents.forEach(agent => {
             const project = getAgentProject(agent);
-            const basePos = projectPositions[project] || { x: 100, y: 100 };
+            const basePos = projectPositions[project] || { x: 15, y: 19 };
             
             agents[agent.id] = {
               ...agent,
               project: project,
-              x: basePos.x + (Math.random() * 40 - 20),
-              y: basePos.y + (Math.random() * 40 - 20)
+              x: basePos.x * TILE_SIZE + (Math.random() * 40 - 20),
+              y: basePos.y * TILE_SIZE + (Math.random() * 40 - 20),
+              targetX: null,
+              targetY: null,
+              walkProgress: 0,
+              animFrame: 0
             };
           });
         }
         
-        renderAgents();
-        
-        // Check URL for agent param
-        const params = new URLSearchParams(window.location.search);
-        const focusAgent = params.get('agent');
-        if (focusAgent && agents[focusAgent]) {
-          selectAgent(focusAgent);
-        }
-        
+        render();
       } catch (err) {
-        console.error('Failed to load:', err);
+        console.error('Failed to load agents:', err);
       }
     }
     
-    function renderAgents() {
-      const workspace = document.getElementById('workspace');
+    // Draw functions
+    function drawGrid() {
+      ctx.strokeStyle = '#21262d';
+      ctx.lineWidth = 1;
       
-      Object.entries(agents).forEach(([id, agent]) => {
-        const el = document.createElement('div');
-        el.className = `agent ${agent.status}`;
-        el.id = `agent-${id}`;
-        el.style.left = agent.x + 'px';
-        el.style.top = agent.y + 'px';
-        el.innerHTML = `
-          <div class="agent-label">${agent.name}</div>
-          ${agent.emoji}
-          <div class="agent-task">${agent.currentTask}</div>
-        `;
-        el.onclick = () => selectAgent(id);
-        workspace.appendChild(el);
+      const offsetX = panX % (TILE_SIZE * zoom);
+      const offsetY = panY % (TILE_SIZE * zoom);
+      
+      for (let x = offsetX; x < canvas.width; x += TILE_SIZE * zoom) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+      }
+      
+      for (let y = offsetY; y < canvas.height; y += TILE_SIZE * zoom) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+      }
+    }
+    
+    function drawZones() {
+      zones.forEach(zone => {
+        const x = zone.x * TILE_SIZE * zoom + panX;
+        const y = zone.y * TILE_SIZE * zoom + panY;
+        const w = zone.w * TILE_SIZE * zoom;
+        const h = zone.h * TILE_SIZE * zoom;
+        
+        // Zone background
+        ctx.fillStyle = zone.color + '20';
+        ctx.fillRect(x, y, w, h);
+        
+        // Zone border
+        ctx.strokeStyle = zone.color;
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 5]);
+        ctx.strokeRect(x, y, w, h);
+        ctx.setLineDash([]);
+        
+        // Zone label
+        ctx.fillStyle = zone.color;
+        ctx.font = `bold ${12 * zoom}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.fillText(zone.name, x + w / 2, y + 20 * zoom);
       });
     }
     
+    function drawAgent(agent) {
+      const x = agent.x * zoom + panX;
+      const y = agent.y * zoom + panY;
+      const size = 28 * zoom;
+      
+      // Shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.3)';
+      ctx.beginPath();
+      ctx.ellipse(x + size/2, y + size - 2, size/3, size/6, 0, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Body (circle)
+      ctx.fillStyle = agent.status === 'active' ? '#21262d' : '#161b22';
+      ctx.beginPath();
+      ctx.arc(x + size/2, y + size/2, size/2 - 2, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Border
+      ctx.strokeStyle = agent.status === 'active' ? '#3fb950' : '#d29922';
+      ctx.lineWidth = agent.id === selectedAgentId ? 4 : 2;
+      ctx.stroke();
+      
+      // Emoji
+      ctx.font = `${size * 0.6}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(agent.emoji, x + size/2, y + size/2);
+      
+      // Selection ring
+      if (agent.id === selectedAgentId) {
+        ctx.strokeStyle = '#58a6ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(x + size/2, y + size/2, size/2 + 4, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+    }
+    
+    function draw() {
+      // Clear
+      ctx.fillStyle = '#0d1117';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      drawGrid();
+      drawZones();
+      
+      // Draw agents
+      Object.values(agents).forEach(agent => drawAgent(agent));
+    }
+    
+    function render() {
+      draw();
+      requestAnimationFrame(render);
+    }
+    
+    // Mouse interactions
+    canvas.addEventListener('mousedown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Check if clicked on agent
+      let clickedAgent = null;
+      Object.values(agents).forEach(agent => {
+        const ax = agent.x * zoom + panX;
+        const ay = agent.y * zoom + panY;
+        const size = 28 * zoom;
+        
+        if (x >= ax && x <= ax + size && y >= ay && y <= ay + size) {
+          clickedAgent = agent;
+        }
+      });
+      
+      if (clickedAgent) {
+        selectAgent(clickedAgent.id);
+      } else {
+        isDragging = true;
+        dragStartX = x - panX;
+        dragStartY = y - panY;
+        container.style.cursor = 'grabbing';
+      }
+    });
+    
+    canvas.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        panX = x - dragStartX;
+        panY = y - dragStartY;
+      }
+    });
+    
+    canvas.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    });
+    
+    canvas.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = e.deltaY > 0 ? -0.1 : 0.1;
+      zoom = Math.max(0.5, Math.min(2, zoom + delta));
+    });
+    
     function selectAgent(id) {
-      selectedId = id;
+      selectedAgentId = id;
       const agent = agents[id];
       if (!agent) return;
-      
-      document.querySelectorAll('.agent').forEach(a => a.classList.remove('selected'));
-      document.getElementById(`agent-${id}`)?.classList.add('selected');
       
       document.getElementById('selectedAvatar').textContent = agent.emoji;
       document.getElementById('selectedName').textContent = agent.name;
@@ -575,7 +617,19 @@
       document.getElementById('statQueue').textContent = agent.queue || 0;
     }
     
-    init();
+    function zoomIn() {
+      zoom = Math.min(2, zoom + 0.2);
+    }
+    
+    function zoomOut() {
+      zoom = Math.max(0.5, zoom - 0.2);
+    }
+    
+    // Init
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    loadAgents();
+    render();
   </script>
 </body>
 </html>
