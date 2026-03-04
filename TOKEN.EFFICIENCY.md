@@ -38,6 +38,43 @@ With Opus at ~$0.20/reply, that's ~$0.60 per request in bootstrap alone.
 
 ---
 
+## Updated Model Configuration (March 3, 2026)
+
+### 3-Tier Local-First Architecture
+
+| Tier | Model | Quantization | Cost | Use Case |
+|------|-------|--------------|------|----------|
+| **T1 - Primary** | Qwen3-8B | Q4_K_M | **FREE** | Default for all routine work |
+| **T2 - Reasoning** | DeepSeek-R1-8B | Q4_K_M | **FREE** | Complex analysis, code, math |
+| **T3 - Trading** | Kimi-K2.5 | - | $0.004/reply | High-level strategy, trading decisions |
+
+**Model IDs:**
+- `lmstudio/qwen3-8b` - Primary (replaces Mistral 7B)
+- `lmstudio/deepseek/deepseek-r1-0528-qwen3-8b` - Reasoning/Backup
+- `moonshot/kimi-k2.5` - Trading/Strategy (paid)
+
+### Why This Structure?
+
+**Qwen3-8B Primary:**
+- Better instruction following than Mistral
+- Native tool calling support
+- Faster inference on M4 Mac
+- 32K context window
+
+**DeepSeek-R1 Reasoning:**
+- Explicit reasoning tokens
+- Better for complex analysis
+- Free like Qwen
+- Falls back automatically when reasoning needed
+
+**Kimi-K2.5 Trading:**
+- Reserved for high-stakes decisions
+- Trading strategy validation
+- Risk assessment
+- Paid tier for critical ops only
+
+---
+
 ## Proposed Optimization Strategy
 
 ### Phase 1: Bootstrap Diet (Immediate - 3x reduction)

@@ -1,26 +1,64 @@
-# MODEL.ROUTING.md — 4-Tier Cost Optimization System
+# MODEL.ROUTING.md — 3-Tier Local-First System
 
-**Version**: 1.0  
-**Effective**: March 2, 2026  
+**Version**: 2.0  
+**Updated**: March 3, 2026  
 **Goal**: Reduce monthly API costs from ~$200 to <$50 (4x reduction)
 
 ---
 
 ## Quick Reference
 
-| Tier | Model | Cost | Speed | Use When |
-|------|-------|------|-------|----------|
-| **T1** | Mistral 7B (Local) | **FREE** | Fast | Simple acks, parsing, routine checks |
-| **T2** | Kimi K2.5 | $0.004 | Fast | Default tasks, research, edits |
-| **T3** | Opus | $0.20 | Medium | Security, trading, complex architecture |
+| Tier | Model | Quantization | Cost | Use When |
+|------|-------|--------------|------|----------|
+| **T1** | Qwen3-8B-Q4_K_M | Q4_K_M | **FREE** | Default, routine work, parsing |
+| **T2** | DeepSeek-R1-8B | Q4_K_M | **FREE** | Reasoning, analysis, complex tasks |
+| **T3** | Kimi-K2.5 | - | $0.004/reply | Trading, high-stakes decisions |
 
 ---
 
-## Tier 1: Local Model (Mistral 7B via LM Studio)
+## Tier 1: Qwen3-8B-Q4_K_M (Primary)
 
 **Endpoint**: http://localhost:1234/v1/chat/completions  
-**Model ID**: `mistralai/mistral-7b-instruct-v0.3`  
-**Context**: 32K (use 50-100 tokens for heartbeats)
+**Model ID**: `qwen3-8b`  
+**Quantization**: Q4_K_M (~4.5GB VRAM)  
+**Context**: 32K  
+**Strengths**: Fast inference, good instruction following, native tool support
+
+### Use For (Default)
+- ✅ All routine work (default model)
+- ✅ Simple acknowledgments and parsing
+- ✅ File operations and grep/search
+- ✅ Heartbeat checks (50-100 tokens)
+- ✅ Most operational tasks
+- ✅ Web browsing summaries
+
+### Do NOT Use For
+- ❌ Complex multi-step reasoning (use DeepSeek-R1)
+- ❌ Trading strategy decisions (use Kimi-K2.5)
+- ❌ High-stakes security decisions (escalate to T3)
+
+---
+
+## Tier 2: DeepSeek-R1-8B-Q4_K_M (Reasoning)
+
+**Endpoint**: http://localhost:1234/v1/chat/completions  
+**Model ID**: `deepseek/deepseek-r1-0528-qwen3-8b`  
+**Quantization**: Q4_K_M (~5GB VRAM)  
+**Context**: 32K  
+**Strengths**: Explicit reasoning tokens, better analysis, math/coding
+
+### Use For
+- ✅ Complex reasoning and analysis
+- ✅ Code generation and debugging
+- ✅ Multi-step planning
+- ✅ Math and logic problems
+- ✅ Fallback when Qwen3 struggles
+
+### Escalation from T1 → T2
+- Task requires reasoning beyond simple pattern matching
+- Code debugging or generation needed
+- Multi-step analysis required
+- User explicitly requests "thinking" or "reasoning"
 
 ### Use For
 - ✅ Simple acknowledgments ("Hello", "Good morning", "HEARTBEAT_OK")
